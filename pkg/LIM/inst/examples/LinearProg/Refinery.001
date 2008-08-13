@@ -1,0 +1,197 @@
+
+Inverse problem of a small refinery
+
+
+########################################
+
+## COMPONENTS
+
+Crude1
+Crude2
+
+LightNaphta
+MediumNaphta
+HeavyNaphta
+
+ReformedGasoline
+CrackedGasoline
+CrackedOil
+
+LubeOil
+LightOil
+HeavyOil
+Residuum
+JetFuel
+FuelOil
+
+PremiumMotorFuel
+RegularMotorFuel
+
+LightNaphtaForReformedGasoline
+MediumNaphtaForReformedGasoline
+HeavyNaphtaForReformedGasoline
+
+LightOilForCrackedOilAndGasoline
+HeavyOilForCrackedOilAndGasoline
+
+LightNaphtaForPremiumMotorFuel
+LightNaphtaForRegularMotorFuel
+
+MediumNaphtaForPremiumMotorFuel
+MediumNaphtaForRegularMotorFuel
+
+HeavyNaphtaForPremiumMotorFuel
+HeavyNaphtaForRegularMotorFuel
+
+ReformedGasolineForPremiumMotorFuel
+ReformedGasolineForRegularMotorFuel
+
+CrackedGasolineForPremiumMotorFuel
+CrackedGasolineForRegularMotorFuel
+
+LightOilForJetFuel
+heavyOilForJetFuel
+ResiduumForjetFuel
+CrackedOilForJetFuel
+
+ResiduumForLubeOil
+
+## END COMPONENTS
+
+
+
+## EQUALITIES
+
+! Distillation
+Dist1:   0.10D0*Crude1 + 0.15D0*Crude2 = LightNaphta               
+Dist2:   0.20D0*Crude1 + 0.25D0*Crude2 = MediumNaphta        
+Dist3:   0.20D0*Crude1 + 0.18D0*Crude2 = HeavyNaphta         
+Dist4:   0.12D0*Crude1 + 0.08D0*Crude2 = LightOil
+Dist5:   0.20D0*Crude1 + 0.19D0*Crude2 = HeavyOil
+Dist6:   0.13D0*Crude1 + 0.12D0*Crude2 = Residuum
+
+! reformed gasoline produced
+Prod1:  ReformedGasoline =  0.6D0 *LightNaphtaForReformedGasoline  &
+                          + 0.52D0*MediumNaphtaForReformedGasoline &
+                          + 0.45D0*HeavyNaphtaForReformedGasoline
+! Cracked oil and gasoline
+Prod2:  CrackedGasoline  =  0.28D0* LightOilForCrackedOilAndGasoline &
+                          + 0.20D0* HeavyOilForCrackedOilAndGasoline
+
+Prod3:  CrackedOil       =  0.68D0* LightOilForCrackedOilAndGasoline &
+                          + 0.75D0* HeavyOilForCrackedOilAndGasoline
+ 
+! lube-oil and residuum from which produced
+Prod4:  LubeOil          = 0.5D0 * ResiduumForLubeOil
+
+! types of oil used
+Oil1:   LightNaphta =  LightNaphtaForReformedGasoline  &
+                    + LightNaphtaForPremiumMotorFuel  &
+                    + LightNaphtaForRegularMotorFuel
+
+Oil2:    MediumNaphta =  MediumNaphtaForReformedGasoline  &
+                       + MediumNaphtaForPremiumMotorFuel  &
+                       + MediumNaphtaForRegularMotorFuel
+
+Oil3:    HeavyNaphta =  HeavyNaphtaForReformedGasoline  &
+                      + HeavyNaphtaForPremiumMotorFuel  &
+                      + HeavyNaphtaForRegularMotorFuel
+
+Oil4:    LightOil    =  LightOilForJetFuel               &
+                      + LightOilForCrackedOilAndGasoline &
+                      + 0.55*FuelOil
+
+Oil5:    HeavyOil    = HeavyOilForJetFuel                &
+                     + heavyOilForCrackedOilAndGasoline  &
+                     + 0.16*FuelOil
+
+Oil6:    CrackedOil  = CrackedOilForJetFuel              &
+                     + 0.22*FuelOil
+
+Oil7:    Residuum    = ResiduumForjetFuel                &
+                     +ResiduumForLubeOil                 &
+                     + 0.05*FuelOil
+
+Oil8:    CrackedGasoline = CrackedGasolineForPremiumMotorFuel  &
+                         +CrackedGasolineForRegularMotorFuel
+
+Oil8:    ReformedGasoline = ReformedGasolineForPremiumMotorFuel  &
+                          +ReformedGasolineForRegularMotorFuel
+
+! Quantity of premium motor fuel produced
+Fuel1:   RegularMotorFuel = LightNaphtaForRegularMotorFuel  &
+                           +MediumNaphtaForRegularMotorFuel &
+		 	               +HeavyNaphtaForRegularMotorFuel  &
+		 		           +ReformedGasolineForRegularMotorFuel &
+		 		           +CrackedGasolineForRegularMotorFuel
+
+Fuel2:    PremiumMotorFuel = LightNaphtaForPremiumMotorFuel      &
+                            +MediumNaphtaForPremiumMotorFuel     &
+				            +HeavyNaphtaForPremiumMotorFuel      &
+				            +ReformedGasolineForPremiumMotorFuel &
+				            +CrackedGasolineForPremiumMotorFuel
+
+Fuel3:    JetFuel          = LightOilForJetFuel              &
+                            +heavyOilForJetFuel              &
+                            +ResiduumForjetFuel              &
+                            +CrackedOilForJetFuel             
+
+## END EQUALITIES
+
+
+
+## CONSTRAINTS
+
+Stock1:   Crude1 < 20000
+Stock2:   Crude2 < 30000
+
+! Capacity constraints
+Capacity1:  Crude1 + Crude2 < DistillationCapacity
+
+Capacity2:   LightNaphtaForReformedGasoline  +          &
+             MediumNaphtaForReformedGasoline +          &
+             HeavyNaphtaForReformedGasoline  < ReformingCapacity
+
+Capacity3:   LightOilForCrackedOilAndGasoline  +        &
+             HeavyOilForCrackedOilAndGasoline < CrackingCapacity
+
+Capacity4:   LubeOil = [500,1000]
+
+Capacity5:   PremiumMotorFuel > 0.4*RegularMotorFuel
+
+! Quality: the octane number
+Quality1:    94*PremiumMotorFuel < 90*LightNaphtaForPremiumMotorFuel        &
+                                  +80*MediumNaphtaForPremiumMotorFuel       &
+            					  +70*HeavyNaphtaForPremiumMotorFuel        &
+			                 	  +115*ReformedGasolineForPremiumMotorFuel  &
+					              +105*CrackedGasolineForPremiumMotorFuel
+
+Quality2:     84*RegularMotorFuel < 90*LightNaphtaForRegularMotorFuel        &
+                                  +80*MediumNaphtaForRegularMotorFuel       &
+					              +70*HeavyNaphtaForRegularMotorFuel        &
+             					  +115*ReformedGasolineForRegularMotorFuel  &
+			              		  +105*CrackedGasolineForRegularMotorFuel
+
+! Vapor pressure
+Vapor:     JetFuel > LightOilForJetFuel                  &
+                    +0.6*heavyOilForJetFuel              &
+                    +0.05*ResiduumForjetFuel             &
+                    +1.5*CrackedOilForJetFuel      
+
+## END CONSTRAINTS
+
+## PROFIT
+
+ 7.D0*PremiumMotorFuel + 6.D0*RegularMotorFuel       &
+ + 4.D0*JetFuel        + 3.5D0*FuelOil              &
+ + 1.5D0*LubeOil
+
+## END PROFIT
+
+## Parameter
+
+DistillationCapacity = 45000
+ReformingCapacity    = 10000
+CrackingCapacity     = 8000
+
+## END Parameter

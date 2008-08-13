@@ -1,0 +1,484 @@
+Food web input file for: 
+
+The intertidal mudflat ecosystem on the Atlantic coast of France as described in:
+
+Leguerrier, D., Niquil, N., Boileau, N., Rzeznik, J., Sauriau, P.G., Le Moine, O., Bacher, C., 2003. 
+Numerical analysis of the food web of an intertidal mudflat ecosystem on the Atlantic coast of France. Marine Ecology Progress Series 246, 17-37.
+
+Implemented by Dick Van Oevelen
+
+#########################################################
+
+### PARAMETERS
+
+! Biomasses
+  bcoBiomass =  21.1                 !  Oysters        
+  bphBiomass =  3.8                  !  MicrophytoBenthos 
+  bbcBiomass =  1.94                 !  BenthicBacteria 
+  bmiBiomass =  0.37                 !  Meiofauna
+  bprBiomass =  0.24                 !  BenthicPredators, omnivores and carnivores
+  bfsBiomass =  0.85                 !  Facultative Suspensionfeeders - macrofauna      
+  bdpBiomass =  0.68                 !  Deposit feeders - macrofauna
+  bffBiomass =  0.08                 !  Suspensionfeeders - macrofauna      
+  pphBiomass =  2.54                 !  Phytoplankton
+  pbcBiomass =  0.1                  !  Pelagic bacteria
+  ppzBiomass =  0.11                 !  Pelagic protozoa
+  pzpBiomass =  0.16                 !  Zooplankton
+  bfsLivingFood          = bphBiomass +  bbcBiomass + pphBiomass   &
+                         + pbcBiomass + ppzBiomass + pzpBiomass  
+bdpLivingFood          = bphBiomass+ bbcBiomass
+  bffLivingFood          = pphBiomass + pbcBiomass + ppzBiomass + pzpBiomass
+### END PARAMETERS
+
+
+! Biomasses in gC/m2
+
+### STOCKS - Table 1
+
+! Terrestrial
+  pbd  =  XNA                  !  Birds
+
+! Benthic
+  bco  =  bcoBiomass           !  Oysters        
+  bph  =  bphBiomass           !  MicrophytoBenthos 
+  bdt  =  XNA                  !  BenthicDetritus
+  bbc  =  bbcBiomass           !  BenthicBacteria 
+  bmi  =  bmiBiomass           !  Meiofauna
+  bpr  =  bprBiomass           !  BenthicPredators, omnivores and carnivores
+  bfs  =  bfsBiomass           !  Facultative Suspensionfeeders - macrofauna      
+  bdp  =  bdpBiomass           !  Deposit feeders - macrofauna
+  bff  =  bffBiomass           !  Suspensionfeeders - macrofauna      
+
+! Pelagic
+  pph  =  pphBiomass           !  Phytoplankton
+  pdt  =  XNA                  !  Suspended detritus
+  pbc  =  pbcBiomass           !  Pelagic bacteria
+  ppz  =  ppzBiomass           !  Pelagic protozoa
+  pzp  =  pzpBiomass           !  Zooplankton
+  pnk  =  XNA                  !  Pelagic nekton  
+
+### END STOCKS
+
+### Externals
+
+  Input
+  Export
+  CO2
+
+### End Externals
+
+### Variables
+
+  TotalInput  =   CO2->bph     +   CO2->pph     + INput->pdt 
+
+  TotalExport =   pph->Export  +   bdt->Export  + pdt->Export  &
+              +   bco->Export  +   pnk->Export  + pbd->Export  
+
+  TotalRespiration = bph -> CO2  + pph -> CO2  + bbc -> CO2    &
+                   + pbc -> CO2  + bmi -> CO2  + ppz -> CO2    &
+                   + pzp -> CO2  + bdp -> CO2  + bfs -> CO2    &
+                   + bff -> CO2  + bco -> CO2  + bpr -> CO2    &
+                   + pnk -> CO2  + pbd -> CO2  
+
+! Phytoplankton
+  pphPrimaryProduction   = CO2->pph
+  pphRespiration         = pph->CO2
+  pphProduction          = pphPrimaryProduction - pphRespiration
+  pphLoss                = pph->pdt + pph->ppz + pph->pzp + pph->bfs + pph->bff + pph->bco + pph->pnk 
+
+! Suspended detritus
+  pdtProduction          = pph->pdt + pbc->pdt + pzp->pdt + ppz->pdt + pnk ->pdt
+  DetritusResuspension   = bdt->pdt
+  pdtLoss                = pdt->bdt + pdt->pbc + pdt->ppz + pdt->pzp + pdt->bfs + pdt->bff + pdt->bco + pdt->pnk
+
+! PelagicBacteria
+  pbcConsumption         = pdt->pbc
+  pbcAssimilation        = pbcConsumption
+  pbcRespiration         = pbc->CO2
+  pbcProduction          = pbcAssimilation - pbcRespiration
+  pbcLoss                = pbc->pdt + pbc->ppz + pbc->bfs + pbc->bff + pbc->bco
+
+! Pelagic protozoa
+  ppzConsumption         = pph->ppz + pdt->ppz + pbc->ppz
+  ppzFaeces              = ppz->pdt
+  ppzAssimilation        = ppzConsumption - ppzFaeces
+  ppzRespiration         = ppz->CO2
+  ppzProduction          = ppzAssimilation - ppzRespiration
+  ppzLoss                = ppz->pdt + ppz->pzp + ppz->bfs + ppz->bff + ppz->bco 
+
+! Zooplankton
+  pzpConsumption         = pph->pzp + pdt->pzp + ppz->pzp 
+  pzpFaeces              = pzp->pdt
+  pzpAssimilation        = pzpConsumption - pzpFaeces
+  pzpRespiration         = pzp->CO2
+  pzpProduction          = pzpAssimilation - pzpRespiration
+  pzpLoss                = pzp->pdt + pzp->bfs + pzp->bff + pzp->bco + pzp->bpr + pzp->pnk
+
+! Pelagic necton
+  pnkConsumption         = bph->pnk + pph->pnk + bdt->pnk + pdt->pnk + bmi->pnk + pzp->pnk + bdp->pnk + bfs->pnk + bff->pnk + bpr->pnk   
+  pnkFaeces              = pnk->pdt
+  pnkAssimilation        = pnkConsumption - pnkFaeces
+  pnkRespiration         = pnk->CO2
+  pnkProduction          = pnkAssimilation - pnkRespiration
+  pnkLoss                = pnk->pbd + pnk->pdt
+
+! Microphytobenthos
+  bphPrimaryProduction   = CO2->bph
+  bphRespiration         = bph->CO2
+  bphProduction          = bphPrimaryProduction - bphRespiration
+
+
+  bphLoss                = bph->pph + bph->bdt + bph->bmi + bph->bdp + bph->bfs + bph->bpr + bph->pnk 
+
+  bphresuspension        = bph->pph
+
+! Benthic detritus
+  bdtProduction          = bph->bdt + bbc->bdt + bmi->bdt + bdp->bdt + bfs->bdt &
+                         + bff->bdt + bco->bdt + bpr->bdt 
+  DetritusDeposition     = pdt->bdt + pbd->bdt  ! includes bird shit
+  bdtLoss                = bdt->pdt + bdt->bbc + bdt->bmi + bdt->bdp + bdt->bfs + bdt->pnk 
+
+! BenthicBacteria
+  bbcConsumption         = bdt->bbc
+  bbcAssimilation        = bbcConsumption
+  bbcrespiration         = bbc->CO2
+  bbcProduction          = bbcAssimilation - bbcRespiration
+  bbcLoss                = bbc->bdt + bbc->bmi + bbc->bdp + bbc->bfs + bbc->bpr
+
+  bbcMortality           = bbc->bdt
+
+! Meiofauna
+  bmiConsumption         = bph->bmi + bdt->bmi + bbc->bmi
+  bmiFaeces              = bmi->bdt
+  bmiAssimilation        = bmiConsumption - bmiFaeces
+  bmiRespiration         = bmi->CO2
+  bmiProduction          = bmiAssimilation - bmiRespiration
+  bmiLoss                = bmi->bdt + bmi->bpr + bmi->pnk
+ 
+  bmiConsumptionbph      = bph->bmi
+  bmiConsumptionbbc      = bbc->bmi
+
+! Benthic predators
+
+  bprConsumption         = bph->bpr + bbc->bpr + bmi->bpr + pzp->bpr + bdp->bpr + bfs->bpr + bff->bpr + bco->bpr
+  bprFaeces              = bpr->bdt
+  bprAssimilation        = bprConsumption - bprFaeces
+  bprRespiration         = bpr->CO2
+  bprProduction          = bprAssimilation - bprRespiration
+  bprLoss                = bpr->bdt + bpr->pnk + bpr->pbd
+
+  bprConsumptionbco      = bco->bpr
+  bprConsumptionbph      = bph->bpr
+
+! Facultative suspension feeders
+
+  bfsConsumption         = bph->bfs + bdt->bfs + bbc->bfs + pph->bfs + pdt->bfs + pbc->bfs + ppz->bfs + pzp->bfs
+  bfsFaeces              = bfs->bdt
+  bfsAssimilation        = bfsConsumption - bfsFaeces
+  bfsrespiration         = bfs->CO2
+  bfsProduction          = bfsAssimilation - bfsRespiration
+  bfsLoss                = bfs->bdt + bfs->bpr + bfs->pnk + bfs->pbd
+
+  bfsPelagicConsumption  = pph->bfs + pdt->bfs + pbc->bfs + ppz->bfs + pzp->bfs
+  bfsBenthicConsumption  = bph->bfs + bdt->bfs + bbc->bfs
+  bfsLivingConsumption   = bfsConsumption - bdt->bfs - pdt->bfs
+
+! Depositfeeders
+  bdpConsumption         = bph->bdp + bdt->bdp + bbc->bdp
+  bdpFaeces              = bdp->bdt
+  bdpAssimilation        = bdpConsumption - bdpFaeces
+  bdpRespiration         = bdp->CO2
+  bdpProduction          = bdpAssimilation - bdpRespiration
+  bdpLoss                = bdp->bdt + bdp->bpr + bdp->pnk + bdp->pbd
+
+  
+  bdpLivingConsumption   = bdpConsumption - bdt->bdp
+
+! Filterfeeders
+  bffConsumption         = pph->bff + pdt->bff + pbc->bff + ppz->bff + pzp->bff
+  bffFaeces              = bff->bdt
+  bffAssimilation        = bffConsumption - bffFaeces
+  bffrespiration         = bff->CO2
+  bffProduction          = bffAssimilation - bffRespiration
+  bffLoss                = bff->bdt + bff->bpr + bff->pnk + bff->pbd
+  
+
+  bffLivingConsumption   = bffConsumption - pdt->bff
+
+! Oysters
+
+  bcoConsumption         = pph -> bco + pdt -> bco + pbc -> bco + ppz -> bco + pzp -> bco
+  bcoFaeces              = bco->bdt
+  bcoAssimilation        = bcoConsumption - bcoFaeces
+  bcorespiration         = bco->CO2
+  bcoProduction          = bcoAssimilation - bcoRespiration
+  bcoLoss                = bco->bdt + bco->bpr
+
+! Birds
+
+  pbdConsumption         = bdp->pbd + bfs->pbd + bff->pbd + bpr->pbd + pnk->pbd
+  pbdFaeces              = pbd->bdt
+  pbdAssimilation        = pbdConsumption - pbdFaeces
+  pbdrespiration         = pbd->CO2
+  pbdProduction          = pbdAssimilation - pbdRespiration
+  pdbLoss                = pbd->bdt
+
+  pbdConsumptionPnk      = pnk->pbd 
+  
+### End Variables
+
+### Flows
+
+
+! Inputs - table 5
+  CO2   -> bph   !  1  Input MicrophytoBenthos 
+  CO2   -> pph   !  2  Input Phytoplankton
+  INput -> pdt   !  3  Input Suspended detritus
+
+! Other - table 6
+  bph -> pph     !  4
+  bph -> bdt     !  5
+  bph -> bmi     !  6
+  bph -> bdp     !  7
+  bph -> bfs     !  8
+  bph -> bpr     !  9
+  bph -> pnk     !  10
+
+  pph -> pdt     !  11
+  pph -> ppz     !  12
+  pph -> pzp     !  13
+  pph -> bfs     !  14
+  pph -> bff     !  15
+  pph -> bco     !  16
+  pph -> pnk     !  17
+
+  bdt -> pdt     !  18
+  bdt -> bbc     !  19
+  bdt -> bmi     !  20
+  bdt -> bdp     !  21
+  bdt -> bfs     !  22
+  bdt -> pnk     !  23
+
+  pdt -> bdt     !  24
+  pdt -> pbc     !  25
+  pdt -> ppz     !  26
+  pdt -> pzp     !  27
+  pdt -> bfs     !  28
+  pdt -> bff     !  29
+  pdt -> bco     !  30
+  pdt -> pnk     !  31
+
+  bbc -> bdt     !  32
+  bbc -> bmi     !  33
+  bbc -> bdp     !  34
+  bbc -> bfs     !  35
+  bbc -> bpr     !  36
+
+  pbc -> pdt     !  37
+  pbc -> ppz     !  38
+  pbc -> bfs     !  39
+  pbc -> bff     !  40
+  pbc -> bco     !  41
+
+  bmi -> bdt     !  42
+  bmi -> bpr     !  43
+  bmi -> pnk     !  44
+
+  ppz -> pdt     !  45
+  ppz -> pzp     !  46
+  ppz -> bfs     !  47
+  ppz -> bff     !  48
+  ppz -> bco     !  49
+
+  pzp -> pdt     !  50
+  pzp -> bfs     !  51
+  pzp -> bff     !  52
+  pzp -> bco     !  53
+  pzp -> bpr     !  54
+  pzp -> pnk     !  55
+
+  bdp -> bdt     !  56
+  bdp -> bpr     !  57
+  bdp -> pnk     !  58
+  bdp -> pbd     !  59
+
+  bfs -> bdt     !  60
+  bfs -> bpr     !  61
+  bfs -> pnk     !  62
+  bfs -> pbd     !  63
+
+  bff -> bdt     !  64
+  bff -> bpr     !  65
+  bff -> pnk     !  66
+  bff -> pbd     !  67
+
+  bco -> bdt     !  68
+  bco -> bpr     !  69
+
+  bpr -> bdt     !  70
+  bpr -> pnk     !  71
+  bpr -> pbd     !  72
+
+  pnk -> pbd     !  73
+  pnk -> pdt     !  74
+
+  pbd -> bdt     !  75
+
+! Exports - table 5
+  pph -> Export  !  76  Phytoplankton
+  bdt -> Export  !  77  BenthicDetritus
+  pdt -> Export  !  78  Suspended detritus
+  bco -> Export  !  79  Oysters        
+  pnk -> Export  !  80  Pelagic nekton  
+  pbd -> Export  !  81  Birds
+
+! Respiration - table 5 
+  bph -> CO2     !  82  MicrophytoBenthos 
+  pph -> CO2     !  83  Phytoplankton
+  bbc -> CO2     !  84  BenthicBacteria 
+  pbc -> CO2     !  85  Pelagic bacteria
+  bmi -> CO2     !  86  Meiofauna
+  ppz -> CO2     !  87  Pelagic protozoa
+  pzp -> CO2     !  88  Zooplankton
+  bdp -> CO2     !  89  Deposit feeders
+  bfs -> CO2     !  90  Facultative Suspensionfeeders       
+  bff -> CO2     !  91  Suspensionfeeders       
+  bco -> CO2     !  92  Oysters        
+  bpr -> CO2     !  93  BenthicPredators, omnivores and carnivores
+  pnk -> CO2     !  94  Pelagic nekton  
+  pbd -> CO2     !  95  Birds
+
+### End Flows
+
+
+### EQUATIONS - Table 2
+
+  bphProduction          = 372                              !  17 - Microphytobenthos Production
+  pzpProduction          = pzpBiomass * 56                  !  18 - Zooplankton Production
+  pzpRespiration         = pzpBiomass * 112                 !  19 - Zooplankton Respiration
+  pbcProduction          = pBcConsumption * 0.31            !  20 - Pelagic bacteria Production
+  bfsPelagicConsumption  = bfsBenthicConsumption            !  21 - Facultative Suspensionfeeders conumption
+  bprConsumptionbco      = bcoProduction*0.01               !  22 - Benthic predator consumption of oysters
+  pbdAssimilation        = 0.85*pbdConsumption              !  23 - Bird assimilation
+
+### END EQUATIONS
+
+### CONSTRAINTS - Table 3
+
+!  1-2    Microphytobenthos resuspension (bph)
+   bphresuspension       > 137
+   bphresuspension       < 319
+
+!  3-4    Phytoplankton net production  
+   pphProduction         = [30,40]*pphBiomass
+
+!  5-6    Microphytobenthos respiration - KARLINE:CHECK OF KAN
+   bphRespiration        = [0.05,0.3]* bphProduction
+
+!  7-8    Phytoplankton respiration
+   pphRespiration        = [0.05,0.3]* pphProduction
+
+!  9      Meiofauna consumption microphytobenthos
+   bmiConsumptionbph     < 69
+
+!  22     Meiofauna relative consumption microphytobenthos
+   bmiConsumptionbph     > 0.4*bmiConsumption
+
+!  23     Meiofauna relative consumption bacteria
+   bmiConsumptionbbc     > 0.2*bmiConsumption
+
+!  24-25  Meiofauna production
+   bmiProduction         = [3,31]*bmiBiomass
+
+!  24-25  Meiofauna respiration
+   bmiRespiration        = [40,54]*bmiBiomass
+
+!  10-11  Protozoa ingestion
+   ppzConsumption        = [511,3102.5]*ppzBiomass
+
+!  12-13  Protozoa production
+   ppzProduction         = [124.1,1076.75]*ppzBiomass
+
+!  14-15  Benthic bacteria production
+   bbcProduction         = [41,51]*bbcBiomass
+
+!  15-17  Benthic bacteria respiration
+   bbcRespiration        = [40,195]*bbcBiomass
+
+!  18-19  Benthic bacteria mortality 
+   bbcMortality          = [11,128]*bbcBiomass
+
+!  20-21  Pelagic bacteria production
+   pbcProduction         = [394.2,803]*pbcBiomass
+
+!  28-29  Deposit feeder respiration 
+   bdpRespiration        = [1.09,9.5]*bdpBiomass
+
+!  30-31  Deposit feeder production  
+   bdpProduction         = [2.5,6.6]*bdpBiomass
+
+!  32-33  Suspension feeder production  
+   bffProduction         = [1.2,3.5]*bffBiomass
+
+!  34-35  Suspension feeder faeces      
+   bffFaeces             = [0.6,20]*bffBiomass
+
+!  36     Suspension feeder respiration 
+   bffRespiration        < 10.*bffBiomass
+
+!  37-38  Facultative suspension feeder production  
+   bfsProduction         = [0.6,5.7]*bfsBiomass
+
+!  39     Facultative suspension feeder respiration 
+   bfsRespiration        < 10*bfsBiomass
+
+!  40     Benthic predator feeding on microphytobenthos
+   bprConsumptionbph     < 0.2*bprConsumption
+
+!  41-42  Benthic predator respiration
+   bprRespiration        = [2.6,7.3]*bprBiomass
+
+!  43-44  Benthic predator production 
+   bprProduction         = [1.5,1.9]*bprBiomass
+
+!  45     Benthic predator consumption
+   bprConsumption        < 73 *bprBiomass  !??? large value
+
+!  46-47  Oyster production
+   bcoProduction         = [0.37,0.89]*bcoBiomass
+
+!  48-49  Oyster assimilation
+   bcoAssimilation       = [0.55,0.90]*bcoConsumption
+
+!  50-51  Oyster production+respiration
+!?????
+
+!  52-59  Macrofauna assimilation
+   bfsAssimilation       = [0.55,0.9]*bfsConsumption
+   bdpAssimilation       = [0.55,0.9]*bdpConsumption
+   bffAssimilation       = [0.55,0.9]*bffConsumption
+
+!  60-61  Bird consumption
+   pbdConsumption        > 1.1
+   pbdConsumption        < 7.8
+
+!  62     Bird consumption on nekton
+   pbdConsumptionPnk     < 0.03*pbdConsumption       
+
+!  63-92  Macrofauna consumption relative to diet
+   bphBiomass * bfsConsumption > bph->bfs * bfsLivingFood
+   bbcBiomass * bfsConsumption > bbc->bfs * bfsLivingFood
+   pphBiomass * bfsConsumption > pph->bfs * bfsLivingFood
+   pbcBiomass * bfsConsumption > pbc->bfs * bfsLivingFood
+   ppzBiomass * bfsConsumption > ppz->bfs * bfsLivingFood
+   pzpBiomass * bfsConsumption > pzp->bfs * bfsLivingFood
+
+   bphBiomass * bdpConsumption > bph->bdp * bdpLivingFood
+   bbcBiomass * bdpConsumption > bbc->bdp * bdpLivingFood
+
+   pphBiomass * bffConsumption > pph->bff * bffLivingFood
+   pbcBiomass * bffConsumption > pbc->bff * bffLivingFood
+   ppzBiomass * bffConsumption > ppz->bff * bffLivingFood
+   pzpBiomass * bffConsumption > pzp->bff * bffLivingFood
+
+### END CONSTRAINTS

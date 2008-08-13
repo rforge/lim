@@ -1,0 +1,311 @@
+Food web input file for: 
+
+The herpetological wet prairie example from the everglades. 
+
+As described in 
+Diffendorfer, J.E., Richards, P.M., Dalrymple, G.H., DeAngelis, D.L., 2001. 
+Applying Linear Programming to estimate fluxes in ecosystems or food webs: 
+an example from the herpetological assemblage of the freshwater Everglades. Ecol. Model. 144, 99-120.
+
+Implemented by Karline Soetaert
+
+Includes inequality conditions. 
+To ensure that respiration/consumption falls within reasonable bounds
+
+##############
+
+#### STOCK
+
+ Salamanders     
+ SalamanderLarvae
+ LargeFrogs      
+ MediumFrogs     
+ SmallFrogs      
+ TadPoles        
+ Turtles         
+ Snakes          
+ Lizards         
+
+#### END STOCK
+
+#### EXTERNAL
+
+ OtherPrey  ! Nonherpetologicals
+ CO2
+ Export
+
+#### END EXTERNAL
+
+
+### FLOWS 
+
+! Export
+ Salamanders        -> Export
+ SalamanderLarvae   -> Export
+ LargeFrogs         -> Export
+ MediumFrogs        -> Export
+ SmallFrogs         -> Export
+ TadPoles           -> Export
+ Turtles            -> Export
+ Snakes             -> Export
+ Lizards            -> Export
+
+
+ Salamanders        -> CO2
+ SalamanderLarvae   -> CO2
+ LargeFrogs         -> CO2
+ MediumFrogs        -> CO2
+ SmallFrogs         -> CO2
+ TadPoles           -> CO2
+ Turtles            -> CO2
+ Snakes             -> CO2
+ Lizards            -> CO2
+
+! All predation flows possible - those not allowed put to 0 afterwards
+
+ OtherPrey          -> Salamanders
+ Salamanders        -> Salamanders
+ TadPoles           -> Salamanders
+ 
+ OtherPrey          -> SalamanderLarvae
+ 
+ OtherPrey          -> LargeFrogs
+ TadPoles           -> LargeFrogs
+
+ OtherPrey          -> MediumFrogs
+ MediumFrogs        -> MediumFrogs
+
+ OtherPrey          -> SmallFrogs
+ OtherPrey          -> TadPoles
+
+ OtherPrey          -> Turtles
+ Salamanders        -> Turtles
+ MediumFrogs        -> Turtles
+ SmallFrogs         -> Turtles
+ TadPoles           -> Turtles
+
+ OtherPrey          -> Snakes
+ Salamanders        -> Snakes
+ MediumFrogs        -> Snakes
+ SmallFrogs         -> Snakes
+ Snakes             -> Snakes
+ Lizards            -> Snakes
+
+ OtherPrey          -> Lizards
+
+### END FLOWS
+
+#### PARAMETERS
+
+ ! B=biomass (Median) gram wet weight / Ha
+
+ B_Salamanders           = 870
+ B_SalamanderLarvae      = 19
+ B_LargeFrogs            = 640
+ B_MediumFrogs           = 651
+ B_SmallFrogs            = 201
+ B_TadPoles              = 70
+ B_Turtles               = 2054
+ B_Snakes                = 1486
+ B_Lizards               = 4266
+
+ B_Salamanders_min       = 174
+ B_SalamanderLarvae_min  = 4
+ B_LargeFrogs_min        = 76 
+ B_MediumFrogs_min       = 109
+ B_SmallFrogs_min        = 20 
+ B_TadPoles_min          = 8
+ B_Turtles_min           = 685
+ B_Snakes_min            = 594
+ B_Lizards_min           = 427 
+
+ B_Salamanders_max       = 1741
+ B_SalamanderLarvae_max  = 38
+ B_LargeFrogs_max        = 762
+ B_MediumFrogs_max       = 2171
+ B_SmallFrogs_max        = 503
+ B_TadPoles_max          = 127
+ B_Turtles_max           = 5134
+ B_Snakes_max            = 2972
+ B_Lizards_max           = 42660
+
+ ! R= proportional loss, loss not due to predation, -
+
+ pL_Salamanders       = 0.75
+ pL_SalamanderLarvae  = 0.75
+ pL_LargeFrogs        = 0.70
+ pL_MediumFrogs       = 0.70
+ pL_SmallFrogs        = 0.70
+ pL_TadPoles          = 0.70
+ pL_Turtles           = 0.80
+ pL_Snakes            = 0.80
+ pL_Lizards           = 0.80
+
+ pL_Salamanders_Min       = 0.60
+ pL_SalamanderLarvae_Min  = 0.60
+ pL_LargeFrogs_Min        = 0.60
+ pL_MediumFrogs_Min       = 0.60
+ pL_SmallFrogs_Min        = 0.60
+ pL_TadPoles_Min          = 0.60
+ pL_Turtles_Min           = 0.60
+ pL_Snakes_Min            = 0.60
+ pL_Lizards_Min           = 0.60
+
+ pL_Salamanders_Max       = 0.825
+ pL_SalamanderLarvae_Max  = 0.825
+ pL_LargeFrogs_Max        = 0.77
+ pL_MediumFrogs_Max       = 0.77
+ pL_SmallFrogs_Max        = 0.77
+ pL_TadPoles_Max          = 0.77
+ pL_Turtles_Max           = 0.88
+ pL_Snakes_Max            = 0.88
+ pL_Lizards_Max           = 0.88
+ 
+ ! C= consumption due to predation, /year
+
+ C_Salamanders       = 2.50
+ C_SalamanderLarvae  = 2.50
+ C_LargeFrogs        = 2.50
+ C_MediumFrogs       = 2.50
+ C_SmallFrogs        = 2.50
+ C_TadPoles          = 2.50
+ C_Turtles           = 2.50
+ C_Snakes            = 2.50
+ C_Lizards           = 2.50
+
+
+#### END PARAMETERS
+
+#### VARIABLES
+
+! Ingestion
+ I_Salamanders     = FlowTo(Salamanders)     
+
+ I_SalamanderLarvae= FlowTo(SalamanderLarvae) 
+
+ I_LargeFrogs      =  FlowTo(LargeFrogs)       
+
+ I_MediumFrogs     =  FlowTo(MediumFrogs)      
+
+ I_SmallFrogs      =  FlowTo(SmallFrogs)       
+
+ I_TadPoles        =  FlowTo(tadPoles)         
+
+ I_Turtles         =  FlowTo(Turtles)         
+
+ I_Snakes          =  FlowTo(Snakes)
+
+ I_Lizards         =  FlowTo(Lizards)          
+
+! Metabolic loss due to respiration
+
+ R_Salamanders     = Salamanders        -> CO2
+ 
+ R_SalamanderLarvae= SalamanderLarvae   -> CO2
+ 
+ R_LargeFrogs      = LargeFrogs         -> CO2
+ 
+ R_MediumFrogs     = MediumFrogs        -> CO2
+ 
+ R_SmallFrogs      = SmallFrogs         -> CO2
+ 
+ R_TadPoles        = TadPoles           -> CO2
+ 
+ R_Turtles         = Turtles            -> CO2
+ 
+ R_Snakes          = Snakes             -> CO2
+ 
+ R_Lizards         = Lizards            -> CO2
+
+
+#### END VARIABLES
+
+
+#### EQUATIONS
+
+! Total ingestion  = biomass           * consumption rate
+! Toggle off these equalities if total ranges are to be estimated
+! Toggle them on if goal programming
+
+!  I1:    I_Salamanders      = B_Salamanders     * C_Salamanders     
+!  I2:    I_SalamanderLarvae = B_SalamanderLarvae* C_SalamanderLarvae
+!  I3:    I_LargeFrogs       = B_LargeFrogs      * C_LargeFrogs      
+!  I4:    I_MediumFrogs      = B_MediumFrogs     * C_MediumFrogs     
+!  I5:    I_SmallFrogs       = B_SmallFrogs      * C_SmallFrogs      
+!  I6:    I_TadPoles         = B_TadPoles        * C_TadPoles        
+!  I7:    I_Turtles          = B_Turtles         * C_Turtles         
+!  I8:    I_Snakes           = B_Snakes          * C_Snakes          
+!  I9:    I_Lizards          = B_Lizards         * C_Lizards      
+
+! Respiration  losses, a fraction of total ingestion
+
+  R1:    R_Salamanders      = I_Salamanders     * pL_Salamanders     
+  R2:    R_SalamanderLarvae = I_SalamanderLarvae* pL_SalamanderLarvae
+  R3:    R_LargeFrogs       = I_LargeFrogs      * pL_LargeFrogs      
+  R4:    R_MediumFrogs      = I_MediumFrogs     * pL_MediumFrogs     
+  R5:    R_SmallFrogs       = I_SmallFrogs      * pL_SmallFrogs      
+  R6:    R_TadPoles         = I_TadPoles        * pL_TadPoles        
+  R7:    R_Turtles          = I_Turtles         * pL_Turtles         
+  R8:    R_Snakes           = I_Snakes          * pL_Snakes          
+  R9:    R_Lizards          = I_Lizards         * pL_Lizards         
+
+! Diet considerations - other prey are left to adjust 
+
+0:   OtherPrey          -> Salamanders      = I_Salamanders     * 0.8
+1:   Salamanders        -> Salamanders      = I_Salamanders     * 0.150
+2:   TadPoles           -> Salamanders      = I_Salamanders     * 0.050
+3:   OtherPrey          -> LargeFrogs       = I_LargeFrogs      * 0.9994
+4:   TadPoles           -> LargeFrogs       = I_LargeFrogs      * 0.0006
+5:   OtherPrey          -> MediumFrogs      = I_MediumFrogs     * 0.85
+6:   MediumFrogs        -> MediumFrogs      = I_MediumFrogs     * 0.15
+7:   OtherPrey          -> SmallFrogs       = I_SmallFrogs      * 1.0000
+8:   OtherPrey          -> TadPoles         = I_TadPoles        * 1.00
+9:   OtherPrey          -> Turtles          = I_Turtles         * 0.75
+10:  Salamanders        -> Turtles          = I_Turtles         * 0.1500
+11:  MediumFrogs        -> Turtles          = I_Turtles         * 0.05
+12:  SmallFrogs         -> Turtles          = I_Turtles         * 0.05
+
+! this one changed from 0.05 -> 0 (not enough tadpoles to support turtle grazing)
+13:  TadPoles           -> Turtles          = I_Turtles         * 0.
+
+14:  OtherPrey          -> Snakes           = I_Snakes          * 0.35
+15:  Salamanders        -> Snakes           = I_Snakes          * 0.01
+16:  MediumFrogs        -> Snakes           = I_Snakes          * 0.23
+17:  SmallFrogs         -> Snakes           = I_Snakes          * 0.05
+18:  Snakes             -> Snakes           = I_Snakes          * 0.2
+19:  Lizards            -> Snakes           = I_Snakes          * 0.16
+
+20:  OtherPrey          -> Lizards          = I_Lizards         * 1
+
+
+#### END EQUATIONS
+
+#### INEQUALITIES
+! To ensure that the respiration/consumption falls within reasonable bounds
+! Ranges are denoted with []
+
+! Total ingestion  = biomass           * consumption rate
+I1:    I_Salamanders      = [B_Salamanders_Min     ,B_Salamanders_Max     ]* C_Salamanders     
+I2:    I_SalamanderLarvae = [B_SalamanderLarvae_Min,B_SalamanderLarvae_Max]* C_SalamanderLarvae
+I3:    I_LargeFrogs       = [B_LargeFrogs_Min      ,B_LargeFrogs_Max      ]* C_LargeFrogs      
+I4:    I_MediumFrogs      = [B_MediumFrogs_Min     ,B_MediumFrogs_Max     ]* C_MediumFrogs     
+I5:    I_SmallFrogs       = [B_SmallFrogs_Min      ,B_SmallFrogs_Max      ]* C_SmallFrogs      
+I6:    I_TadPoles         = [B_TadPoles_Min        ,B_TadPoles_Max        ]* C_TadPoles        
+I7:    I_Turtles          = [B_Turtles_Min         ,B_Turtles_Max         ]* C_Turtles         
+I8:    I_Snakes           = [B_Snakes_Min          ,B_Snakes_Max          ]* C_Snakes          
+I9:    I_Lizards          = [B_Lizards_Min         ,B_Lizards_Max         ]* C_Lizards      
+
+! Respiration  losses, a fraction of total ingestion
+
+ R1:    R_Salamanders      = I_Salamanders     * [pL_Salamanders_Min     ,pL_Salamanders_Max     ]
+ R2:    R_SalamanderLarvae = I_SalamanderLarvae* [pL_SalamanderLarvae_Min,pL_SalamanderLarvae_Max]
+ R3:    R_LargeFrogs       = I_LargeFrogs      * [pL_LargeFrogs_Min      ,pL_LargeFrogs_Max      ]
+ R4:    R_MediumFrogs      = I_MediumFrogs     * [pL_MediumFrogs_Min     ,pL_MediumFrogs_Max     ]
+ R5:    R_SmallFrogs       = I_SmallFrogs      * [pL_SmallFrogs_Min      ,pL_SmallFrogs_Max      ]
+ R6:    R_TadPoles         = I_TadPoles        * [pL_TadPoles_Min        ,pL_TadPoles_Max        ]
+ R7:    R_Turtles          = I_Turtles         * [pL_Turtles_Min         ,pL_Turtles_Max         ]
+ R8:    R_Snakes           = I_Snakes          * [pL_Snakes_Min          ,pL_Snakes_Max          ]
+ R9:    R_Lizards          = I_Lizards         * [pL_Lizards_Min         ,pL_Lizards_Max         ]
+
+
+#### END INEQUALITIES

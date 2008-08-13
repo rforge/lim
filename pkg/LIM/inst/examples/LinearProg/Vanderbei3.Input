@@ -1,0 +1,29 @@
+Simple linear programming example from
+
+Vanderbei, R.J. (2000).  
+Linear programming, Foundations and extensions.
+Kluwer Academic Publishers, Boston.
+
+Example 2.7 - unbounded 
+
+####################################################################
+
+## DECISION VARIABLES
+
+x1
+x2
+
+## END DECISION VARIABLES
+
+## INEQUALITIES
+
+-x1 -x2    < -3
+-x1 + x2   <-1
+-x1 + 2*x2 < 2
+
+## END INEQUALITIES
+
+## MAXIMISATION
+
+x1 + 3*x2
+## END MAXIMISATION

@@ -1,0 +1,37 @@
+Very simple inverse problem
+
+
+########################################
+
+## COMPONENTS
+
+Xone
+Ytwo
+ZThree
+
+## END COMPONENTS
+
+
+
+## EQUALITIES
+
+MYEQN:   -1 * ytwo + 1*zthree = 7
+
+## END EQUALITIES
+
+
+
+## CONSTRAINTS
+
+LIM1:    xone + ytwo <=5
+LIM2:    xone + zthree >= 10
+UPBND1:  XONE = [0,4]
+UPBND2:  YTWO = [-1,1]
+
+## END CONSTRAINTS
+
+## COST
+
+ xone + 4*ytwo +9*zthree
+
+## END COST

@@ -1,0 +1,89 @@
+<html><head><title>Linear inverse model specification for the Gulf of Riga *spring* planktonic food web</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>LIMRigaSpring(LIM)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   LIMRigaSpring">
+<param name="keyword" value=" Linear inverse model specification for the Gulf of Riga *spring* planktonic food web">
+</object>
+
+
+<h2>Linear inverse model specification for the Gulf of Riga *spring* planktonic food web</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Linear inverse model specification for the Gulf of Riga planktonic food web in *spring*
+<br> as in Donali et al. (1999). 
+</p>
+<p>
+The Gulf of Riga is a highly eutrophic system in the Baltic Sea.
+<br> The foodweb comprises 7 functional compartments and two external compartments,
+connected with 26 flows.  Units of the flows are mg C/m3/day
+</p>
+<p>
+The linear inverse model LIMRigaAutumn is generated from the file RigaSpring.input 
+which can be found in subdirectory &lsquo;<span class="file">web</span>&rsquo; of the packages directory
+</p>
+<p>
+In this subdirectory you will find many foodweb example input files
+<br> These files can be read using <code><a href="Read.html">Read</a></code> and their output processed by 
+<code><a href="Setup.html">Setup</a></code> which will produce a linear inverse problem specification similar to LIMRigaSpring
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(LIMRigaSpring)</pre>
+
+
+<h3>Format</h3>
+
+<p>
+a list of matrices, vectors, names and values that specify the linear inverse model problem.
+<br> see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
+Dick van Oevelen&lt;d.vanoevelen@nioo.knaw.nl&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Donali, E., Olli, K., Heiskanen, A.S., Andersen, T., 1999. Carbon flow 
+patterns in the planktonic food web of the Gulf of Riga, the Baltic Sea: 
+a reconstruction by the inverse method. Journal of Marine Systems 23, 251..268.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="LIMTakapoto.html">LIMTakapoto</a></code>,<code><a href="LIMRigaAutumn.html">LIMRigaAutumn</a></code>, <code><a href="LIMRigaAutumn.html">LIMRigaAutumn</a></code> and many others
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>rigaSpring &lt;- Flowmatrix(LIMRigaSpring)
+plotweb(rigaSpring,main="Gulf of Riga planktonic food web, spring",
+   sub="mgC/m3/day")
+Plotranges(LIMRigaSpring,lab.cex=0.7,
+   main="Gulf of Riga planktonic food web, spring, Flowranges")
+Plotranges(LIMRigaSpring,type="V",lab.cex=0.7,
+   main="Gulf of Riga planktonic food web, spring, Variable ranges")</pre>
+
+
+
+<hr><div align="center">[Package <em>LIM</em> version 1.1 <a href="00Index.html">Index]</a></div>
+
+</body></html>

@@ -1,0 +1,99 @@
+Dietary optimization (Maximum Calories and Minimal Cost)
+There are six different foods: Bread, Milk, Cheese, Fish, Potato and Yogurt:
+
+## COMP
+  Bread
+  Milk
+  Cheese
+  Potato
+  Fish
+  Yogurt
+## END COMP
+
+each of these foods has a certain cost, in $
+a certain protein, fat and carbohydrate, calory content
+
+# PARAMETERS
+CostBread = 2.0
+CostMilk  = 3.5
+CostCheese = 8.0
+CostPotato = 1.5
+CostFish   = 11.0
+CostYogurt =1.0
+
+!Protein
+ProtBread =  4.0
+ProtMilk  =  8.0
+ProtCheese = 7.0
+ProtPotato = 1.3
+ProtFish   = 8.0
+ProtYogurt = 9.2
+
+!Fat
+FatBread =  1.0
+FatMilk  =  5.0
+FatCheese = 9.0
+FatPotato = 0.1
+FatFish   = 7.0
+FatYogurt = 1.0
+
+!Carbohydrates
+CarboBread =  15.0
+CarboMilk  =  11.7
+CarboCheese = 0.4
+CarboPotato = 22.6
+CarboFish   = 0.0
+CarboYogurt = 17.0
+
+!Calories
+CalBread =  90
+CalMilk  =  120
+CalCheese = 106
+CalPotato = 97
+CalFish   = 130
+CalYogurt = 180
+
+### END PARAMETERS
+
+We have to find a diet that contains not less than 150 calories,
+not more than 10 g of protein,
+not less than 10 g of carbohydrates and not less than 8 g of fat.
+In addition the diet should include at least 0.5 g of fish and not more than 1 cups of milk.
+
+## CONSTRAINTS
+Bread *CalBread +Milk  *CalMilk + Cheese*CalCheese + Potato*CalPotato   &
++ Fish  *CalFish  + Yogurt*CalYogurt  > 150
+
+Bread *ProtBread +Milk  *ProtMilk + Cheese*ProtCheese + Potato*ProtPotato   &
++ Fish  *ProtFish  + Yogurt*ProtYogurt  < 10
+
+Bread *CarboBread +Milk  *CarboMilk + Cheese*CarboCheese + Potato*CarboPotato   &
++ Fish  *CarboFish  + Yogurt*CarboYogurt  > 10
+
+Bread *FatBread +Milk  *FatMilk + Cheese*FatCheese + Potato*FatPotato   &
++ Fish  *FatFish  + Yogurt*FatYogurt  > 8
+
+Fish > 0.5
+milk < 1
+
+
+## END CONSTRAINTS
+
+Also, the diet should have minimal cost.
+
+
+
+## COST
+Bread *CostBread +Milk  *CostMilk + Cheese*CostCheese + Potato*CostPotato   &
++ Fish  *CostFish  + Yogurt*CostYogurt
+## END COST
+
+
+!The problem has been solved successfully with the following diet: Milk 0.564 cups
+!Cheese 0.185 g
+!Potato 0.147 g
+!Fish 0.5 g
+
+!Bread and Yogurt are excluded from the diet.
+
+!The Total Cost is $9.17

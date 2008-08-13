@@ -1,0 +1,86 @@
+<html><head><title>Linear inverse model specification for the Intertidal mudflat food web on the Atlantic coast of France</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>LIMBrouageMudflat(LIM)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   LIMBrouageMudflat">
+<param name="keyword" value=" Linear inverse model specification for the Intertidal mudflat food web on the Atlantic coast of France">
+</object>
+
+
+<h2>Linear inverse model specification for the Intertidal mudflat food web on the Atlantic coast of France</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Linear inverse model specification for the Intertidal mudflat food web on the Atlantic coast of France
+<br> as in Leguerrier et al., 2003. 
+</p>
+<p>
+The foodweb comprises 16 functional compartments and 3 external compartments,
+connected with 95 flows.  Units of the flows are g C/m2/year
+</p>
+<p>
+The linear inverse model LIMBrouageMudflat is generated from the file BrouageMudflat.input 
+which can be found in subdirectory &lsquo;<span class="file">web</span>&rsquo; of the packages directory
+</p>
+<p>
+In this subdirectory you will find many foodweb example input files
+<br> These files can be read using <code><a href="Read.html">Read</a></code> and their output processed by 
+<code><a href="Setup.html">Setup</a></code> which will produce a linear inverse problem specification similar to LIMBrouageMudflat
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(LIMBrouageMudflat)</pre>
+
+
+<h3>Format</h3>
+
+<p>
+a list of matrices, vectors, names and values that specify the linear inverse model problem.
+<br> see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
+Dick van Oevelen&lt;d.vanoevelen@nioo.knaw.nl&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Leguerrier, D., Niquil, N., Boileau, N., Rzeznik, J., Sauriau, P.G., Le Moine, O., Bacher, C., 2003. 
+Numerical analysis of the food web of an intertidal mudflat ecosystem on the Atlantic coast of France. Marine Ecology Progress Series 246, 17-37.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="LIMTakapoto.html">LIMTakapoto</a></code>, <code><a href="LIMRigaSummer.html">LIMRigaSummer</a></code> and many others
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>Brouage &lt;- Flowmatrix(LIMBrouageMudflat)
+plotweb(Brouage,main="Brouage mudflat food web",sub="gC/m2/yr")
+Plotranges(LIMBrouageMudflat,lab.cex=0.7,
+               main="Brouage mudflat, Flowranges")
+Plotranges(LIMBrouageMudflat,type="V",lab.cex=0.7,
+               main="Brouage mudflat, Variable ranges")</pre>
+
+
+
+<hr><div align="center">[Package <em>LIM</em> version 1.1 <a href="00Index.html">Index]</a></div>
+
+</body></html>

@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HEAD></HEAD><HTML><BODY>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package LIM:  Contents">
+<param name="Local" value="00Index.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package LIM:  R objects">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIM-package">
+<param name="Local" value="LIM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="FILERigaAutumn">
+<param name="Local" value="FILERigaAutumn.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Flowmatrix">
+<param name="Local" value="Flowmatrix.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Ldei">
+<param name="Local" value="Ldei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Ldei.character">
+<param name="Local" value="Ldei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Ldei.double">
+<param name="Local" value="Ldei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Ldei.lim">
+<param name="Local" value="Ldei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Ldei.limfile">
+<param name="Local" value="Ldei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIM">
+<param name="Local" value="LIM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMBrouageMudflat">
+<param name="Local" value="LIMBrouageMudflat.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMCaliforniaSediment">
+<param name="Local" value="LIMCaliforniaSediment.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMEverglades">
+<param name="Local" value="LIMEverglades.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMRigaAutumn">
+<param name="Local" value="LIMRigaAutumn.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMRigaSpring">
+<param name="Local" value="LIMRigaSpring.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMRigaSummer">
+<param name="Local" value="LIMRigaSummer.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMScheldtIntertidal">
+<param name="Local" value="LIMScheldtIntertidal.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="LIMTakapoto">
+<param name="Local" value="LIMTakapoto.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linp">
+<param name="Local" value="Linp.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linp.character">
+<param name="Local" value="Linp.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linp.double">
+<param name="Local" value="Linp.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linp.lim">
+<param name="Local" value="Linp.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linp.limfile">
+<param name="Local" value="Linp.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Lsei">
+<param name="Local" value="Lsei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Lsei.character">
+<param name="Local" value="Lsei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Lsei.double">
+<param name="Local" value="Lsei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Lsei.lim">
+<param name="Local" value="Lsei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Lsei.limfile">
+<param name="Local" value="Lsei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Plotranges">
+<param name="Local" value="plotranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Plotranges.character">
+<param name="Local" value="plotranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Plotranges.double">
+<param name="Local" value="plotranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Plotranges.lim">
+<param name="Local" value="plotranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Read">
+<param name="Local" value="Read.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Setup">
+<param name="Local" value="Setup.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Setup.character">
+<param name="Local" value="Setup.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Setup.limfile">
+<param name="Local" value="Setup.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Setup.liminput">
+<param name="Local" value="Setup.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Variables">
+<param name="Local" value="Variables.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Varranges">
+<param name="Local" value="Varranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Xranges">
+<param name="Local" value="Xranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Xsample">
+<param name="Local" value="Xsample.html">
+</OBJECT>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package LIM:  Titles">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Creates linear inverse matrices">
+<param name="Local" value="Setup.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generates a flow matrix for an inverse (foodweb) problem">
+<param name="Local" value="Flowmatrix.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generates a random sample of the unknowns for a linear inverse problem">
+<param name="Local" value="Xsample.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generates ranges of the unknowns of a linear inverse problem">
+<param name="Local" value="Xranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generates ranges of the variables for a linear inverse problem">
+<param name="Local" value="Varranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generates the values of variables for a linear inverse (foodweb) problem">
+<param name="Local" value="Variables.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Input text "file" for gulf of Riga autumn planktonic food web">
+<param name="Local" value="FILERigaAutumn.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the Gulf of Riga *autumn* planktonic food web">
+<param name="Local" value="LIMRigaAutumn.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the Gulf of Riga *spring* planktonic food web">
+<param name="Local" value="LIMRigaSpring.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the Gulf of Riga *summer* planktonic food web">
+<param name="Local" value="LIMRigaSummer.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the herpetological food web of the Everglades">
+<param name="Local" value="LIMEverglades.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the Intertidal mudflat food web on the Atlantic coast of France">
+<param name="Local" value="LIMBrouageMudflat.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the Santa Monica Basin sediment food web">
+<param name="Local" value="LIMCaliforniaSediment.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the Schelde Intertidal flat food web">
+<param name="Local" value="LIMScheldtIntertidal.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear inverse model specification for the Takapoto atoll planktonic food web">
+<param name="Local" value="LIMTakapoto.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Linear Inverse Modelling ">
+<param name="Local" value="LIM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Plots minimum and maximum ranges. Takes as input either a lim list, as generated by Setup or a set of vectors specifying the minimu, maximum and the central value, or a data.frame that contains min, max and central values. ">
+<param name="Local" value="plotranges.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Reads an inverse input file">
+<param name="Local" value="Read.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Solves a linear inverse model using least distance programming">
+<param name="Local" value="Ldei.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Solves a linear inverse model using linear programming">
+<param name="Local" value="Linp.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Solves a linear inverse model using the least squares method">
+<param name="Local" value="Lsei.html">
+</OBJECT>
+</UL>
+</UL>
+</BODY></HTML>

@@ -1,0 +1,60 @@
+Blending problem
+A manufacturer produces a feeding mix for dairy cattle. 
+The feed mix contains two active ingredients and a filler to provide bulk. 
+One kg of feed mix must contain a minimum quantity of each of four nutrients as below: 
+
+Nutrient       A      B     C     D
+gram           80     50    25    5
+
+The ingredients have the following nutrient values and cost 
+
+                        A      B       C       D      Cost/kg
+Ingredient 1 (gram/kg)  100    50      40      10     40
+Ingredient 2 (gram/kg)  200    150     10      -      60
+
+What should be the amounts of active ingredients and filler in one kg of feed mix? 
+
+solution is x1= 0.3667, x2=0.2667 and x3=0.3667 to four decimal places.
+
+#######################################3
+
+### COMPONENT
+ 
+ pIngredient1   ! Part ingredient 1
+ pIngredient2   ! Part ingredient 2
+ pFiller        ! Part ingredient 3 = filler
+
+### END COMPONENTS
+
+
+### PARAMETERS
+
+! Minimum Nutrient composition
+ MinNutrientA = 80
+ MinNutrientB = 50
+ MinNutrientC = 25
+ MinNutrientD = 5
+
+### END PARAMETERS
+
+### INEQUALITIES
+
+ NutrientA : 100*pIngredient1 + 200*pIngredient2 > MinNutrientA
+ NutrientB : 50*pIngredient1  + 150*pIngredient2 > MinNutrientB
+ NutrientC : 40*pIngredient1  +  10*pIngredient2 > MinNutrientC
+ NutrientD : 10*pIngredient1                     > MinNutrientD
+
+### END INEQUALITIES 
+
+### EQUALITIES
+
+ Balance   : pIngredient1 + pIngredient2 + pFiller = 1
+
+### END EQUALITIES
+
+### COST
+
+ 40 * pIngredient1 + 60*pIngredient2
+
+### END COST
+

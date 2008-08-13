@@ -1,0 +1,152 @@
+Data    :   Default example model for **
+
+
+Units   :   Fluxes:             mmol C/m2/d
+            Standing stocks:    mmol C/m2
+
+Dick van Oevelen et al.
+Data from Hunt et al.
+
+#####################################################################
+
+################################ PARAMETERS
+CNPOM=10
+CNDOM=10
+CNDEP=15
+################################ END PARAMETERS 
+
+
+
+################################ STOCK 
+! First define the compartments and their magnitude (XNA means not available)
+
+ POM_C   =  86.4         !CN ratio = 20
+ POM_N   =   8.64
+ DOM_C   =   4.8         !CN ratio = 10
+ DOM_N   =   0.48
+ MIC_C   =  30.4         !CN ratio = 4
+ MIC_N   =   7.6         
+ FAU_C   =   0.58        !CN ratio = 10
+ FAU_N   =   0.058       
+ NH4     =   0.5
+ 
+################################ END STOCK
+
+################################ EXTERNALS 
+
+ DEP_C
+ DEP_N
+ DIC
+ PLA_N
+ 
+################################ END EXTERNALS
+
+################################ FLOW 
+
+!-- POM, particulate organic matter
+ DEP_C  ->  POM_C 
+ DEP_N  ->  POM_N
+ POM_C  ->  DOM_C
+ POM_N  ->  DOM_N
+ POM_C  ->  FAU_C
+ POM_N  ->  FAU_N
+ 
+!-- DOM, dissolved organic matter 
+ DOM_C  ->  MIC_C 
+ DOM_N  ->  MIC_N
+ 
+!-- MICrobes
+ MIC_C  ->  POM_C  !nominal death
+ MIC_N  ->  POM_N  !nominal death
+ MIC_C  ->  FAU_C 
+ MIC_N  ->  FAU_N
+ MIC_C  ->  DIC
+ MIC_N  ->  NH4
+  
+!-- FAUna
+ FAU_C  ->  POM_C  !nominal death
+ FAU_N  ->  POM_N  !nominal death
+ FAU_C  ->  DOM_C  !non-assimilated matter
+ FAU_N  ->  DOM_N
+ FAU_C  ->  DIC
+ FAU_N  ->  NH4
+ 
+! NH4, ammonium
+ NH4    ->  MIC_N
+ NH4    ->  PLA_N
+    
+################################ END FLOW
+
+################################ RATE  
+
+! POM_C  =  0
+! POM_N  =  0
+ DOM_C  =  0
+ DOM_N  =  0
+ MIC_C  =  0
+ MIC_N  =  0
+ FAU_C  =  0
+ FAU_N  =  0
+ NH4    =  0
+ 
+################################ END RATE
+ 
+################################ EQUATION 
+
+!-- MICrobes
+ MIC_C->POM_C=4*MIC_N->POM_N     !Stoichiometric coupling of nominal death
+
+!-- FAUna
+ FAU_C->POM_C=10*FAU_N->POM_N    !Stoichiometric coupling of nominal death
+ POM_C->FAU_C=CNPOM*POM_N->FAU_N !Stoichiometric coupling of POM consumption
+ MIC_C->FAU_C= 4*MIC_N->FAU_N    !Stoichiometric coupling of microbivory
+ POM_C->DOM_C=CNPOM*POM_N->DOM_N !Stoichiometric coupling of POM dissolution
+ DOM_C->MIC_C=CNDOM*DOM_N->MIC_N !Stoichiometric coupling of DOM uptake by microbes
+
+
+! isotope equation
+ !8.2*POM_N->FAU_N + 8.2*MIC_N->FAU_N = 6.4*POM_N->FAU_N + 9.4*MIC_N->FAU_N
+ 
+! POM deposition
+ !DEP_C->POM_C = CNDEP*DEP_N->POM_N
+
+!-- EQUATIONS REQUIRED FOR EVEN-DETERMINACY; 21 FLOWS, 9 mass balances + 12 equations
+!-- MICrobes
+! MIC_C->POM_C= 4*MIC_N->POM_N   !Stoichiometric coupling of nominal death
+! FAU_C->POM_C=10*FAU_N->POM_N   !Stoichiometric coupling of nominal death
+! POM_C->FAU_C=20*POM_N->FAU_N   !Stoichiometric coupling of POM consumption
+! MIC_C->FAU_C= 4*MIC_N->FAU_N   !Stoichiometric coupling of microbivory
+! MIC_C->POM_C               =  1.2*MIC_C                                                       !nominal deatch between 0.75 and 2 y-1
+! DOM_C->MIC_C - MIC_C->DIC  =  0.30*DOM_C->MIC_C 
+! DOM_N->MIC_N - MIC_N->NH4  =  0.30*DOM_N->MIC_N  
+! FAU_C->POM_C                                            = 2.68*FAU_C                          !nominal deatch between 2 and 3 y-1
+! POM_C->FAU_C + MIC_C->FAU_C - FAU_C->DOM_C              = 0.6*POM_C->FAU_C + 0.6*MIC_C->FAU_C !assimilation efficiency
+! POM_N->FAU_N + MIC_N->FAU_N - FAU_N->DOM_N              = 0.6*POM_N->FAU_N + 0.6*MIC_N->FAU_N !assimilation efficiency
+! POM_C->FAU_C + MIC_C->FAU_C - FAU_C->DOM_C - FAU_C->DIC = &
+!   0.37*POM_C->FAU_C + 0.37*MIC_C->FAU_C - 0.37*FAU_C->DOM_C                                   !production efficiency
+! POM_N->FAU_N + MIC_N->FAU_N - FAU_N->DOM_N - FAU_N->NH4 = &
+!   0.37*POM_N->FAU_N + 0.37*MIC_N->FAU_N - 0.37*FAU_N->DOM_N                                   !production efficiency
+ 
+################################ END EQUATION
+
+################################ CONSTRAINT 
+
+!-- MICrobes
+ MIC_C->POM_C                                =  [0.75,2]*MIC_C            !nominal deatch between 0.75 and 2 y-1
+ MIC_N->POM_N                                =  [0.75,2]*MIC_N
+ DOM_C->MIC_C - MIC_C->DIC                   =  [0.20,0.40]*DOM_C->MIC_C 
+ DOM_N->MIC_N + NH4->MIC_N - MIC_N->NH4  =  [0.20,0.40]*DOM_N->MIC_N + [0.20,0.40]*NH4->MIC_N 
+
+
+!-- FAUna
+ FAU_C->POM_C                                            = [2,3]*FAU_C                                     !nominal deatch between 2 and 3 y-1
+ FAU_N->POM_N                                            = [2,3]*FAU_N
+ POM_C->FAU_C + MIC_C->FAU_C - FAU_C->DOM_C              = [0.4,0.8]*POM_C->FAU_C + [0.4,0.8]*MIC_C->FAU_C !assimilation efficiency
+ POM_N->FAU_N + MIC_N->FAU_N - FAU_N->DOM_N              = [0.4,0.8]*POM_N->FAU_N + [0.4,0.8]*MIC_N->FAU_N !assimilation efficiency
+ POM_C->FAU_C + MIC_C->FAU_C - FAU_C->DOM_C - FAU_C->DIC = &
+   [0.25,0.5]*POM_C->FAU_C + [0.25,0.5]*MIC_C->FAU_C - [0.25,0.5]*FAU_C->DOM_C                             !production efficiency
+ POM_N->FAU_N + MIC_N->FAU_N - FAU_N->DOM_N - FAU_N->NH4 = &
+   [0.25,0.5]*POM_N->FAU_N + [0.25,0.5]*MIC_N->FAU_N - [0.25,0.5]*FAU_N->DOM_N                             !production efficiency
+
+################################ END CONSTRAINT
+

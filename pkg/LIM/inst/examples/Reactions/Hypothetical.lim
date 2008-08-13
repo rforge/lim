@@ -1,0 +1,52 @@
+*** Hypothetical Metabolism Model ***
+***              EMP Pathway
+*** source:    http://gcrg.ucsd.edu/Downloads/Flux_Balance_Analysis
+
+
+require(LIM)
+lim <-Setup("hypothetical.lim")
+pars<-Lsei(lim)
+xr<-Xranges(lim)
+LP<-Linp(lim)
+data.frame(pars=pars$X,opt=LP$X,xr)
+xs<-Xsample(lim,jmp=1)
+data.frame(Mean=colMeans(xs), sd=sd(xs))
+
+pairs(xs)
+
+##############################################
+
+
+## REACTIONS
+!flux:  Reaction                      enzyme               Gene
+R1:     Aext->B                   !    A transporter        gene1
+R2:     B->2*C                    !    Enzyme 2             gene2
+R3:     C->D                      !    Enzyme 3             gene3
+R4:     D->Dext                   !    D transporter        gene4
+R5:     B->E+I                    !    Enzyme 5             gene5
+R6:     E->D+F                    !    Enzyme 6             gene6
+R7:     F->Fext                   !    F transporter        gene7
+R8:     B<->G                     !    Enzyme 7             gene8
+R9:     G->H                      !    Enzyme 8             gene9
+R10:    H->Hext                   !    H transporter        gene10
+
+Growth: B+2*H ->Biomass
+## END REACTIONS
+
+## MAXIMISE
+Growth
+## END MAXIMISE
+
+## EXTERNALS
+Aext
+Dext
+Fext
+Hext
+I
+Biomass
+## END EXTERNALS
+
+
+## EQUATIONS
+R1 = 10
+## END EQUATIONS

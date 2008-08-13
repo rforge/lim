@@ -1,0 +1,38 @@
+Simple linear programming example from
+
+Vanderbei, R.J. (2000).  
+Linear programming, Foundations and extensions.
+Kluwer Academic Publishers, Boston.
+
+Example chapter 5
+
+####################################################################
+
+## DECISION VARIABLES
+
+x1
+x2
+x3
+
+## END DECISION VARIABLES
+
+## INEQUALITIES
+ 
+   x1 + 4*x2      < 1
+ 3*x1 -   x2 + x3 <3
+
+## END INEQUALITIES
+
+## PARAMETERS
+
+p1 = 4
+p2 = 1
+p3 = 3
+
+## END PARAMETERS
+
+## MAXIMISATION
+
+p1*x1 + p2*x2 + p3*x3
+
+## END MAXIMISATION

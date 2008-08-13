@@ -1,0 +1,179 @@
+Manpower planning
+
+############################
+
+### PARAMETERS
+
+tsk0 = 1000   ! skilled in previous year
+tss0 = 1500   ! semi-skilled in previous year
+tus0 = 2000   ! unskilled in previous year
+
+! requirements 
+RSK = 1000    ! total skilled required
+RSS = 1400    ! total semi-skilled required
+RUS = 1000    ! total uskilled required
+
+### END PARAMETERS
+
+### COMPONENTS
+
+! Strength of labour force
+tsk1 ! number of skilled men employed in year i
+tss1 ! number of semi-skilled men employed in year i
+tus1 ! number of unskilled men employed in year i
+tsk2
+tss2
+tus2
+tsk3
+tss3
+tus3
+
+! Recruitment
+usk1 ! number of skilled men recruited in year i
+uss1 ! number of semi-skilled men recruited in year i
+uus1 ! number of unskilled men recruited in year i
+usk2
+uss2
+uus2
+usk3
+uss3
+uus3
+
+! Retaining
+vusss1 ! number of unskilled retained to semi-skilled in year i
+vsssk1 ! number of semi-skilled retained to skilled in year i
+vusss2
+vsssk2
+vusss3
+vsssk3
+
+
+! Downgrading
+vskss1 ! number of skilled downgraded to semi-skilled in year i
+vskus1 ! number of skilled downgraded to unskilled in year i
+vssus1 ! number of semi-skilled downgraded to unskilled in year i
+vskss2
+vskus2
+vssus2
+vskss3
+vskus3
+vssus3
+
+! Redundancy
+wsk1  ! number of skilled men made redundant in year i
+wss1  ! number of semi-skilled men made redundant in year i
+wus1  ! number of unskilled men made redundant in year i
+wsk2
+wss2
+wus2
+wsk3
+wss3
+wus3
+
+! Short-time working
+xsk1  ! number of skilled men on short-time working in year i
+xss1  ! number of semi-skilled men on short-time working in year i
+xus1  ! number of unskilled men on short-time working in year i
+xsk2
+xss2
+xus2
+xsk3
+xss3
+xus3
+
+! Overmanning
+ysk1  ! number of superfluous skilled men employed in year i
+yss1  ! number of superfluous semi-skilled men employed in year i
+yus1  ! number of superfluous unskilled men employed in year i
+ysk2
+yss2
+yus2
+ysk3
+yss3
+yus3
+
+### END COMPONENTS
+
+## EQUALITY
+
+! Continuity
+tsk1 = 0.95*tsk0 + 0.9*usk1 + 0.95*vsssk1 -vskss1 -vskus1 -wsk1
+tss1 = 0.95*tss0 + 0.8*uss1 + 0.95*vusss1 -vsssk1 +0.5*vskss1 -vssus1 -wss1
+tus1 = 0.9*tus0 + 0.75*uus1 -vusss1 +0.5*vskus1 +0.5*vssus1 -wus1
+
+tsk2 = 0.95*tsk1 + 0.9*usk2 + 0.95*vsssk2 -vskss2 -vskus2 -wsk2 
+tss2 = 0.95*tss1 + 0.8*uss2 + 0.95*vusss2 -vsssk2 +0.5*vskss2 -vssus2 -wss2
+tus2 = 0.9*tus1 + 0.75*uus2 -vusss2 +0.5*vskus2 +0.5*vssus2 -wus2
+
+tsk3 = 0.95*tsk2 + 0.9*usk3 + 0.95*vsssk3 -vskss3 -vskus3 -wsk3 
+tss3 = 0.95*tss2 + 0.8*uss3 + 0.95*vusss3 -vsssk3 +0.5*vskss3 -vssus3 -wss3
+tus3 = 0.9*tus2 + 0.75*uus3 -vusss3 +0.5*vskus3 +0.5*vssus3 -wus3
+
+
+! requirements
+tsk1-ysk1-0.5*xsk1 = RSK
+tss1-yss1-0.5*xss1 = RSS
+tus1-yus1-0.5*xus1 = RUS
+tsk2-ysk2-0.5*xsk2 = RSK
+tss2-yss2-0.5*xss2 = RSS
+tus2-yus2-0.5*xus2 = RUS
+tsk3-ysk3-0.5*xsk3 = RSK
+tss3-yss3-0.5*xss3 = RSS
+tus3-yus3-0.5*xus3 = RUS
+
+## END EQUALITY
+
+## INEQUALITY
+
+! Retaining semi-skilled men
+vsssk1 - 0.25*tsk1 <0
+vsssk2 - 0.25*tsk2 <0
+vsssk3 - 0.25*tsk3 <0
+
+! overmanning
+ysk1 + yss1 +yus1 < 150
+ysk2 + yss2 +yus2 < 150
+ysk3 + yss3 +yus3 < 150
+
+
+! Upper bounds
+usk1 < 500
+uss1 < 800
+uus1 < 500
+xsk1 < 50
+xss1 < 50
+xus1 < 50
+vusss1 < 200
+
+usk2 < 500
+uss2 < 800
+uus2 < 500
+xsk2 < 50
+xss2 < 50
+xus2 < 50
+vusss2 < 200
+
+usk3 < 500
+uss3 < 800
+uus3 < 500
+xsk3 < 50
+xss3 < 50
+xus3 < 50
+vusss3 < 200
+
+## END INEQUALITY
+
+## COST
+
+400*vusss1+500*vsssk1+200*wus1+500*wss1+500*wsk1    &
++500*xus1+400*xss1+400*xsk1+1500*yus1+2000*yss1     &
++3000*ysk1                                          &
++400*vusss2+500*vsssk2+200*wus2+500*wss2+500*wsk2   &
++500*xus2+400*xss2+400*xsk2+1500*yus2+2000*yss2     &
++3000*ysk2                                          &
++400*vusss3+500*vsssk3+200*wus3+500*wss3+500*wsk3   &
++500*xus3+400*xss3+400*xsk3+1500*yus3+2000*yss3     &
++3000*ysk3                                          
+
+## END COST
+

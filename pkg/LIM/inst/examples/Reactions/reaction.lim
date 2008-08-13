@@ -1,0 +1,74 @@
+
+0-dimensional sediment coupled C, N, O, P model
+run with:
+require(LIM)
+reaction.lim <-Setup("reaction.lim")
+pars<-Lsei(reaction.lim)
+ranges<- Xranges(reaction.lim,ispos=FALSE)
+data.frame(ranges, pars=pars$X)
+xs<-Xsample(reaction.lim,jmp=1)
+
+Mean <- colMeans(xs)
+Sd   <- sd(xs)
+data.frame(mean=Mean, sd=Sd)
+
+
+pairs(xs,gap=0)
+
+### COMPONENTS
+OM
+O2
+CO2
+NH3
+H3PO4
+HNO3
+X
+### END COMPONENTS
+
+### EXTERNAL
+H2O
+N2
+O2X
+OMBW
+O2BW
+HNO3BW
+NH3BW
+XBW
+H3PO4BW
+CO2BW
+### END EXTERNAL
+
+### REACTIONS
+
+r1: OM + 106*O2 -> 106*CO2 + 16*NH3 + H3PO4 + 106*H2O
+r2: OM + 84.8*HNO3 -> 106*CO2 + 42*N2+16*NH3 + H3PO4 + 148.4*H2O
+r3: OM + 106*O2X -> 106*CO2 + 106*X + 16*NH3 + H3PO4 + 106*H2O
+
+r4: NH3+2*O2 ->HNO3 +H2O
+r5: X+ O2 ->O2X
+
+r6: OMBW -> OM
+r7: O2 <-> O2BW
+r8: HNO3 <-> HNO3BW
+r9: NH3 <-> NH3BW
+r10: X <-> XBW
+r11: H3PO4 <-> H3PO4BW
+r12: CO2 <-> CO2BW
+
+### END REACTIONS
+
+### EQUATIONS
+r7 = -15
+r8 = 1
+r9 = 2
+### END EQUATIONS
+
+### INEQUALITY
+ r1>0
+ r2>0
+ r3>0
+ r4>0
+ r5>0
+ r6>0
+### END INEQUALITY
+

@@ -1,0 +1,117 @@
+<html><head><title>Linear Inverse Modelling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>LIM-package(LIM)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   LIM-package">
+<param name="keyword" value="R:   LIM">
+<param name="keyword" value=" Linear Inverse Modelling">
+</object>
+
+
+<h2>Linear Inverse Modelling</h2>
+
+
+<h3>Description</h3>
+
+<p>
+functions that read and solve linear inverse problems (food web problems, linear programming problems, flux balance analysis).
+These problems find solutions to linear or quadratic functions:
+min or max (f(x)), where <i>f(x) = ||Ax-b||^2</i> or <i>f(x) = sum(ai*xi)</i>
+subject to equality constraints <i>Ex=f</i> and inequality constraints <i>Gx&gt;=h</i>.
+Uses package limSolve.
+</p>
+
+
+<h3>Details</h3>
+
+<p>
+<table summary="Rd table">
+<tr>
+  <td align="left">Package: </td>  <td align="left"> LIM</td>
+</tr>
+<tr>
+  <td align="left"> Type: </td>  <td align="left"> Package</td>
+</tr>
+<tr>
+  <td align="left"> Version: </td>  <td align="left"> 1.1-1</td>
+</tr>
+<tr>
+  <td align="left"> Date: </td>  <td align="left"> 2008-07-17</td>
+</tr>
+<tr>
+  <td align="left"> License: </td>  <td align="left"> GNU Public License 2 or above</td>
+</tr>
+</table>
+
+<p>
+The model problem is formulated in text files in a way that is natural and
+comprehensible. <code>LIM</code> then converts this input into the required
+linear equality and inequality conditions, which can be solved
+either by least squares or by linear programming techniques. By
+letting an algorithm formulate the mathematics, it is
+simple to reformulate the model in case a parameter value changes,
+or a component is added or removed.
+</p>
+<p>
+Three different types of problems are supported: flow networks,
+reaction networks and other (operations research) problems. The
+first two cases are based on mass balances of the components.
+</p>
+<p>
+The package includes many examples
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+Karline Soetaert (Maintainer),
+Dick van Oevelen
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="Read.html">Read</a></code>, <code><a href="Setup.html">Setup</a></code> for reading files and creating the model
+</p>
+<p>
+<code><a href="Ldei.html">Ldei</a></code>, <code><a href="Lsei.html">Lsei</a></code>,<code><a href="Linp.html">Linp</a></code>,
+<code><a href="Flowmatrix.html">Flowmatrix</a></code>, <code><a href="plotranges.html">Plotranges</a></code>, <code><a href="Variables.html">Variables</a></code>,
+<code><a href="Varranges.html">Varranges</a></code>, <code><a href="Xranges.html">Xranges</a></code>, <code><a href="Xsample.html">Xsample</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+## show examples (see respective help pages for details)
+example(Lsei)
+example(LIMRigaSpring)
+example(Ldei)
+example(Xsample)
+example(Varranges)
+
+## run demos
+demo("LIMexamples")
+
+## open the directory with R sourcecode examples
+browseURL(paste(system.file(package="LIM"), "/examples/Foodweb", sep=""))
+browseURL(paste(system.file(package="LIM"), "/examples/LinearProg", sep=""))
+browseURL(paste(system.file(package="LIM"), "/examples/Reactions", sep=""))
+
+## show package vignette with tutorial about how to create input files
+vignette("LIM")
+browseURL(paste(system.file(package="LIM"), "/doc", sep=""))
+## End(Not run)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>LIM</em> version 1.1 <a href="00Index.html">Index]</a></div>
+
+</body></html>

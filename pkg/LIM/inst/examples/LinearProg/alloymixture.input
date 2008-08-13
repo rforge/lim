@@ -1,0 +1,73 @@
+
+Alloy mixture optimization (Minimize Expenses)
+There are four metals A, B, C and D that have the following properties:
+
+Metal Density (den) Carbon (crb), % Phosphor (psh), % Price, $ / kg
+A 6500 0.2 0.05 2.0
+B 5800 0.35 0.015 2.5
+C 6200 0.15 0.065 1.5
+D 5900 0.11 0.1 2.0
+
+
+## PARAMETERS
+A_den =6500
+A_crn=0.2
+A_psh=0.05
+A_Price=2.0
+B_den =5800
+B_crn=0.35
+B_psh=0.015
+B_Price=2.5
+C_den =6200
+C_crn=0.15
+C_psh=0.065
+C_Price=1.5
+D_den =5900
+D_crn=0.11
+D_psh=0.1
+D_Price=2.0
+## END PARAMETERS
+
+The decision variables are the part of each metals in the alloy: X_A, X_B, X_C and X_D.
+### DECISION
+X_A
+X_B
+X_C
+X_D
+### END DECISION
+
+The objective function that to be minimized is:
+
+## COST
+X_A * A_Price + X_B * B_Price + X_C * C_Price + X_D * D_Price
+## END COST
+
+There is a requirement to produce an alloy at minimal cost that has the following property ranges:
+Range Density (den) Carbon (crb), % Phosphor (psh), %
+Min 5950 0.1 0.045
+Max 6050 0.3 0.055
+The  constraints are:
+
+## CONSTRAINTS
+X_A * A_den + X_B * B_den + X_C * C_den + X_D * D_den = [5950,6050]
+X_A * A_crn + X_B * B_crn + X_C * C_crn + X_D * D_crn = [0.1,0.3]
+X_A * A_psh + X_B * B_psh + X_C * C_psh + X_D * D_psh = [0.045,0.055]
+## END CONSTRAINTS
+
+
+We have to define the part of each metals in the alloy, therefore the last equality is:
+
+## EQUALITY
+X_A + X_B + X_C + X_D = 1
+## END EQUALITY
+
+--------------------------------------------------------------------------------
+
+The problem has been solved successfully with the following plan: Metal Metal Part
+A -
+B 0.285
+C 0.595
+D 0.12
+
+
+The Total cost of the alloy is $1.84

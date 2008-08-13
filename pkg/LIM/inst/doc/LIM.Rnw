@@ -1,0 +1,1119 @@
+\documentclass[article,nojss]{jss}
+\DeclareGraphicsExtensions{.pdf,.eps}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Add-on packages and fonts
+\usepackage{mathptmx}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{amsmath}
+%\usepackage{amssymb}
+\usepackage{array} % tabel commands
+\usepackage{xspace}
+\usepackage{verbatim}
+\usepackage[english]{babel}
+%\usepackage{mathptmx}
+%\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\renewcommand{\ttdefault}{lmtt}
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{geometry}
+
+
+\newcommand{\noun}[1]{\textsc{#1}}
+%% Bold symbol macro for standard LaTeX users
+\providecommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\newcommand{\li}{\textbf{\textsf{LIM }}}
+\newcommand{\ls}{\textbf{\textsf{limSolve }}}
+
+\title{Package \li, implementing linear inverse models in \proglang{R} }
+\Plaintitle{Package LIM, implementing linear inverse models in R}
+
+\Keywords{Linear inverse models, flux balance analysis, linear programming,
+text files, \proglang{R}}
+
+\Plainkeywords{Linear inverse models, flux balance analysis, linear programming,
+text files, R}
+
+
+\author{Karline Soetaert and
+Dick van oevelen\\
+Centre for Estuarine and Marine Ecology\\
+Netherlands Institute of Ecology\\
+The Netherlands}
+
+\Plainauthor{Karline Soetaert, Dick van oevelen}
+
+\Abstract{We present \proglang{R} package \li which is designed
+for reading and solving linear inverse models (LIM). The model
+problem is formulated in text files in a way that is natural and
+comprehensible. \li then converts this input into the required
+linear equality and inequality conditions, which can be solved
+either by least squares or by linear programming techniques. By
+letting an algorithm formulate the mathematics, it becomes very
+simple to reformulate the model in case a parameter value changes,
+or a component is added or removed.
+
+Three different types of problems are supported: flow networks,
+reaction networks and other (operations research) problems. The
+first two cases are based on mass balances of the components.
+
+We give three examples, a food web example, a biogechemical
+reaction example and a blending example.
+
+}
+
+%% The address of (at least) one author should be given
+%% in the following format:
+\Address{
+  Karline Soetaert\\
+  Centre for Estuarine and Marine Ecology (CEME)\\
+  Netherlands Institute of Ecology (NIOO)\\
+  4401 NT Yerseke, Netherlands
+  E-mail: \email{k.soetaert@nioo.knaw.nl}\\
+  URL: \url{http://www.nioo.knaw.nl/ppages/ksoetaert}\\
+   \\
+  Dick van Oevelen\\
+  Centre for Estuarine and Marine Ecology (CEME)\\
+  Netherlands Institute of Ecology (NIOO)\\
+  4401 NT Yerseke, Netherlands
+  E-mail: \email{d.vanoevelen@nioo.knaw.nl}\\
+  URL: \url{http://www.nioo.knaw.nl/ppages/dvanoevelen}\\
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% R/Sweave specific LaTeX commands.
+%% need no \usepackage{Sweave}
+%\VignetteIndexEntry{LIM}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin of the document
+\begin{document}
+
+\maketitle
+
+
+\section{Introduction}
+In many disciplines, problems lead to linear equations that are
+supplemented with linear inequality constraints. Such linear
+equations arise for instance:
+\begin{itemize}
+\item by considerations that certain quantities have to be
+positive, that the summed values should not exceed a certain value
+(i.e. summed fractions or probabilities should remain smaller or
+equal to 1), etc.
+\item In curve fitting problems, inequality
+constraints may arise by requirements of monoticity,
+nonnegativity, convexity, while in piecewise linear fitting,
+equality conditions result from the need to guarantee continuity
+and smoothness of the curves.
+\item In biochemical applications, the equalities arise because of
+linear conservation relationships such as the conservation of
+mass, charge, etc.., while inequalities ensure that mass remains a
+positive quantity.
+\end{itemize}
+
+\section{Linear Inverse Models}
+
+Mathematically, linear inverse problems can be written in matrix
+notation as: \footnote{notations: vectors and matrices are in
+  \textbf{bold}; scalars in normal font. Vectors are indicated with a
+  small letter; matrices with capital letter. }
+\begin{align*}
+  \label{eq:1}
+      \mathbf{A}\cdot \mathbf{x}\simeq\mathbf{b}   \qquad  (1)\\
+      \mathbf{E}\cdot \mathbf{x}=\mathbf{f}     \qquad (2)\\
+      \mathbf{G}\cdot \mathbf{x}\geq\mathbf{h}    \qquad  (3)
+\end{align*}
+
+There are three sets of linear equations: equalities that have to be
+met as closely as possible (1), equalities that have to be met exactly (2) and
+inequalities (3). Often the problem originally only contains the latter two types of equations (2-3),
+and the approximate equalities are added to single out one solution.
+
+Quadratic and linear programming methods are the main mathematical
+techniques to solve this type of models. In \proglang{R}, these
+are available through package \ls.
+
+Depending on the active set of equalities (2) and constraints (3), the
+system may either be underdetermined, even determined, or
+overdetermined. Solving these problems requires different mathematical techniques.
+\begin {itemize}
+\item If the model is even determined, there is only one solution that satisfies
+the equations exactly. This solution can be singled out by matrix inversion or using least
+squares method \emph{lsei} from package \ls.
+\item If the model is overdetermined,
+there is only one solution in the least squares sense; this
+solution is singled out by function \emph{lsei} (\emph{l}east \emph{s}quares
+with \emph{e}qualities and \emph{i}nequalities). This function also returns the
+parameter covariance matrix, which gives indication on the
+confidence interval and relationship among the estimated unknowns.
+\item If the model is underdetermined, there exist an infinite amount of
+solutions. To solve such models, there are several options:
+\begin{itemize}
+\item \emph{ldei} - finds the "least distance" solution, i.e. the
+one where the sum of squared unknowns is minimal
+\item \emph{lsei}- minimises some other set of linear functions ($\mathbf{A}\cdot \mathbf{x} \simeq
+\mathbf{b}$) in a least squares sense
+\item \emph{linp} - finds the solution where \textbf{one} linear function (i.e. the sum of
+flows) is either minimized (a "cost" function) or maximized (a "profit" function)
+\item \emph{xranges} -  finds the possible ranges ([min,max]) for each unknown.
+\item \emph{xsample} -  randomly samples the solution space in a Bayesian way. This method returns the
+conditional probability density function for each unknown.
+\end{itemize}
+\end{itemize}
+All these functions are also available from package \li.
+\section{Three types of LIM}
+
+One of the main remaining challenges in LIM models constitutes the setup of this type of
+problems. Especially when many unknowns have to be simultaneously
+estimated and the problem contains many equality and inequality
+constraints, the construction of the equations may be quite
+complicated and error-prone. In addition to providing methods of solution,
+R-package \li has been designed to facilitate problem
+implementation.
+
+Depending on how the problem is formulated and which are the
+unknowns, \li distinguishes three types of Linear Inverse Models (Figure \ref{fig:gen}).
+
+\begin{itemize}
+\item flow networks. Here the problem consists of a number of compartments, connected
+by flows. Solving the model then constitutes of deriving the values of the flows.
+\item reaction networks. The problem consists of a number of compatments that are
+involved in reactions. The LIM will estimate the reaction rates.
+\item other. \li can also solve problems often occurring in operational research, e.g. to find the optimal allocation of resources, etc....
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figgeneral}
+\caption{Three types of Linear Inverse Models that can be created
+and solved with \proglang{R} package \li. A. Flow networks. B.
+Reaction networks, C. Other. In type (A) and (B), a mass balance
+of components is generated. This is not the case for type
+C.}\label{fig:gen}
+\end{figure}
+
+\subsection{Flow network problems}
+
+Flow networks are represented as a set of nodes (compartments), which are
+connected by arrows (flows).
+The arrows have a direction, i.e. the flows are positive.
+Thus \[A->B\] denotes the existence of a flow directed from A to B.
+There can only be one flow from A to B (but there can also be a flow from B to A).
+Solving the LIM-problem consists of finding the values of the flows.
+
+\subsubsection{Example: a simple food-web}
+Organisms eat and are eaten; they use part of their food for
+biomass production and reproduction, part is expelled as faeces or
+respired. Other (so-called autotrophic) organisms
+produce biomass from light energy and inorganic compounds, whilst
+dead matter (detritus) may be consumed by animals and bacteria.
+
+When the mass balances of several groups of organisms (and dead
+matter) are considered together, we obtain a food web model. In
+this type of LIM, the unknowns are the food web \emph{flows} that connect
+the components (organisms and dead matter).
+
+Assume a simple food web comprising a plant, detritus and an
+animal that eats both the plant and detritus.
+For simplicity we assume that the system is
+in a climax situation, i.e. the masses, which are expressed in
+$moles~C~m^{-2}$ are invariant in time. There are eight flows that
+connect the components with each other and with the outside world.
+\footnote{Since the foodweb is a subsystem of a larger system, we need
+to distinguish between model compartments, i.e. compartments whose dynamics
+are fully described in the model and external compartments, whose dynamics is
+coupled to processes occurring outside the model realm. The difference is
+essential: \li will create mass balance equations for model compartments only.}
+The mass balance equation for the three components and with the
+rate of change = 0, is given by:
+\begin{eqnarray*}
+\frac{\mathrm{dPLANT}}{dt} = 0 &=& \mathrm{net~primary~production}
+- \mathrm{grazing~ on~ plant} - \mathrm{plant~
+mortality}\\
+\frac{\mathrm{dANIMAL}}{dt} = 0 &=& \mathrm{grazing~on~plant} +
+\mathrm{grazing~on~detritus}- \mathrm{animal~respiration} \\&-&
+\mathrm{animal~mortality} - \mathrm{faeces~production}\\
+\frac{\mathrm{dDETRITUS}}{dt} = 0 &=& \mathrm{plant~mortality} +
+\mathrm{animal~mortality} + \mathrm{faeces~production} \\&-&
+\mathrm{grazing~on~detritus} - \mathrm{detritus~mineralisation}
+\end{eqnarray*}
+
+These mass balances can be written in a more general way, and
+using shorthand notation for the flows, as:
+\begin{eqnarray}
+ 0 = 1 \cdot NPP - 1 \cdot Pgraz - 1 \cdot Pmort + 0 \cdot Dgraz + 0 \cdot Aresp + 0 \cdot Amort + 0 \cdot Faeces + 0 \cdot Detmin  \\
+ 0 = 0 \cdot NPP + 1 \cdot Pgraz + 0 \cdot Pmort + 1 \cdot Dgraz - 1 \cdot Aresp - 1 \cdot Amort - 1 \cdot Faeces + 0 \cdot Detmin  \\
+ 0 = 0 \cdot NPP + 0 \cdot Pgraz + 1 \cdot Pmort - 1 \cdot Dgraz + 0 \cdot Aresp + 1 \cdot Amort + 1 \cdot Faeces - 1 \cdot Detmin
+ \end{eqnarray}
+
+These equations relate, on the left hand side, the zero rates of
+changes to a sum of products, where each product is composed of
+the flows and a coefficient. The coefficient indicates if and how
+much these flows contribute to the rate of change.
+
+Now assume that net primary production and the total grazing rate
+(Grazing) of the animal has been measured (30 $mmol~C~m^{-2}~ d^{-1}$ and
+10 $mmol~C~m^{-2}~d^{-1}$ respectively). Thus, we can add two extra
+equations:
+\begin{eqnarray}
+NPP = 30\\
+Pgraz + Dgraz=10
+\end{eqnarray}
+
+In matrix notation, we obtain
+\[
+\left[ {\begin{array}{*{20}c}
+   1 & { - 1} & { - 1} & 0 & 0 & 0 & 0 & 0  \\
+   0 & 1 & 0 & 1 & { - 1} & { - 1} & { - 1} & 0  \\
+   0 & 0 & 1 & { - 1} & 0 & 1 & 1 & { - 1}  \\
+   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0  \\
+   0 & 1 & 0 & 1 & 0 & 0 & 0 & 0  \\
+\end{array}} \right] \cdot \left[ {\begin{array}{*{20}c}
+   {NPP} \\{Pgraz}\\{Pmort}\\{Dgraz}  \\{Aresp} \\{Amort}\\{Faeces}\\{Detmin } \\
+\end{array}} \right] = \left[ {\begin{array}{*{20}c}
+   0  \\   0  \\   0  \\   {30}  \\   {10}  \\
+\end{array}} \right]
+\]
+
+
+
+The feeding, defaecation and respiration flows are not
+independent of one another. Firstly, organisms cannot produce more faeces
+than the amount of food they ingest.
+Thus it is customary in foodweb modelling, to assume that
+faeces production lies in between some range of food ingested.
+For our example we assume that in between 30 and 60\% of total food ingested is
+defaecated (the food is not of high quality).
+
+Secondly, organisms respire carbohydrates to provide the energy for growth.
+Thus, of the fraction of the food that is assimilated (i.e. not defaecated),
+part will be used to create new biomass, the other part will provide the energy
+to do so (this is referred to as the cost of growth).
+Here we assume that 30\% of the assimilated food is respired.
+As total animal respiration also includes basal respiration (for the animal's maintenance),
+we impose that the animal respiration has to be larger than - or equal - to this amount:
+
+\begin{eqnarray}
+0.3\cdot{Pgraz} + 0.3\cdot{Dgraz} <= Faeces\\
+0.6\cdot{Pgraz} + 0.6\cdot{Dgraz} >= Faeces\\
+0.3\cdot({Pgraz} + {Dgraz} - {Faeces}) <=Aresp
+\end{eqnarray}
+
+Adding to that the requirement that the flows have to be positive gives the following set of inequality conditions:
+\[
+\left[ {\begin{array}{*{20}c}
+   0 & -0.3 & 0 & -0.3 & 1 & 0 & 0.3 & 0  \\
+   0 &  0.6 & 0 &  0.6 & 0 & 0 &  -1 & 0  \\
+   0 & -0.3 & 0 & -0.3 & 0 & 0 &   1 & 0  \\
+   1 & 0 & 0 & 0 & 0 & 0 & 0 & 0  \\
+   0 & 1 & 0 & 0 & 0 & 0 & 0 & 0  \\
+   0 & 0 & 1 & 0 & 0 & 0 & 0 & 0  \\
+   0 & 0 & 0 & 1 & 0 & 0 & 0 & 0  \\
+   0 & 0 & 0 & 0 & 1 & 0 & 0 & 0  \\
+   0 & 0 & 0 & 0 & 0 & 1 & 0 & 0  \\
+   0 & 0 & 0 & 0 & 0 & 0 & 1 & 0  \\
+   0 & 0 & 0 & 0 & 0 & 0 & 0 & 1  \\
+\end{array}} \right] \cdot \left[ {\begin{array}{*{20}c}
+   {NPP}\\{Pgraz}\\{Pmort}\\{Dgraz}\\{Aresp}\\{Amort}\\{Faeces}\\{Detmin }\\
+\end{array}} \right] >  = \left[ {\begin{array}{*{20}c}
+   0  \\   0  \\   0  \\   0  \\   0  \\   0  \\   0  \\   0  \\
+\end{array}} \right]
+\]
+
+
+This model comprises 5 equations and 11 inequalities; there are 8 unknown flows.
+We will outline below how this particular problem can be implemented and solved in package \li.
+\subsection{reaction problems}
+
+These are LIM problems which are written as a set of reactions that
+connect the dynamics of several constituents. For instance, in the reaction \[A+B \rightarrow C\]
+C is produced while A and B are consumed in a stoichiometric ratio of 1 to 1.
+Some reactions can occur in two directions, e.g.
+\[A+B \leftrightarrow C\]
+In contrast to previous ("flow") network problems, there may exist many links between the constituents.
+Solving the LIM amounts to finding values for the reaction rates.
+
+
+
+\subsubsection{Example: chemical reactions.}
+In the natural environment, the cycles of many constituents are
+linked via chemical reactions that produce and consume them.
+We take the biogeochemical cycles of carbon (C), nitrogen (N) and oxygen (O) in a marine sediment as an example.
+Organic matter ($(CH_2O)_{106}(NH_3)_{16}(H_3PO_4)$) is mineralized (respired),
+using a series of oxidants: oxygen ($O_2$), nitrate ($HNO_3$) and
+some other, undefined oxidant ($XO$). The reduced byproducts of
+this mineralization process, ammonium ($NH_3$), and an undefined
+reduced substance ($X$) can be re-oxidized by a reaction with oxygen.
+All dissolved substances are exchanged with the water column.
+$N_2$, produced by the reaction of organic matter with nitrate,
+does not react in the sediment.
+
+The mineralisation reactions can be written as:
+
+\begin{align*}
+&r1 & (CH_2O)_{106}(NH_3)_{16}(H_3PO_4)+106O_2&\rightarrow106CO_2+16NH_3+H_3PO_4+106H_2O\\
+&r2 & (CH_2O)_{106}(NH_3)_{16}(H_3PO_4)+84.8HNO_3&\rightarrow106CO_2+42.4N_2+16NH_3+H_3PO_4+148.4H_2O\\
+&r3 & (CH_2O)_{106}(NH_3)_{16}(H_3PO_4)+106O_2X&\rightarrow106CO_2+106X+16NH_3+H_3PO_4+106H_2O\\
+\end{align*}
+for the oxic mineralisation, denitrification and anoxic mineralisation respectively.
+
+The secondary reactions (nitrification and reoxidation of other reduced substances):
+\begin{align*}
+&r4& NH_3+2O_2&\rightarrow HNO_3+H_2O \\
+&r5& X+O_2&\rightarrow O_2X \\
+\end{align*}
+and the exchange with the bottom water:
+\begin{align*}
+&r6& OMBW &\rightarrow(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) \\
+&r7& O_2 &\leftrightarrow O_2BW          \\
+&r8& HNO_3 &\leftrightarrow HNO_3BW      \\
+&r9& NH_3 &\leftrightarrow NH_3BW        \\
+&r10& O_2X &\leftrightarrow O_2XBW       \\
+&r11& H_3PO_4 &\leftrightarrow H_3PO_4BW \\
+&r12& CO_2 &\leftrightarrow  CO_2BW      \\
+\end{align*}
+Note that the deposition of organic matter (r6) is directed \emph{into} the
+sediment, while the direction of the other fluxes can go either into or out of
+the sediment.
+
+In this LIM, the rates of the mineralisation reactions, of the
+secondary reactions and the exchange reactions with the bottom
+water are the unknowns (r1-r12). Based on these reactions, and following
+the law of conservation of mass, we can write a mass
+balance reaction for the following 7 constituents:
+$(CH_2O)_{106}(NH_3)_{16}(H_3PO_4)$,
+$O_2$, $CO_2$, $NH_3$, $H_3PO_4$, $HNO_3$, while for the others
+only part of the reactions are specified. Hence these are considered to be
+externals.
+
+We give only the mass balance reactions for $O_2$ and $HNO_3$:
+\begin{eqnarray*}
+\frac{dO_2}{dt}&=&0=-106\cdot r_1 -2 \cdot r_4 - r_5 - r_7\\
+\frac{dHNO_3}{dt}&=&0=-84.8\cdot r_1 + \cdot r_4 - r_8\\
+\cdots
+\end{eqnarray*}
+
+As the exchange of dissolved substance can go either way, directed
+into or out of the sediment, only some of the reaction rates are
+positive, and the following inequalities hold:
+\begin{eqnarray*}
+r_1>=0\\
+r_2>=0\\
+r_3>=0\\
+r_4>=0\\
+r_5>=0\\
+r_6>=0\\
+\end{eqnarray*}
+
+In this particular example, the oxygen, nitrate, and ammonium fluxes have been estimated;
+they are -15 (influx), 1 (efflux) and 2 $mmol~m^{-2}~d^{-1}$ respectively. These
+measurements lead to the equations:
+
+\begin{eqnarray*}
+r7=-15\\
+r8=1\\
+r9=2\\
+\end{eqnarray*}
+
+Thus there are 10 equations (7 mass balances, 3 measurements) and 12 unknowns.
+In addition, there are 6 inequality conditions.
+
+\subsection{other problems}
+It is also possible to use \li for specifying more general (linear) operational research problems that do not classify as network problems.
+
+These problems often try to find the most efficient, or least costly, way of achieving something.
+They are often solved with linear programming techniques that optimize some function (cost or profit) given a set of linear constraints.
+
+\subsubsection{blending problems}
+This example is borrowed from \ls and comes from the website of
+J E Beasley (find it on the web).
+
+A manufacturer produces a feeding mix for animals. The feed mix
+contains two nutritive ingredients and one ingredient (filler) to
+provide bulk. One kg of feed mix must contain a minimum quantity
+of each of four nutrients as below:
+\begin{table}[H]
+\center
+\begin{tabular}{l|llll}\hline
+ Nutrient & A&  B&  C&  D\\
+ gram  &80&  50&  25&  5\\ \hline
+\end{tabular}
+\end{table}
+
+
+The ingredients have the following nutrient values and cost:
+\begin{table}[H]
+\center
+\begin{tabular}{l|llll|l}\hline
+ (gram/kg) & A  &B  &C  &D  &Cost/kg\\\hline
+ Ingredient 1 & 100  &50  &40  &10  &40\\
+ Ingredient 2 & 200  &150  &10  &-  &60\\
+ Filler & -  &-  &-  &-  &0\\
+\hline
+\end{tabular}
+\end{table}
+
+The problem is to find the composition of the feeding mix that
+minimises the production costs subject to the constraints above.
+Stated otherwise: what is the optimal amount of ingredients in one
+kg of feeding mix?
+
+Mathematically this can be estimated by solving a linear
+programming problem, where the equalities ensure that the sum of
+the three fractions equals 1, and the inequalities enforce the
+nutritional constraints; the quantity to be minimized is the cost
+function.
+\begin{eqnarray*}
+ &&\min(x_1\cdot 40+x_2 \cdot 60) \\
+ &&x_i>=0\\
+&&x_1+x_2+x_3=1\\ and\\
+&&100\cdot x_1+200\cdot x_2>80\\
+&&50\cdot x_1+150\cdot x_2>50\\
+&&40 \cdot x_1+10 \cdot x_2>25\\
+&&10 \cdot x_1 > 5
+\end{eqnarray*}
+
+\section{Specifying a Linear Inverse Model in R-package LIM }
+Although the previous examples were quite simple, and the resulting
+matrices of small or moderate size, it is easy to make mistakes.
+Moreover, once the matrices are constructed, it may be quite a challenge
+to update them after adding or removing constituents.
+Also, based on the resulting set of linear equations
+it is not straightforward to infer the underlying model assumptions.
+
+In general, a linear inverse model is first formulated verbally, after which
+the verbal description of the problem is translated into an equivalent mathematical description.
+
+Typically the equations are specified on
+aggregated unknowns, i.e. unknowns that are themselves linear
+combinations of other unknowns. For instance, in the food web model example, the faeces production (the flow from the animal to detritus)
+is specified as a part of the amount of food ingested.
+Ingested food is itself the sum of the flow from the plant to
+the animal and from detritus to the animal.
+
+Model input in \li is close to these verbal statements. Thus to
+implement the food web model we first
+define a variable called "Ingestion" that consists of the sum of
+the two feeding flows and then define the defaecation constraints on this
+variable. When the LIM input is parsed, the constraints will be rewritten as
+a function of the unknowns.
+
+Apart from this more natural input, there are many other benefits of using \li.
+For instance, for the \emph{flow network} and \emph{reaction network} type of problems, \li automatically generates the mass balances for each component, based on the flows or reactions that were defined. This facilitates adding or removing flows or constituents. Finally, solving the model will also generate estimates of all defined variables.
+
+We now document the input for each of the above introduced problems.
+
+\subsection{food web problem}
+\begin{verbatim}
+=====================================================
+Header of the file - ignored
+file: foodweb.lim
+
+Solve the model with:
+require(LIM)
+lim <- Setup("foodweb.lim")
+Lsei(lim)
+Xranges(lim)
+=====================================================
+
+## EXTERNAL
+  CO2
+  EXP   ! export
+## END EXTERNAL
+
+## COMPONENT
+  Pl    ! plant
+  AN    ! Animal
+  Det   ! Detritus
+## END COMPONENT
+
+## Flows
+  NPP   : CO2 -> Pl
+  Pgraz : Pl -> An
+  Pmort : Pl -> Det
+  Dgraz : Det -> An
+  Aresp : An ->CO2
+  Amort : An ->EXP
+  Faeces: An ->Det
+  Detmin: Det -> CO2
+## END Flows
+
+
+## PARAMETERS
+  minFaeces  = 0.3
+  maxFaeces  = 0.6
+  growthCost = 0.3
+## END PARAMETERS
+
+## VARIABLES
+  Ingestion     = Pgraz + Dgraz
+  Assimilation  = Ingestion - Faeces
+  GrowthResp    = Assimilation*growthCost
+## END VARIABLES
+
+## Equalities
+  Faeces = 30
+  Det -> CO2 = 10
+## End equalities
+
+## Inequalities
+  growthcost : Aresp > GrowthResp
+  defaecation: Faeces = [minFaeces,maxFaeces]*Ingestion
+## End inequalities
+
+\end{verbatim}
+
+Note the use of sections (\#\# SECTIONNAME ... \#\# END SECTIONNNAME) to declare items;
+the sections "COMPONENT" and "EXTERNAL" define the names; a mass balance equation is only generated for components, not for externals.
+A name is declared as "name:  ", an exclamation mark ("!") demarcates the start of a comment.
+
+Although more lengthy, this problem formulation is much more elegant, less error-prone, and easier to understand than the resulting matrices themselves.
+
+Based on this input file, the matrices are generated using \li function \emph{Setup} and put in a list (see below).
+The resulting LIM input can then be solved with \emph{Lsei} or \emph{Ldei},
+which will generate the simplest -parsimonious- solution, with \emph{Xranges} which will estimate ranges of unknowns, or with \emph{Xsample} which will generate the conditional probability distribution of each flow.
+
+In the table below is what we obtained from running the following R-code:
+\begin{verbatim}
+require(LIM)
+web.lim <- Setup("foodweb.lim")
+pars <- Lsei(web.lim)
+webranges<- Xranges(web.lim)
+
+data.frame(webranges,parsimonious=pars$X)
+\end{verbatim}
+
+\begin{table}[H]
+\center
+\begin{tabular}{l|ll|l}\hline
+& min& max& parsimonious\\ \hline
+NPP   &  30&  80&    30.000000\\
+Pgraz &   0&  80&    29.554950\\
+Pmort &   0&  80&     0.445050\\
+Dgraz &  20& 100&    20.445050\\
+Aresp &   6&  70&     9.489658\\
+Amort &   0&  49&    10.510342\\
+Faeces&  30&  30&    30.000000\\
+Detmin&  10&  10&    10.000000\\
+\hline
+\end{tabular}
+\end{table}
+
+Based on these results it is simple to create a plot which depicts the parsimonious solution and the ranges (see Figure \ref{fig:range}):
+\begin{verbatim}
+xlim <- range(webranges)
+dotchart(x=pars$X,labels=rownames(webranges),xlim=xlim,
+         main="Food web",pch=16)
+cc <- 1:nrow(webranges)
+segments(x1=webranges[,1],y1=cc,x2=webranges[,2],y2=cc)
+\end{verbatim}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{figweb}
+\caption{Ranges and parsimonious solution of foodweb example -
+seee text for \proglang{R}-code}\label{fig:range}
+\end{figure}
+
+\subsection{chemical reaction problem}
+The input of the chemical reaction problem is:
+\begin{verbatim}
+=====================================================
+Header of the file - ignored
+file reaction.lim
+0-dimensional sediment coupled C, N, O, P model
+run with:
+require(LIM)
+reaction.lim <- Setup("reaction.lim")
+X  <- Lsei(reaction.lim)
+xr <- Xranges(reaction.lim,ispos=FALSE)
+=====================================================
+### COMPONENTS
+OM
+O2
+CO2
+NH3
+H3PO4
+HNO3
+X
+### END COMPONENTS
+
+### EXTERNAL
+H2O
+N2
+O2X
+OMBW
+O2BW
+HNO3BW
+NH3BW
+XBW
+H3PO4BW
+CO2BW
+### END EXTERNAL
+
+### REACTIONS
+r1: OM + 106*O2 -> 106*CO2 + 16*NH3 + H3PO4 + 106*H2O
+r2: OM + 84.8*HNO3 -> 106*CO2 + 42*N2+16*NH3 + H3PO4 + 148.4*H2O
+r3: OM + 106*O2X -> 106*CO2 + 106*X + 16*NH3 + H3PO4 + 106*H2O
+
+r4: NH3+2*O2 ->HNO3 +H2O
+r5: X+ O2 ->O2X
+
+r6: OMBW -> OM
+r7: O2 <-> O2BW
+r8: HNO3 <-> HNO3BW
+r9: NH3 <-> NH3BW
+r10: X <-> XBW
+r11: H3PO4 <-> H3PO4BW
+r12: CO2 <-> CO2BW
+### END REACTIONS
+
+### EQUATIONS
+r7 = -15
+r8 = 1
+r9 = 2
+### END EQUATIONS
+
+### INEQUALITY
+ r1>0
+ r2>0
+ r3>0
+ r4>0
+ r5>0
+ r6>0
+### END INEQUALITY
+
+
+\end{verbatim}
+
+Results are in the following table:
+
+\begin{table}[H]
+\center
+\begin{tabular}{l|ll|l}\hline
+& min& max& parsimonious\\ \hline
+r1 &   0.00000000&   0.12264151&   0.12191742\\
+r2 &   0.00000000&   0.07665094&   0.00000000\\
+r3 &   0.06485849&   0.51709906&   0.06558258\\
+r4 &   1.00000000&   7.50000000&   1.00000000\\
+r5 &   0.00000000&  13.00000000&   0.07675329\\
+r6 &   0.18750000&   0.59375000&   0.18750000\\
+r7 & -15.00000000& -15.00000000& -15.00000000\\
+r8 &   1.00000000&   1.00000000&   1.00000000\\
+r9 &   2.00000000&   2.00000000&   2.00000000\\
+r10&   6.87500000&  54.81250000&   6.87500000\\
+r11&   0.18750000&   0.59375000&   0.18750000\\
+r12&  19.87500000&  62.93750000&  19.87500000\\
+\hline
+\end{tabular}
+\end{table}
+
+The conditional probability distribution of all reaction rates can
+be generated by Xsample and then simply plotted using
+\proglang{R}-function \emph{pairs}. This is done in the
+\proglang{R}-script below. Before creating the pairs plot, we
+first remove the rates that were given a fixed value. On the
+diagonal of the pairs plot, we plot a histogram; we define this
+function first (it is copied from one of the examples in the pairs
+help file). We plot only the lower part of the pairs plot (i.e.
+set upper.panel = NULL).
+\begin{verbatim}
+xs<-Xsample(reaction.lim,jmp=5)
+panel.hist <- function(x, ...)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(usr[1:2], 0, 1.5) )  #redefine y-axis; x-axis stays the same
+    h <- hist(x, plot = FALSE)
+    breaks <- h$breaks; nB <- length(breaks)
+    y <- h$counts; y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col="grey", ...)
+}
+xs <- xs[,-(7:9)]                    #remove constant rates
+pairs(xs,upper.panel=NULL,diag.panel=panel.hist,
+      pch=".",main="Reaction network")
+\end{verbatim}
+
+The results are in Figure \ref{fig:mcmc}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{FigReaction.pdf}
+\caption{MCMC sample of reaction network}\label{fig:mcmc}
+\end{figure}
+
+\subsection{blending problems}
+Finally we give the input for the blending problem.
+\begin{verbatim}
+=====================================================
+Header of the file - ignored
+Blending problem file blending.lim
+run with:
+require(LIM)
+blend.lim <- Setup("blending.lim")
+lp <- Linp(blend.lim)
+xr <- Xranges(blend.lim,ispos=TRUE)
+xs <- Xsample(blend.lim)
+=====================================================
+
+### COMPONENT
+ X1   ! Part ingredient 1
+ X2   ! Part ingredient 2
+ X3   ! Part ingredient 3 = filler
+### END COMPONENTS
+
+## PARAMETERS
+! Minimal nutrient requirements in feeding mix
+ NutA = 80
+ NutB = 50
+ NutC = 25
+ NutD = 5
+
+! Cost of ingredients 1,2,3
+ Cost1 = 40
+ Cost2 = 60
+ Cost3 =  0
+
+! nutrient contents in X1 and X2
+ N1_A =100
+ N1_B =50
+ N1_C =40
+ N1_D =10
+
+ N2_A =200
+ N2_B =150
+ N2_C =10
+ N2_D =0
+
+ N3_A =0
+ N3_B =0
+ N3_C =0
+ N3_D =0
+## END PARAMETERS
+
+## COST
+ Cost1*X1 + Cost2*X2 + Cost3*X3
+## END COST
+
+### EQUATIONS
+ X1 + X2 + X3 = 1
+### END EQUATIONS
+
+### INEQUALITY
+ X1>0
+ X2>0
+ X3>0
+
+ N1_A*X1 + N2_A*X2 + N3_A*X3 >NutA
+ N1_B*X1 + N2_B*X2 + N3_B*X3 >NutB
+ N1_C*X1 + N2_C*X2 + N3_C*X3 >NutC
+ N1_D*X1 + N2_D*X2 + N3_D*X3 >NutD
+
+### END INEQUALITY
+\end{verbatim}
+
+The following code generates multiple solutions (small dots) and plots these
+together with the minimal cost solution (large red dots) (see figure \ref{fig:blending}).
+Note that the MCMC-generated matrix is extended first with the parsimonious results.
+\begin{verbatim}
+XS <- rbind(lp$X,xs)
+
+xsplot <- function (x,y,...) {
+points(x,y,pch=".")
+points(x[1],y[1],pch=16,cex=2,col="red")
+}
+
+pairs(XS,upper.panel=NULL,lower.panel=xsplot,main="blending")
+\end{verbatim}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{Figblending.pdf}
+\caption{MCMC sample of reaction network}\label{fig:blending}
+\end{figure}
+
+\subsection{A simple linear programming problem}
+It is also possible to write simple linear programming problems as in the
+following example, from Vanderbei (2006), example 2.11:
+
+\begin{verbatim}
+======================================================
+File linprog.lim
+Simple linear programming example
+======================================================
+
+## EQUALITIES
+-x12             + x23 + x24       = 0
+     - x13       - x23       + x34 = 0
+## END EQUALITIES
+
+## INEQUALITIES
+ x12 + x13 + x14                   > 1
+             x14       + x24 + x34 < 1
+## END INEQUALITIES
+
+## MINIMISATION
+x12 + 8*x13 + 9*x14 + 2*x23 + 7*x24 + 3*x34
+## END MINIMISATION
+\end{verbatim}
+
+In this simple example, the components ("decision variables" in linear programming jargon)
+are not explicitly declared. Their names are inferred from the minimization function.
+
+This model is solved as follows:
+\begin{verbatim}
+Linp("linprog.lim")
+\end{verbatim}
+
+which gives:
+\begin{verbatim}
+$X
+[1] 1 0 0 1 0 1
+
+$residualNorm
+[1] 1.110223e-16
+
+$solutionNorm
+[1] 6
+\end{verbatim}
+
+\section{Structure of the LIM input file}
+Based on the examples above, we now discuss the general structure of the LIM input files.
+
+The structure of the LIM declaration file has to obey the following \textbf{rules}:
+
+\begin{itemize}
+\item Declarations are case-INsensitive: flows, Flows, FLOWS is all the same.
+\item The declaration file is divided into several sections, each contained between '\#\# section name' and '\#\# END section name'. Only the text embraced by "\#\#" and "\#\# END" couples is considered by the \li parser. The number of \#s does not matter. Only the first four characters of the section names are considered, e.g. to designate the parameter section, we
+can write \#\# PARAM or \#\#PARAMETERS. The declaration sections allowed are summarised in table \ref{tb:dec}.
+\item text inbetween the declaration sections is ignored (and can be used to write comments). In the foodweb example for instance, all text positioned in front of "\#\# EXTERNAL" will be ignored.
+\item An input file can contain declarations for externals, components, flows, parameters, variables and also defines the additional equalities (i.e. not the mass balances) and inequalities, costs, and profits (see below).
+\item Any line that starts with "!" or any blank line is ignored. The exclamation mark can also be used to discard part of an input line (i.e. everything past "!" is ignored).
+\item Simple calculations are allowed, i.e. addition and multiplication. The use of brackets for a calculation is not allowed.
+\item Continuation of a line is allowed via the use of the "\&" sign, at the end of the line.
+\item flows can also be given a name  using ("name :"). Although this is not mandatory, it may make the equations more readable.
+\item equalities and inequalities can also be given a name. This is only used for output.
+\end {itemize}
+
+A number of \textbf{shorthand} notations are available:
+\begin{itemize}
+\item If the LIM is a flow network, then \emph{FLOWfrom(x)} is shorthand for the sum of all flows directed out of component x, while
+\emph{FLOWto(x)} is shorthand for all flows directed into component x.
+In the foodweb model example, we wrote:
+\begin{verbatim}
+## VARIABLES
+  Ingestion     = Pgraz + Dgraz
+## VARIABLES
+\end{verbatim}
+This could have been written as:
+\begin{verbatim}
+## VARIABLES
+  Ingestion     = Flowto(An)
+## VARIABLES
+\end{verbatim}
+\item In the inequality section, using \begin{verbatim}[]\end{verbatim} assigns in one statement lower and upper bounds. In the foodweb example for instance, we wrote:
+\begin{verbatim}
+  defaecation: Faeces = [minFaeces,maxFaeces]*Ingestion
+\end{verbatim} which is the same as:
+\begin{verbatim}
+  defaecation1: Faeces > minFaeces*Ingestion
+  defaecation2: Faeces < maxFaeces*Ingestion
+\end{verbatim}
+\end{itemize}
+
+
+\begin{table}[H]
+\caption{Nomenclature for LIM elements; sometimes several names are allowed for one
+type of element; the parser only considers the first four characters.}\label{tb:dec}
+\centering
+\begin{tabular}{p{.28\textwidth}p{.72\textwidth}}\\
+ Name & Description\\
+\hline
+COMP, STATE, STOCKS   &  compartments between which flows are defined. If neither \emph{FLOWS} nor \emph{REACTIONS} are defined,
+then the compartments constitute the unknowns to be estimated. If \emph{FLOWS} or \emph{REACTIONS}
+are present, then there will be one mass balance generated for each compartment; this
+distinguishes them from \emph{EXTERNALS}. If the components are not explicitly specified, they will be generated from the
+\emph{FLOWS}, \emph{REACTIONS} or \emph{COST} or \emph{PROFIT} section. To avoid errors due to typing mistakes, it is recommended to explicitly define
+components; in this case the parser can check if all items used in the flow or reaction section actually exist.
+Compartments may be given a value.\\
+EXTERNALS       &  compartments that represent the external world. There is no mass balance generated for \emph{EXTERNALS}\\
+PARAMETERS      &  Parameters (with their values), that have constant values during one model application but whose value can be altered for
+other applications. They can be changed in monte carlo runs. Parameters may be calculated based on other parameters (that have been declared in front of the derived parameter).\\
+FLOWS           &  Flows between two components, written either as Flow(Source,Sink) or Source->Sink, and where source and sink are components.
+If this section is defined, then the \emph{FLOWS} will be considered the unknowns that have to be estimated.
+This declaration section forms the basis of a set of mass balance equations, one for each component.
+Cannot co-occur together with \emph{REACTIONS} declarations\\
+REACTION        &  A reaction occurring between components, e.g. A -> B + 2*C. Reactions that can occur in two directions are denoted as in A <-> B+C.
+For each unidirectional reaction, the rates are positive; thus an inequality condition is imposed. Reactions occurring in two directions need not be positive.
+If this section is defined, then the \emph{reaction rates} will be considered the unknowns that have to be estimated.
+The reactions form the basis of a set of mass balance equations, one for each component.
+A \emph{REACTION} section can not co-occur with a \emph{FLOWS} declaration section.\\
+VARIABLES       & A linear expression involving the unknowns, parameters or other variables. Variables are derived quantities, useful to make the declaration of e.g. inequality constraints easier and more readable.
+Their values are estimated during the model solving\\
+COST, MINIMUM   &  One linear expression that should be minimized \\
+PROFIT, MAXIMUM,&  One linear expression that should be maximized \\
+RATES           &  Only if the problem is a flow or reaction network. The net rate of change for a compartment. If not specified, steady-state is assumed and
+\emph{RATES} gets the value 0. It is possible to assign a standard deviation to the rates.
+In this case, they will be used to weigh the mass balance equations.\\
+EQUALITIES      &  Relationships between unknowns, or measured values that are assumed to be exactly known  \\
+INEQUALITIES    &  Relationships between unknowns, or measured values that are assumed to be known only with certain bounds. \\
+
+\hline
+\end{tabular}
+\end{table}
+
+\section{setting up the linear inverse model}
+The LIM input is used to create the matrices and vectors that constitute the lsei problem (least squares with equalities and inequalities).
+This is done in two steps.
+\begin{itemize}
+\item Function \emph{Read} performs the first step, which creates the \emph{liminput},
+a list that defines all elements of the LIM as a function of the other elements.
+\item Function \emph{Setup.lim} or \emph{Setup} performs the second step. Based on the \emph{liminput},
+all terms are written as a function of the unknowns only
+and the matrices and vectors \textbf{A}, \textbf{b}, \textbf{G} and \textbf{h} are created.
+\end{itemize}
+
+It is also possible to create the LIM matrices and vectors directly from an input file.
+This is done by calling function \emph{Setup} which takes as input a file name.
+
+Thus:
+\begin{verbatim}
+lim <- Setup("linprog.lim")
+\end{verbatim}
+does the same as:
+\begin{verbatim}
+liminput <- Read("linprog.lim")
+lim<-Setup(liminput)
+\end{verbatim}
+
+Splitting problem generation in two steps is convenient when several runs need to
+be performed with different parameter values, e.g. for performing a
+monte carlo analysis. Thus, the values of the parameters can be directly altered in the \emph{liminput} list,
+after which \emph{Setup} will recreate the corresponding matrices and vectors.
+
+In the next sections we take a closer look at how setting up the LIM is achieved. This rather technical information
+can be skipped.
+\subsection{creating a liminput list}
+Here the names of all section elements, and their calculations are saved
+as a list of type "liminput". All elements are considered to result from linear calculations, which are
+saved as a data frame. In this data frame, one line denotes a product, while subsequent
+lines belonging to the same calculation are sums. A product can be composed of the following items
+(columns): constant values (column "val"), parameters (up to 4, columns "par1",..."par4"),
+variables ("var"), flows ("flow"), components ("comp"), externals and reactions.
+Except for the constants, all items are denoted with their number.
+Consider the following part of
+the liminput generated by reading the simple linear programming line.
+The data frame captures the calculation of the inequalities. They were defined as:
+\begin{verbatim}
+## INEQUALITIES
+ x12 + x13 + x14                   > 1
+             x14       + x24 + x34 < 1
+## END INEQUALITIES
+\end{verbatim}
+and are parsed into the following data.frame:
+\begin{verbatim}
+$constraints
+   name nr val par1 par2 par3 par4 var flow  comp external reaction
+1 ineq1  1   1   NA   NA   NA   NA  NA   NA     1       NA       NA
+2 ineq1  1   1   NA   NA   NA   NA  NA   NA     2       NA       NA
+3 ineq1  1   1   NA   NA   NA   NA  NA   NA     3       NA       NA
+4 ineq1  1  -1   NA   NA   NA   NA  NA   NA    NA       NA       NA
+5 ineq2  2  -1   NA   NA   NA   NA  NA   NA     3       NA       NA
+6 ineq2  2  -1   NA   NA   NA   NA  NA   NA     5       NA       NA
+7 ineq2  2  -1   NA   NA   NA   NA  NA   NA     6       NA       NA
+8 ineq2  2   1   NA   NA   NA   NA  NA   NA    NA       NA       NA
+\end{verbatim}
+which should be understood as follows:
+First of all, there are two inequalities, numbered 1 and 2 (column "nr");
+both are the sum of 4 terms (there are 4 lines in the data frame for each
+ineqauality). On line 2, only column "val" and "comp" are not a NA. This term
+should be read as 1*comp[2].
+
+Inequality 1 can thus be reconstructed as:
+$1 * comp[1] + 1 * comp[2] + 1 * comp[3] - 1 > 0$
+
+
+The liminput dataframe contains the following elements:
+\begin{itemize}
+\item "file" - the name of the input file
+\item "pars" - the parameters
+\item "comp" - the components (state variables)
+\item "rate" - rates of change
+\item "extern" - externals
+\item "flows" - flows  (these have a different -simplified structure)
+\item "vars" - variables
+\item "cost" - cost function
+\item "profit" - profit function
+\item "equations" - equality conditions
+\item "constraints" - inequality conditions
+\item "reactions" - reaction
+\item "posreac" - a vector of logical elements: TRUE if corresponding reaction is
+positive (i.e. unidirectional reaction, $\rightarrow$) , FALSE otherwise (i.e. two-ways reaction, $\leftrightarrow$)
+\item "marker" - DICK IK WEET NIET MEER WAT DIT IS, WEL DAT HET MET JOU TE MAKEN HAD!
+\item "parnames" - parameter names
+\item "varnames" - variable names
+\item "compnames" - component (state variable) names
+\item "externnames" - names of externals
+\item "Type" - one of "flow","reaction",or "simple"
+\end{itemize}
+
+\subsection{creating LIM matrices and vectors}
+
+Based on the \emph{liminput} list, function \emph{Setup} rewrites all terms as a function of the unknowns only.
+It creates an instance of class \emph{lim}, a list that contains, amongst other things the matrices and vectors \textbf{A}, \textbf{b}, \textbf{G} and \textbf{h}.
+The following elements are in type \emph{lim}
+\begin{itemize}
+\item "file" - The name of the input file
+\item "NUnknowns" - the number of unknowns
+\item "NEquations" - the number of equations inputted (the "true" equality conditions, i.e. excluding the mass balances for flow and reaction networks)
+\item "NConstraints" - the number of constraints inputted (the "true" inequality conditions, i.e. excluding the positivity constraints which are assumed for flow networks)
+\item "NComponents" - the number of components or state variables
+\item "NExternal" - the number of externals
+\item "NVariables" - the number of variables
+\item "A" - the matrix \textbf{A}, containing the coefficients of the equalities. If the
+problem is a flow or reaction network, then the first \emph{NComponent} equations
+are the mass balances, the last \emph{NEquations} rows correspond to the inputted equalities.
+\item "B" - the vector \textbf{b}, containing the right hand side of the equalities
+\item "G" - the matrix \textbf{G}, containing the coefficients of the inequalities. If the
+problem is a flow or reaction network, then the first \emph{NConstraints} rows correspond to the inputted inequalities, while the last
+rows correspond to the imposed positivity constraints. For flow networks, there are \emph{NComponents} positivity constraints ;
+for reaction networks the number of positivity constraints are less than or equal to this amount.
+\item "H" - the vector \textbf{h}, containing the right hand side of the inequalities
+\item "Cost" - the cost vector, contains the coefficients of the cost function
+\item "Profit" - the profit vector, contains the coefficients of the profit function
+\item "Flowmatrix" - if a flow network: a matrix whose i,jth value denotes the flow number from i to j
+\item "VarA" - variable matrix; contains the coefficients of the variables.
+  \footnote{Variables are linear functions of the unknowns defined as: VarX*x-VarB}
+\item "VarB" - variable vector; contains the right hand side of the variable declarations
+\item "Parameters" - names and values of all parameters
+\item "Components" - names and values of all components
+\item "Externals" - names and values of all externals
+\item "rates"  - names and values of all rates
+\item "markers" - names and values of all markers
+\item "Variables"  - names of the variables
+\item "Unknowns" - names of the unknowns
+\end{itemize}
+
+\subsection{Solving LIM problems}
+
+During an inverse solution, two norms are calculated:
+\begin{itemize}
+\item the residual to the equations E * X = F. This is called the residual norm.
+A model that can be solved has a residual norm $\sim 0$.
+\item the value of the function that has been minimised or maximised: MIN(f(Flows)) or MAX (f(Flows). This is the solution norm.
+\end{itemize}
+
+
+\clearpage
+\bibliographystyle{plain}
+\bibliography{network}
+
+\end{document}

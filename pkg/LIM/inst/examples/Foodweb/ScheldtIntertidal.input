@@ -1,0 +1,567 @@
+Food web input file for: 
+
+The Ecoflat C-balance food web as in:
+
+Van Oevelen, D., Soetaert, K., Middelburg, J.J., Herman, P.M.J., Moodley, L., Hamels, I., Moens, T., Heip, C.H.R., 2006b. 
+Carbon flows through a benthic food web: Integrating biomass, isotope and tracer data. J. Mar. Res. 64, 1-30.
+
+
+Data	: Molenplaat, Station 2, June 1996 
+Data Sources	:	Moens et al (ECOFLAT summary report) -> biomass data
+		           	Middelburg et al (L&O) --> organic content of sediment
+          			Spreadsheet Ilse: "Data Ilse Hamels C-cyclus.xls"
+
+Units	:	Fluxes:				mgC/m2/d
+			Standing stocks:	mgC/m2
+
+Implementation: Dick van Oevelen
+
+#####################################################################
+
+
+
+
+
+!=============================================================!
+!                                                             !
+!                           PARAMETERS                        !
+!                                                             !
+!=============================================================!
+########################### PARAMETERS ########################
+
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~
+!   MEASUREMENTS       
+!~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GPP						=	714  	 {mgC/m2/d}        !7*102 = GPP on hourly basis * emersion period/tide (Report ECOFLAT, 6 in Middelburg et al) = GPP on daily basis (only 1 emersion in daylight)
+BNP						=	600      {mgC/m2/d}        !from upper 5mm, from upper 4 cm with exponential decrease, spreadsheet Ilse
+SedResp					=	2112     {mgC/m2/d}        !176 mmolC/m2/d * 12 = 2112 mgC/m2/d
+MicroBactGraz           =   13.2     {mgC/m2/d}        !From Hamels, 1998 
+
+
+
+
+!~~~~~~~~~~~~~~~~~~~~~~~~~~
+!   CONSTRAINTS
+!~~~~~~~~~~~~~~~~~~~~~~~~~~
+MinMPBRes               =   0.16     {-}
+MinMPBDocRelease        =   0.42     {-}
+MaxMPBDocRelease        =   0.73     {-}
+MinBGE                  =   0.28     {-}               !Minimal Bact Growth Efficiency
+MaxBGE                  =   0.48     {-}               !Maximal Bact Growth Efficiency
+MinProdMicro            =   0.2      {/d}              !Minimal Production by microbenthos
+MaxProdMicro            =   0.5      {/d}              !Maximal Production by microbenthos
+BasRespMin              =   0.01     {/d}              !Minimal resp per day
+BasRespMax              =   0.10     {/d}              !Maximal resp per day
+GrowthRespMin           =   0.4      {-}               !Minimal respiration per production
+GrowthRespMax           =   0.6      {-}               !Maximal respiration per production  
+MeioGrazMin             =   0.1      {/d}              !Minimal meiofauna grazing rate
+MeioGrazMax             =   1.0      {/d}              !Maximal meiofauna grazing rate
+MicroGrazMin            =   1.0      {/d}              !Minimal microfauna grazing rate
+MicroGrazMax            =   2.0      {/d}              !Maximal microfauna grazing rate
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                                    !
+!       CARBON ISOTOPE RATIOS        !
+!                                    !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+13C_MPB             =      -15.0
+13C_Phytoplankton   =      -20.0
+13C_Refrac          =      -24.2
+13C_Detritus        =      -21.2
+13C_Bacteria        =      -17.9
+13C_Micro           =      -20.95
+13C_Meio            =      -17.4
+13C_Macro           =      -17.8
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                        !
+!       BIOMASSES        !
+!                        !
+!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+!---DOC---!
+TotDoc                 =   100
+
+!---Detritus---!
+TotDetritus            =   130660     !2/3 of total in upper 5 cm
+
+!---MPB---!
+TotMPB                 =   2090    ! estimate Jack: 2090 estimate Ilse: 1287   
+
+!---BACTERIA---!
+TotBact                =   4097
+
+!---MICROBENTHOS---!
+Flagellates            =   132
+CiliatesCarn           =   4.1
+CiliatesBact           =   0.9
+CiliatesOmn            =   1.1
+CiliatesUnk            =   1.7
+TotCiliates            =   CiliatesCarn + CiliatesBact + CiliatesOmn   &
+                           + CiliatesUnk
+TotMicro               =   Flagellates + TotCiliates
+
+!---MEIOBENTHOS---!
+MeioMicrovores          =	4
+MeioCiliates			=	59.2
+MeioDeposit				=	27.6
+MeioEpistrate			=	25.6
+MeioPredators			=	7.2
+MeioFacPredators		=	32.8
+TotMeio                 =	MeioMicrovores + MeioCiliates + MeioDeposit	+ MeioEpistrate	+   &
+                            MeioPredators  + MeioFacPredators
+
+!---MACROBENTHOS---!
+!distinction among feeding types not further used
+MacroSuspension			=	3650
+MacroDeposit			=	6250
+MacroSurface			=	2250
+TotMacro				=	MacroSuspension	+ MacroDeposit + MacroSurface	
+
+! variable only defined for dynamical TracerSimulation
+ TotTracer      = totMPB + totDOC + totBact + totMicro + totMeio + totDetritus + totMacro
+
+################################### END PARAMETERS
+
+
+
+
+!=============================================================!
+!                                                             !
+!                    VARIABLES                                !
+!                                                             !
+!=============================================================!
+############################ VARIABLES ########################
+
+!---------------!
+!   DETRITUS    !
+!---------------!
+ DetritusDOCRelease		=	Flow(Detritus,DOC)
+
+
+!---------------!
+!     MPB       !
+!---------------!
+ PrimProd				=	Flow(CO2,MPB)
+ MPBRespiration      	=	Flow(MPB,CO2)
+ MPBDOCRelease	        =	Flow(MPB,DOC)
+
+
+!---------------!
+!   BACTERIA    !
+!---------------!
+ BacteriaRespiration	=	Flow(Bacteria,CO2)
+ BacteriaUptake			=	Flow(DOC,Bacteria) ! + Flow(Detritus,Bacteria)
+ BacteriaProduction		=	BacteriaUptake - Flow(Bacteria,CO2) - Flow(Bacteria,DOC)
+
+
+!---------------!
+! MICROBENTHOS  !
+!---------------!
+ MicroBacterivory       =   Flow(Bacteria,Micro))
+ MicroRespiration		=	Flow(Micro,CO2)
+ MicroUptake			=	Flow(MPB,Micro) + Flow(Bacteria,Micro) + Flow(Detritus,Micro)
+ MicroAssimilation		=	MicroUptake - Flow(Micro,Detritus)
+ MicroProduction        =   MicroAssimilation - Flow(Micro,CO2)
+
+
+
+!---------------!
+!  MEIOBENTHOS  !
+!---------------!
+ MeioRespiration		=	Flow(Meio,CO2)
+ MeioUptake				=	Flow(Detritus,Meio) + Flow(MPB,Meio) + Flow(Bacteria,Meio) + &
+							Flow(Micro,Meio) + Flow(Meio,Meio)
+ MeioAssimilation		=	MeioUptake - Flow(Meio,Detritus)
+ MeioProduction         =   MeioAssimilation - MeioRespiration
+
+
+!---------------!
+! MACROBENTHOS  !
+!---------------!
+ MacroRespiration		=	Flow(Macro,CO2)
+ MacroUptake			=	Flow(Detritus,Macro) + Flow(MPB,Macro) + Flow(Micro,Macro) + &
+							Flow(Meio,Macro) + Flow(Phytoplankton,Macro)
+ MacroAssimilation		=	MacroUptake - Flow(Macro,Detritus)
+ MacroProduction        =   MacroAssimilation - MacroRespiration
+
+
+ SedimentRespiration  = BacteriaRespiration + MicroRespiration + MeioRespiration + Macrorespiration + MPBRespiration
+################################### END VARIABLES
+
+
+
+
+
+
+!=============================================================!
+!                                                             !
+!                    EQUALITY CONSTRAINTS                     !
+!                                                             !
+!=============================================================!
+############################ STOCK ############################
+
+MPB		        =	TotMPB	!	(iso=-15)	!upper ? cm, include: cyanobacteria, diatoms and (dino)flagellates
+Bacteria		=	TotBact	!	(iso=-17.9)	!upper 4 cm, spreadsheet Ilse
+Micro			=	TotMicro	!(iso=-20.95)	!upper 4 cm, include: (dino)flagellates and ciliates
+Meio			=	TotMeio		!(iso=-17.4)    !upper 6 cm, include: deposit-,ciliate-, micro-, epistratefeeders and (faculatative) predators
+	                                !include biomass of forams
+Macro			=	TotMacro	!(iso=-17.8)	!upper ? cm, include: (surface) deposit- and suspension feeders
+DOC				=	TotDOC    		!not available, assumed
+Detritus		=	TotDetritus  !(iso=-21.3)   !total orgC = 196 g/m2 in upper 5cm (Middelburg, 2000)
+
+################################### END STOCK
+
+
+
+
+
+!=============================================================!
+!                                                             !
+!                    EXTERNALS                                !
+!                                                             !
+!=============================================================!
+############################## EXTERNALS ######################
+CO2		!(iso=-15)
+Burial
+Export
+Phytoplankton   ! (iso=-20)                   !it is considered external since its 'unlimited' supply						
+Refrac			!(iso=-24.2)
+
+################################### END EXTERNALS
+
+
+
+
+
+
+!=============================================================!
+!                                                             !
+!                    RATE DECLARATION                         !
+!                                                             !
+!=============================================================!
+############################# RATE  ###########################
+
+! model is assumed to be in steady state -> all rates are zero
+
+################################### END RATE
+
+
+
+
+
+
+!=============================================================!
+!                                                             !
+!                    FLOW DECLARATION                         !
+!                                                             !
+!=============================================================!
+################################ FLOW #########################
+
+!---------------!
+!     DOC       !
+!---------------!
+DOC				->		Bacteria    ! (DELT=1e-8)
+
+
+!---------------!
+!   Detritus    ! no burial since only assimilable detritus is considered
+!---------------!
+Detritus		->		DOC           
+!Detritus		->		Bacteria  ! (FR=-15)
+Detritus		->		Micro      
+Detritus		->		Meio       
+Detritus		->		Macro      
+
+
+!---------------!
+! PHYTOPLANKTON !
+!---------------!
+Phytoplankton   ->      Detritus   !simulation of deposition of phytodetritus
+Phytoplankton   ->		Macro
+Refrac          ->      Detritus
+
+!---------------!
+!    MPB        !
+!---------------!
+CO2				->		MPB        !primary production
+MPB     		->		CO2
+MPB	        	->		DOC       
+MPB      		->		Detritus
+MPB		        ->		Micro        
+MPB	         	->		Meio        
+MPB	        	->		Macro       
+
+
+!---------------!
+!   BACTERIA    !
+!---------------!
+Bacteria		->		CO2
+Bacteria		->		DOC
+Bacteria		->		Detritus
+Bacteria		->		Micro       
+Bacteria		->		Meio        
+Bacteria        ->      Burial
+
+
+!---------------!
+! MICROBENTHOS  !
+!---------------!
+Micro			->		CO2
+Micro			->		Detritus
+Micro			->		Meio        
+Micro			->		Macro       
+
+
+!---------------!
+!  MEIOBENTHOS  !
+!---------------!
+Meio			->		CO2
+Meio			->		Detritus
+Meio            ->      Meio        
+Meio			->		Macro       
+
+
+!---------------!
+! MACROBENTHOS  !
+!---------------!
+Macro			->		CO2
+Macro			->		Detritus
+Macro			->		Export
+
+################################### END FLOW
+
+
+
+
+
+
+
+
+!=============================================================!
+!                                                             !
+!                    EQUALITY CONSTRAINTS                     !
+!                                                             !
+!=============================================================!
+############################### EQUATION ######################
+
+! If primprod = net production then exudation and respiration have to be added in stead of 
+! subtracted!!!!!!!!!
+
+PrimProd				=	GPP
+BacteriaProduction		=	BNP
+SedimentRespiration		=	SedResp
+MicroBacterivory        =   MicroBactGraz
+!Flow(detritus,doc)      =   0.0
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! 13C balance of Bacteria     !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!Flow(Detritus,Bacteria)*13C_Detritus - Flow(Detritus,Bacteria)*13C_Bacteria +     &
+!Flow(DOC,Bacteria)*13C_DOC           - Flow(DOC,Bacteria)     *13C_Bacteria = 0
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! 13C balance of Microbenthos !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ Flow(Bacteria,Micro)*13C_Bacteria - Flow(Bacteria,Micro)*13C_Micro  +    &
+ Flow(MPB,Micro)     *13C_MPB      - Flow(MPB,Micro)     *13C_Micro  +    &
+ Flow(Detritus,Micro)*13C_Detritus - Flow(Detritus,Micro)*13C_Micro  = 0 
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! 13C balance of Meiobenthos  !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ Flow(Detritus,Meio)*13C_Detritus - Flow(Detritus,Meio)*13C_Meio  +       &
+ Flow(Bacteria,Meio)*13C_Bacteria - Flow(Bacteria,Meio)*13C_Meio  +       &
+ Flow(MPB,Meio)     *13C_MPB      - Flow(MPB,Meio)     *13C_Meio  +       &
+ Flow(Micro,Meio)   *13C_Micro    - Flow(Micro,Meio)   *13C_Meio  = 0
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! 13C balance of Macrobenthos !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ Flow(MPB,Macro)          *13C_MPB           - Flow(MPB,Macro)          *13C_Macro  +     &
+ Flow(Meio,Macro)         *13C_Meio          - Flow(Meio,Macro)         *13C_Macro  +     &
+ Flow(Detritus,Macro)     *13C_Detritus      - Flow(Detritus,Macro)     *13C_Macro  +     &
+ Flow(Phytoplankton,Macro)*13C_Phytoplankton - Flow(Phytoplankton,Macro)*13C_Macro  +     &
+ Flow(Micro,Macro)        *13C_Micro         - Flow(Micro,Macro)        *13C_Macro  = 0
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!   13C balance of Detritus   !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ Flow(MPB,Detritus)          *13C_MPB           - Flow(MPB,Detritus)          *13C_Detritus +  &
+ Flow(Bacteria,Detritus)     *13C_Bacteria      - Flow(Bacteria,Detritus)     *13C_Detritus +  &
+ Flow(Meio,Detritus)         *13C_Meio          - Flow(Meio,Detritus)         *13C_Detritus +  &
+ Flow(Phytoplankton,Detritus)*13C_Phytoplankton - Flow(Phytoplankton,Detritus)*13C_Detritus +  &
+ Flow(Refrac,Detritus)       *13C_Refrac        - Flow(Refrac,Detritus)       *13C_Detritus +  &
+ Flow(Macro,Detritus)        *13C_Macro         - Flow(Macro,Detritus)        *13C_Detritus +  &
+ Flow(Micro,Detritus)        *13C_Micro         - Flow(Micro,Detritus)        *13C_Detritus =  0  
+
+
+################################### END EQUATION
+
+
+
+
+
+
+
+
+
+!=============================================================!
+!                                                             !
+!                    INEQUALITY CONSTRAINTS                   !
+!                                                             !
+!=============================================================!
+############################## CONSTRAINT #####################
+
+
+!---------------!
+!    MPB        !
+!---------------!
+ MPBRespiration		       >	   MinMPBRes * GPP                                 ! Langdon (1993)
+ MPBDOCRelease	           =       [MinMPBDocRelease, MaxMPBDocRelease] * GPP      ! Goto (1999)
+ 
+
+!---------------!
+!   BACTERIA    !
+!---------------!
+ BacteriaProduction		   =       [MinBGE,MaxBGE]*BacteriaRespiration +          &
+                                   [MinBGE,MaxBGE]*BacteriaProduction
+  
+!---------------!
+! MICROBENTHOS  !
+!---------------!
+ MicroProduction            =       [MinProdMicro, MaxProdMicro]*Micro
+ MicroAssimilation			=		[0.5, 0.75]*MicroUptake
+ MicroRespiration			=		[BasRespMin, BasRespMax]*TotMicro +    & 
+                                    [GrowthRespMin, GrowthRespMax]*MicroAssimilation
+
+
+!---------------!
+! MEIOBENTHOS   !
+!---------------!
+ MeioAssimilation           =       [0.10, 0.25]*MeioUptake
+ MeioRespiration			=		[BasRespMin, BasRespMax]*TotMeio +    & 
+                                    [GrowthRespMin, GrowthRespMax]*MeioAssimilation
+
+!Feeding constraints
+ Flow(Meio,Meio)            =       [0.25, 1.]*MeioPredators    + [0.025, 0.20]*MeioFacPredators
+ Flow(Micro,Meio)           =       [MeioGrazMin, MeioGrazMax]*MeioCiliates      &
+                                  + [MeioGrazMin, MeioGrazMax]*MeioEpistrate
+ Flow(Bacteria, Meio)       =       [MeioGrazMin, MeioGrazMax]*MeioMicrovores    &
+                                  + [MeioGrazMin, MeioGrazMax]*TotMeio
+ Flow(Detritus,Meio)        =       [MeioGrazMin, MeioGrazMax]*MeioDeposit
+
+ 
+!---------------!
+! MACROBENTHOS  !
+!---------------!
+ MacroAssimilation			=		[0.4, 0.8]*MacroUptake
+ MacroProduction            =       [0.01, 0.05]*Macro
+ MacroRespiration			=		[BasRespMin, BasRespMax]*Macro + [0.20, 0.26]*MacroProduction
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                                      !
+!      INEQUALITIES BASED ON 13C       !
+!                                      !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!  Doc is unknown, therefore splitted in upper and lower constraint
+!  Bacteria  !  Minimal DOC is MPB and max DOC is Det
+!!!!!!!!!!!!!!  
+
+! MAXIMAL DOC CONSTRAINT gives: 13C_Bact > 13C_Detritus 
+! As this is NOT TRUE -> cannot be used
+ 
+ !Flow(Detritus,Bacteria)*13C_Detritus - Flow(Detritus,Bacteria)*13C_Bacteria <   &
+!      Flow(DOC,Bacteria)*13C_Bacteria - Flow(DOC,Bacteria)*13C_MPB
+ 
+!!!!!!!!!!!!!!
+!  Meio      !
+!!!!!!!!!!!!!!
+
+! Flow(Detritus,Meio)*13C_Detritus - Flow(Detritus,Meio)*13C_Meio +    &
+! Flow(Bacteria,Meio)*13C_Bacteria - Flow(Bacteria,Meio)*13C_Meio +    &
+! Flow(MPB,Meio)*13C_MPB           - Flow(MPB,Meio)*13C_Meio      +    &
+! Flow(Micro,Meio)*13C_Micro       - Flow(Micro,Meio)*13C_Meio   > 0
+
+! MAXIMAL CONSTRAINT: IMPOSSIBLE
+
+! Flow(Detritus,Meio)*13C_Detritus - Flow(Detritus,Meio)*13C_Meio    +    &
+! Flow(Bacteria,Meio)*13C_Bacteria - Flow(Bacteria,Meio)*13C_Meio    +    &
+! Flow(MPB,Meio)*13C_MPB           - Flow(MPB,Meio)*13C_Meio         >    &
+! Flow(Micro,Meio)*13C_Meio        - Flow(Micro,Meio)*13C_MPB
+
+
+!!!!!!!!!!!!!!
+!  Macro     !
+!!!!!!!!!!!!!!
+
+! Flow(MPB,Macro)          *13C_MPB           - Flow(MPB,Macro)          *13C_Macro  +     &
+! Flow(Meio,Macro)         *13C_Meio          - Flow(Meio,Macro)         *13C_Macro  +     &
+! Flow(Detritus,Macro)     *13C_Detritus      - Flow(Detritus,Macro)     *13C_Macro  +     &
+! Flow(Phytoplankton,Macro)*13C_Phytoplankton - Flow(Phytoplankton,Macro)*13C_Macro  <     &
+! Flow(Micro,Macro)        *13C_Macro         - Flow(Micro,Macro)        *13C_MPB
+
+! Flow(MPB,Macro)          *13C_MPB           - Flow(MPB,Macro)          *13C_Macro  +     &
+! Flow(Meio,Macro)         *13C_Meio          - Flow(Meio,Macro)         *13C_Macro  +     &
+! Flow(Detritus,Macro)     *13C_Detritus      - Flow(Detritus,Macro)     *13C_Macro  +     &
+! Flow(Phytoplankton,Macro)*13C_Phytoplankton - Flow(Phytoplankton,Macro)*13C_Macro  >     &
+! Flow(Micro,Macro)        *13C_Macro         - Flow(Micro,Macro)        *13C_Detritus
+  
+
+
+
+
+!!!!!!!!!!!!!!
+!  Detritus  !
+!!!!!!!!!!!!!!
+
+! Flow(MPB,Detritus)*13C_MPB                - Flow(MPB,Detritus)*13C_Detritus             +  &
+! Flow(Bacteria,Detritus)*13C_Bacteria      - Flow(Bacteria,Detritus)*13C_Detritus        +  &
+! Flow(Meio,Detritus)*13C_Meio              - Flow(Meio,Detritus)*13C_Detritus            +  &
+! Flow(Phytoplankton,Detritus)*13C_Phytoplankton - Flow(Phytoplankton,Detritus)*13C_Detritus +  &
+! Flow(Refrac,Detritus)*13C_Refrac          - Flow(Refrac,Detritus)*13C_Detritus          +  &
+! Flow(Macro,Detritus)*13C_Macro            - Flow(Macro,Detritus)*13C_Detritus           <  &
+! Flow(Micro,Detritus)*13C_Detritus         - Flow(Micro,Detritus)*13C_MPB                
+
+
+! Flow(MPB,Detritus)*13C_MPB                - Flow(MPB,Detritus)*13C_Detritus             +  &
+! Flow(Bacteria,Detritus)*13C_Bacteria      - Flow(Bacteria,Detritus)*13C_Detritus        +  &
+! Flow(Meio,Detritus)*13C_Meio              - Flow(Meio,Detritus)*13C_Detritus            +  &
+! Flow(Phytoplankton,Detritus)*13C_Phytoplankton - Flow(Phytoplankton,Detritus)*13C_Detritus +  &
+! Flow(Refrac,Detritus)*13C_Refrac          - Flow(Refrac,Detritus)*13C_Detritus          +  &
+! Flow(Macro,Detritus)*13C_Macro            - Flow(Macro,Detritus)*13C_Detritus           > &
+! 0
+
+ 
+
+  
+################################### END CONSTRAINT
+
+

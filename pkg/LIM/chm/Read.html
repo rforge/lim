@@ -1,0 +1,165 @@
+<html><head><title>Reads an inverse input file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>Read(LIM)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   Read">
+<param name="keyword" value=" Reads an inverse input file">
+</object>
+
+
+<h2>Reads an inverse input file</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Reads an inverse input file and creates the inverse problem as a list.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>Read(file, verbose=FALSE, checkLinear=TRUE, remtabs=TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file </code></td>
+<td>
+name of inverse input file</td></tr>
+<tr valign="top"><td><code>verbose </code></td>
+<td>
+if TRUE: prints warnings and messages to the screen</td></tr>
+<tr valign="top"><td><code>checkLinear </code></td>
+<td>
+if FALSE: does not check for linearity</td></tr>
+<tr valign="top"><td><code>remtabs </code></td>
+<td>
+remove tabs</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+The inverse input file contains the declaration sections enclosed inbetween two lines starting with a ##.
+<br> For instance, the following section declares two state variables
+<br> # STATE
+<br> State1
+<br> State2
+<br> # END STATE
+</p>
+<p>
+Only the first 4 characters of the section names are read
+<br> The following sections are allowed:
+<li>Parameters   - ## PARAMETERS
+<li>Components   - ## STOCKS or ## DECISION VARIABLES or ## STATES or ## UNKNOWNS
+<li>Externals    - ## EXTERNALS
+<li>Rates        - ## RATES
+<li>Flows        - ## FLOWS
+<li>Variables    - ## VARIABLES
+<li>Cost         - ## COST or ## MINIMISE
+<li>Profit       - ## PROFIT or ## MAXIMISE
+<li>Equalities   - ## EQUALITIES
+<li>InEqualities - ## INEQUALITIES or ## CONSTRAINTS
+</p>
+<p>
+Any (part of a) line starting with a "!" is considered a comment.
+<br> Input is NOT case sensitive
+</p>
+<p>
+The output of this function is used as input in function <code><a href="Setup.html">Setup</a></code> which creates the inverse matrices
+</p>
+<p>
+By default, only linear problems can be solved, and the function checks whether the input is linear.
+To toggle off this check, set checkLinear to FALSE.
+</p>
+<p>
+Some input files contain tabs, which are converted to spaces, unless this logical is set to FALSE.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+a list containing :
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>file </code></td>
+<td>
+name of inverse input file</td></tr>
+<tr valign="top"><td><code>pars </code></td>
+<td>
+a data.frame with parameter declarations</td></tr>
+<tr valign="top"><td><code>state </code></td>
+<td>
+a data.frame with state declarations</td></tr>
+<tr valign="top"><td><code>rate </code></td>
+<td>
+a data.frame with rate declarations</td></tr>
+<tr valign="top"><td><code>extern </code></td>
+<td>
+a data.frame with external declarations</td></tr>
+<tr valign="top"><td><code>flows </code></td>
+<td>
+a data.frame with flow declarations</td></tr>
+<tr valign="top"><td><code>vars </code></td>
+<td>
+a data.frame with variable declarations</td></tr>
+<tr valign="top"><td><code>cost </code></td>
+<td>
+a data.frame with cost declarations</td></tr>
+<tr valign="top"><td><code>profit </code></td>
+<td>
+a data.frame with profit declarations</td></tr>
+<tr valign="top"><td><code>equations </code></td>
+<td>
+a data.frame with equality declarations</td></tr>
+<tr valign="top"><td><code>constraints </code></td>
+<td>
+a data.frame with constraint declarations</td></tr>
+<tr valign="top"><td><code>parnames </code></td>
+<td>
+a vector with parameter names</td></tr>
+<tr valign="top"><td><code>varnames </code></td>
+<td>
+a vector with variable names</td></tr>
+<tr valign="top"><td><code>statenames </code></td>
+<td>
+a vector with state names</td></tr>
+<tr valign="top"><td><code>externnames </code></td>
+<td>
+a vector with external names</td></tr>
+<tr valign="top"><td><code>web </code></td>
+<td>
+a logical; if TRUE: the input was a web, and flows are unknowns; if FALSE: states are the unknowns</td></tr>
+</table>
+
+<h3>Author(s)</h3>
+
+<p>
+Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="Setup.html">Setup</a></code> the function to create inverse matrices, based on output of <code>Read</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Not run: Read("FILERigaAutumn")
+  </pre>
+
+
+
+<hr><div align="center">[Package <em>LIM</em> version 1.1 <a href="00Index.html">Index]</a></div>
+
+</body></html>

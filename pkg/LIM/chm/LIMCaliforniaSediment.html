@@ -1,0 +1,95 @@
+<html><head><title>Linear inverse model specification for the Santa Monica Basin sediment food web</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>LIMCaliforniaSediment(LIM)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   LIMCaliforniaSediment">
+<param name="keyword" value=" Linear inverse model specification for the Santa Monica Basin sediment food web">
+</object>
+
+
+<h2>Linear inverse model specification for the Santa Monica Basin sediment food web</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Linear inverse model specification for the Santa Monica Basin (California) sediment food web
+<br> as in Eldridge and Jackson (1993). 
+</p>
+<p>
+The Santa Monica Basin is a hypoxic-anoxic basin located near California.
+<br> The model contains both chemical and biological species. 
+<br> The foodweb comprises 7 functional compartments and five external compartments,
+connected with 32 flows.  Units of the flows are mg C/m2/day
+</p>
+<p>
+The linear inverse model LIMCaliforniaSediment is generated from the file 
+<br> &lsquo;<span class="file">CaliforniaSediment.input</span>&rsquo; which can be found in subdirectory &lsquo;<span class="file">web</span>&rsquo; of the packages directory
+</p>
+<p>
+In this subdirectory you will find many foodweb example input files
+<br> These files can be read using <code><a href="Read.html">Read</a></code> and their output processed by 
+<code><a href="Setup.html">Setup</a></code> which will produce a linear inverse problem specification similar to LIMCaliforniaSediment
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(LIMCaliforniaSediment)</pre>
+
+
+<h3>Format</h3>
+
+<p>
+a list of matrices, vectors, names and values that specify the linear inverse model problem.
+<br> see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
+Dick van Oevelen&lt;d.vanoevelen@nioo.knaw.nl&gt; and Henrik Andersson
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Eldridge, P.M., Jackson, G.A., 1993. Benthic trophic dynamics in California coastal basin and
+continental slope communities inferred using inverse analysis. Marine Ecology Progress Series 99, 115-135.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="LIMTakapoto.html">LIMTakapoto</a></code>, <code><a href="LIMRigaSummer.html">LIMRigaSummer</a></code> and many others
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>CaliforniaSediment &lt;- Flowmatrix(LIMCaliforniaSediment)
+plotweb(CaliforniaSediment,main="Santa Monica Basin Benthic web",
+        sub="mgN/m2/day",lab.size=0.8)
+xr &lt;- Xranges(LIMCaliforniaSediment)
+min&lt;- xr[,1]
+max&lt;- xr[,2]
+xv &lt;- Lsei(LIMCaliforniaSediment)$X
+i1 &lt;- 1:(nrow(xr)/2)
+i2 &lt;- (nrow(xr)/2+1):nrow(xr)
+Plotranges(min[i1],max[i1],xv[i1],lab.cex=0.7,
+        main="Santa Monica Basin Benthic web, Flowranges - part1")
+Plotranges(min[i2],max[i2],xv[i2],lab.cex=0.7,
+        main="Santa Monica Basin Benthic web, Flowranges - part2")</pre>
+
+
+
+<hr><div align="center">[Package <em>LIM</em> version 1.1 <a href="00Index.html">Index]</a></div>
+
+</body></html>

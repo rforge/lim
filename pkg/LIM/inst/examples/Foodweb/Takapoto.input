@@ -1,0 +1,274 @@
+Input file for inverse analysis
+
+
+Data are from:
+  Niquil et al., 1998. Inverse model analysis of the planktonic food web of Takapoto Atoll
+   (French Polynesia). Mar. Ecol. Prog. Ser. 165: 17-29
+
+
+Dick van Oevelen & Karline Soetaert, NIOO-CEMO 
+ March 2002
+#######################################################################
+
+
+## PARAMETERS
+
+
+! Stocks parameters, data are in mgC m-2, see table 1 in Niquil et al. (1998)
+
+Phytoplankton_Stock       =    585
+Bacteria_Stock            =    300
+Protozoa_Stock            =    3
+Micro_Stock				  =    98
+Meso_Stock			      =    47
+Detritus_Stock            =    2400
+DOC_Stock                 =    33400
+
+
+! Measured flows, data are in mgC m-2 d-1, see table 1 in Niquil et al. (1998)
+
+GPPP                      =    820
+BP                        =    76
+MicroProd                 =    131
+MicroIngest               =    342
+MicroResp                 =    147
+MesoProd                  =    75  
+MesoIngest                =    358
+MesoResp                  =    147
+
+
+! Constraint parameters, see table 4 in Niquil et al. (1998)
+
+!Respiration
+MinRespPhyto              =    0.05                    !% of GPPP
+MaxRespPhyto              =    0.30                    !% of GPPP
+TempEffect				  =    6.9615				   !exp(0.0693*T)   with T = 28 Celcius
+MinRespPro                =    0.064*Protozoa_Stock*TempEffect
+MinRespMicro              =    0.072*Micro_Stock   *TempEffect  ! DICK????
+MinRespMeso               =    0.023*Meso_Stock    *TempEffect
+
+!Excretion, the parameters are used in the inequality section
+MinExcPhyto               =    0.05
+MaxExcPhyto               =    0.50
+MinExcPro                 =    0.33
+MaxExcPro                 =    1.00
+MaxExcMicro               =    1.00
+MinExcMeso                =    0.33
+MaxExcMeso                =    1.00
+
+!Assimilation
+MinAss                    =    0.50
+MaxAss                    =    0.90
+
+!Net production efficiency
+MinNPEBact                =    0.10
+MaxNPEBact                =    0.60
+
+!Gross production efficiency
+MinGPEPro                 =    0.10
+MaxGPEPro                 =    0.60
+MinGPEMicro               =    0.10
+MaxGPEMicro               =    0.60
+MaxGPEMeso                =    0.40
+
+!Ingestion
+MaxIngPro                 =    5.46*Protozoa_Stock*TempEffect	 ! 5.46 * biomass * exp(0.0693*T)   T = 28
+
+
+TotalLiving				  =    Phytoplankton_Stock + Bacteria_Stock + Protozoa_Stock + Micro_Stock + Meso_Stock
+TotalNonLiving			  =	   Detritus_Stock + DOC_Stock
+TotalFoodWeb			  =    TotalLiving + TotalNonLiving
+
+## END PARAMETERS
+
+
+
+
+
+## VARIABLES
+
+!Phytoplankton
+GrossPrimProd             =    Flow(CO2,Phytoplankton)
+GrossPartPrimProd         =    GrossPrimProd - Flow(Phytoplankton,DOC)
+PhytoplanktonRespiration  =    Flow(Phytoplankton,CO2)
+PhytoplanktonExcretion    =    Flow(Phytoplankton,DOC)
+
+!Bacteria
+BacterialProduction       =    Flow(Bacteria,Protozoa) + Flow(Bacteria,Detritus)
+BacterialRespiration      =    Flow(Bacteria,CO2)
+
+!Protozoa
+ProtozoaProduction        =    Flow(Protozoa,Microzooplankton) + Flow(Protozoa,Mesozooplankton) 
+ProtozoaRespiration       =    Flow(Protozoa,CO2)
+ProtozoaExcretion         =    Flow(Protozoa,DOC)
+ProtozoaUptake            =    Flow(Phytoplankton,Protozoa) + Flow(Bacteria,Protozoa) + &
+                               Flow(Detritus,Protozoa)      + Flow(DOC,Protozoa)
+ProtozoaAssimilation      =    ProtozoaUptake - Flow(Protozoa,Detritus) - ProtozoaExcretion
+
+!Micro
+MicroProduction           =    Flow(Microzooplankton,Mesozooplankton)
+MicroRespiration          =    Flow(Microzooplankton,CO2)
+MicroUptake               =    Flow(Phytoplankton,Microzooplankton)  + &
+                               Flow(Protozoa,Microzooplankton)       + &
+                               Flow(Detritus,Microzooplankton) 
+MicroExcretion            =    Flow(Microzooplankton,DOC)
+MicroAssimilation         =    MicroUptake - Flow(Microzooplankton,Detritus) - MicroExcretion
+
+!Meso
+MesoProduction            =    Flow(Mesozooplankton,Grazing)
+MesoRespiration           =    Flow(Mesozooplankton,CO2)
+MesoUptake                =    Flow(Phytoplankton,Mesozooplankton)   + &
+                               Flow(Protozoa,Mesozooplankton)        + &
+                               Flow(Microzooplankton,Mesozooplankton)+ &
+							   Flow(Detritus,Mesozooplankton)
+MesoExcretion             =    Flow(Mesozooplankton,DOC)
+MesoAssimilation          =    MesoUptake - Flow(Mesozooplankton,Detritus) - MesoExcretion
+
+! variables used in tracer simulation
+TotalRespiration		  =    PhytoplanktonRespiration + BacterialRespiration + &
+                               ProtozoaRespiration      + MicroRespiration     + &
+							   MesoRespiration
+TotalExport				  =    Flow(Mesozooplankton,Grazing) + Flow(Detritus,Sedimentation)
+Total                     =    TotalFoodWeb + TotalRespiration       ! JUST TO TEST INPUT ROUTNE
+
+## END VARIABLES
+
+
+
+
+
+## STOCKS
+
+Phytoplankton             =    Phytoplankton_Stock   
+Bacteria                  =    Bacteria_Stock        
+Protozoa                  =    Protozoa_Stock        
+Microzooplankton          =    Micro_Stock
+Mesozooplankton           =    Meso_Stock 
+Detritus                  =    Detritus_Stock        
+DOC                       =    DOC_Stock             
+
+## END STOCKS
+
+
+
+
+## EXTERNALS
+
+CO2
+Sedimentation
+Grazing
+
+## END EXTERNALS
+
+
+
+
+## FLOWS
+! see table 2 in Niquil et al. (1998)
+
+! Phytoplankton
+CO2                       ->   Phytoplankton
+Phytoplankton             ->   CO2
+Phytoplankton             ->   Protozoa
+Phytoplankton             ->   Microzooplankton
+Phytoplankton             ->   Mesozooplankton
+Phytoplankton             ->   DOC
+Phytoplankton             ->   Detritus
+
+! Protozoa
+Protozoa                  ->   CO2
+Protozoa                  ->   Microzooplankton
+Protozoa                  ->   Mesozooplankton
+Protozoa                  ->   Detritus
+Protozoa                  ->   DOC
+
+! Microzooplankton
+Microzooplankton          ->   CO2
+Microzooplankton          ->   Mesozooplankton
+Microzooplankton          ->   Detritus
+Microzooplankton          ->   DOC
+
+! Mesozooplankton
+Mesozooplankton           ->   CO2
+Mesozooplankton           ->   Detritus
+Mesozooplankton           ->   DOC
+
+
+! Bacteria
+Bacteria                  ->   CO2
+Bacteria                  ->   Protozoa
+Bacteria                  ->   Detritus
+Bacteria                  ->   DOC
+
+! Detritus
+Detritus                  ->   Protozoa
+Detritus                  ->   Microzooplankton
+Detritus                  ->   Mesozooplankton
+Detritus                  ->   Bacteria
+Detritus                  ->   DOC
+
+
+! DOC
+DOC                       ->   Bacteria
+DOC                       ->   Protozoa
+
+! Losses from the system
+Detritus                  ->   Sedimentation
+Mesozooplankton           ->   Grazing
+
+## END FLOWS
+
+
+## EQUATIONS
+
+GrossPartPrimProd         =    GPPP
+BacterialProduction       =    BP
+MicroProduction           =    MicroProd
+MicroRespiration          =    MicroResp  
+MicroUptake               =    MicroIngest
+MesoProduction            =    MesoProd
+MesoRespiration           =    MesoResp
+MesoUptake                =    MesoIngest
+
+## END EQUATIONS
+
+
+
+
+## CONSTRAINTS
+
+! Respiration
+PhytoplanktonRespiration  =    [MinRespPhyto,MaxRespPhyto]*GrossPrimProd
+ProtozoaRespiration		  >    MinRespPro
+MicroRespiration          >    MinRespMicro      !BELACHELIJKE CONSTRAINTS - DICK ????
+MesoRespiration           >    MinRespMeso
+
+! Excretion
+PhytoplanktonExcretion    =    [MinExcPhyto,MaxExcPhyto]*GrossPrimProd
+ProtozoaExcretion         =    [MinExcPro,MaxExcPro]*ProtozoaRespiration
+MicroExcretion            <    MaxExcMicro*MicroRespiration
+MesoExcretion             =    [MinExcMeso,MaxExcMeso]*MesoRespiration
+
+
+! Assimilation efficiency
+ProtozoaAssimilation      =    [MinAss,MaxAss]*ProtozoaUptake
+MicroAssimilation         =    [MinAss,MaxAss]*MicroUptake
+MesoAssimilation          =    [MinAss,MaxAss]*MesoUptake
+
+
+! Net production efficiency
+BacterialProduction       =    [MinNPEBact,MaxNPEBact]*BacterialProduction + &
+                               [MinNPEBact,MaxNPEBact]*BacterialRespiration
+
+! Gross production efficiency
+ProtozoaProduction        =    [MinGPEPro,MaxGPEPro]*ProtozoaUptake
+MicroProduction           =    [MinGPEMicro,MaxGPEMicro]*MicroUptake
+MesoProduction            <    MaxGPEPro*MesoUptake
+
+
+! Ingestion
+ProtozoaUptake            <    MaxIngPro
+
+
+## END CONSTRAINTS
+

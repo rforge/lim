@@ -1,0 +1,28 @@
+Small Standard Transportation Problem
+#################################
+  
+## COMPONENTS
+  X11
+  X12
+  X13
+  X21
+  X22
+  X23
+## END COMPONENTS
+
+## COST
+
+ 55*X11 + 65*X12 + 75*X13 + 5*X21 + 15*X22 + 25*X23
+
+## END COST
+
+
+## INEQUALITIES
+    S1 :    X11 +    X12 +    X13                           <= 20
+    S2 :                              X21 +    X22 +    X23 <= 20
+    D1 :    X11                   +   X21                   >= 10
+    D2 :             X12                  +    X22          >= 15
+    D3 :                      X13                  +    X23 >= 10
+## END INEQUALITIES
+
+

@@ -1,0 +1,150 @@
+Data    :   Default example model for **
+
+
+Units   :   Fluxes:             mmol C/m2/d
+            Standing stocks:    mmol C/m2
+
+Dick van Oevelen et al.
+Data based on Hunt et al. (1987) 
+
+#####################################################################
+
+################################ PARAMETERS
+
+DummyPar = 10
+################################ END PARAMETERS
+
+################################ VARIABLES
+
+!DummyVar =   DEP_C  ->  POM_C 
+
+################################ END VARIABLES
+
+
+################################ STOCK 
+! Definition of the compartments and their magnitude
+! Mass balances are set up for these compartments
+
+ POM_C   =  86.4         !CN ratio = 10
+ POM_N   =   8.64
+ DOM_C   =   4.8         !CN ratio = 10
+ DOM_N   =   0.48
+ MIC_C   =  30.4         !CN ratio = 4
+ MIC_N   =   7.6         
+ FAU_C   =   0.58        !CN ratio = 10
+ FAU_N   =   0.058       
+ NH4     =   0.5
+ 
+################################ END STOCK
+
+################################ EXTERNALS 
+! Definition of the compartments that are part of 
+! the world external to the food web.
+! No mass balances for these compartments are defined in the LIM
+ 
+ DEP_C
+ DEP_N
+ DIC
+ PLA_N
+ 
+################################ END EXTERNALS
+
+################################ FLOW 
+! Define the trophic flows between the comparments and the externals
+
+!-- POM, particulate organic matter
+ DEP_C  ->  POM_C 
+ DEP_N  ->  POM_N
+ POM_C  ->  DOM_C
+ POM_N  ->  DOM_N
+ POM_C  ->  FAU_C
+ POM_N  ->  FAU_N
+ 
+!-- DOM, dissolved organic matter 
+ DOM_C  ->  MIC_C 
+ DOM_N  ->  MIC_N
+ 
+!-- MICrobes
+ MIC_C  ->  POM_C  !nominal death
+ MIC_N  ->  POM_N  !nominal death
+ MIC_C  ->  FAU_C 
+ MIC_N  ->  FAU_N
+ MIC_C  ->  DIC
+ MIC_N  ->  NH4
+  
+!-- FAUna
+ FAU_C  ->  POM_C  !nominal death
+ FAU_N  ->  POM_N  !nominal death
+ FAU_C  ->  DOM_C  !non-assimilated matter
+ FAU_N  ->  DOM_N
+ FAU_C  ->  DIC
+ FAU_N  ->  NH4
+ 
+! NH4, ammonium
+ NH4    ->  MIC_N
+ NH4    ->  PLA_N
+    
+################################ END FLOW
+
+################################ RATE  
+! Give the rate of change.
+! These are all zero for a steady-state model
+
+ POM_C  =  0
+ POM_N  =  0
+ DOM_C  =  0
+ DOM_N  =  0
+ MIC_C  =  0
+ MIC_N  =  0
+ FAU_C  =  0
+ FAU_N  =  0
+ NH4    =  0
+ 
+################################ END RATE
+ 
+################################ EQUATION 
+! Equations for the equality equation
+ 
+!-- MICrobes
+ MIC_C->POM_C  =  4*MIC_N->POM_N  !Stoichiometric coupling of nominal death, CN_MIC = 4
+
+!-- FAUna
+ FAU_C->POM_C  =  10*FAU_N->POM_N !Stoichiometric coupling of nominal death, CN_FAU = 10
+ POM_C->FAU_C  =  10*POM_N->FAU_N !Stoichiometric coupling of POM consumption, CN_POM = 10
+ MIC_C->FAU_C  =   4*MIC_N->FAU_N !Stoichiometric coupling of microbivory, CN_MIC = 4
+ POM_C->DOM_C  =  10*POM_N->DOM_N !Stoichiometric coupling of POM dissolution, CN_POM = 10
+ DOM_C->MIC_C  =  10*DOM_N->MIC_N !Stoichiometric coupling of DOM uptake by microbes, CN_DOM = 10
+ 
+! 15N isotope equation
+! 8.2*POM_N->FAU_N + 8.2*MIC_N->FAU_N = 6.4*POM_N->FAU_N + 9.4*MIC_N->FAU_N    !isotope data: 15N-FAU = 8.2, 15N-MIC = 9.4, 15N-FAU = 6.4
+
+################################ END EQUATION
+
+################################ CONSTRAINT 
+! Inequalities for the inequality equation
+! The inequalities were defined based on the data from Hunt et al.
+! but assuming that the reported value has an error of +/- 25%
+
+!-- MICrobes
+ MIC_C->POM_C                                =  [0.90,1.50]*MIC_C        !nominal death rate between 0.90 and 1.50 y-1
+ DOM_C->MIC_C - MIC_C->DIC                   =  [0.15,0.45]*DOM_C->MIC_C !bacterial growth efficiency for C between 15 and 45%
+ DOM_N->MIC_N + NH4->MIC_N - MIC_N->NH4      = &                         !bacterial growth efficiency for N between 15 and 45%
+   [0.15,0.45]*DOM_N->MIC_N + [0.15,0.45]*NH4->MIC_N  
+
+!-- FAUna
+ FAU_C->POM_C                                =  [2.01,3.35]*FAU_C        !nominal death rate between 2 and 3.35 y-1
+
+ POM_C->FAU_C + MIC_C->FAU_C - FAU_C->DOM_C  = &                         !faunal assimilation efficiency C, between 45 and 75%
+   [0.45,0.75]*POM_C->FAU_C + [0.45,0.75]*MIC_C->FAU_C 
+
+ POM_N->FAU_N + MIC_N->FAU_N - FAU_N->DOM_N  = &                         !faunal assimilation efficiency N, between 45 and 75%
+   [0.45,0.75]*POM_N->FAU_N + [0.45,0.75]*MIC_N->FAU_N                   
+ 
+ POM_C->FAU_C + MIC_C->FAU_C - FAU_C->DOM_C - FAU_C->DIC = &             !faunal production efficiency C, between 28 and 46%
+   [0.28,0.46]*POM_C->FAU_C + [0.28,0.46]*MIC_C->FAU_C - [0.28,0.46]*FAU_C->DOM_C                             
+
+ POM_N->FAU_N + MIC_N->FAU_N - FAU_N->DOM_N - FAU_N->NH4 = &             !faunal production efficiency N, between 28 and 46%
+   [0.28,0.46]*POM_N->FAU_N + [0.28,0.46]*MIC_N->FAU_N - [0.28,0.46]*FAU_N->DOM_N                       
+
+################################ END CONSTRAINT
+

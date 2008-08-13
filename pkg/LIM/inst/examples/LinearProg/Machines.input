@@ -1,0 +1,89 @@
+
+A company can produce four different types of devices identified as A, B, C and D.
+The minimum amounts of devices are Amin, Bmin, Cmin and Dmin.
+The maximum amounts are defined as Amax, Bmax, Cmax and Dmax.
+An amount A,B,C,D is denoted with Ax,Bx,Cx,Dx
+
+There are three machines available to produce the devices: M1, M2 and M3.
+
+Each machine can operate from Tmin to Tmax minutes: the time it operates is
+
+
+The prices of the devices are Pr_A, Pr_B, Pr_C and Pr_D:
+
+The time required to produce each devices on each machine (T) are given in the table (in minutes):
+   A  B  C  D
+M1 10 12 8 18
+M2 14 11 10 17
+M3 13 10 11 20
+
+
+We denote the time to produce device A on machine M1  as T_A_M1 and so on.
+
+
+The amounts of devices are required to be found that maximize the profit.
+The decision variables are amount of devices of each type: Ax, Bx, Cx and Dx.
+
+
+###
+!Device Min amount Max amount Price, $
+## COMP
+Ax
+Bx
+Cx
+Dx
+## END COMP
+
+## PARAMETERS
+Pr_A = 4.5      ! price of device A
+Pr_B = 5.5
+Pr_C = 6.5
+Pr_D = 7.0
+
+T_A_M1 = 10     ! Time required
+T_B_M1 = 12
+T_C_M1 = 8
+T_D_M1 = 18
+T_A_M2 = 14
+T_B_M2 = 11
+T_C_M2 = 10
+T_D_M2 = 17
+T_A_M3 = 13
+T_B_M3 = 10
+T_C_M3 = 11
+T_D_M3 = 20
+
+## END PARAMETERS
+
+## Inequalities
+! minimal and maximal amount of products
+Ax=[ 650 ,1000]     ! A>650,<1000
+Bx=[ 1700 ,2200]
+Cx=[ 1100 ,1400]
+Dx=[ 880 ,1300]
+
+!Each machine can operate from Tmin to Tmax minutes: the time it operates is
+T_A_M1 * Ax + T_B_M1 * Bx + T_C_M1 * Cx + T_D_M1 * Dx =[55000,65000]
+T_A_M2 * Ax + T_B_M2 * Bx + T_C_M2 * Cx + T_D_M2 * Dx =[60000,69000]
+T_A_M3 * Ax + T_B_M3 * Bx + T_C_M3 * Cx + T_D_M3 * Dx =[62000,68000]
+
+
+## end Inequalities
+
+
+## profit
+ Ax * Pr_A + Bx * Pr_B  + Cx * Pr_C + Dx * Pr_D
+## end profit
+
+
+!--------------------------------------------------------------------------------
+
+!The problem has been solved successfully with the following plan: Device Amount
+!A 650
+!B 2200
+!C 1400
+!D 1107
+
+
+!The Total Profit is $31877.5
+

@@ -1,0 +1,92 @@
+
+Production example
+
+
+#####################
+
+
+## COMPONENTS
+
+!======================================!
+! Quantities of raw oils to be blended !
+!======================================!
+
+! Vegetative oils 
+Veg1
+Veg2
+
+! Non-vegetative oils
+Oil1
+Oil2
+Oil3
+
+## END COMPONENTS
+
+## PARAMETERS
+! Prices of the raw oil (euro/ton), in januari
+
+CostVeg1 = 110
+CostVeg2 = 120
+CostOil1 = 130
+CostOil2 = 110
+CostOil3 = 115
+
+! The hardness of the raw oil
+HardVeg1 = 8.8
+HardVeg2 = 6.1
+HardOil1 = 2.0
+HardOil2 = 4.2
+HardOil3 = 5.0
+
+!Cost of final product (euro/ton)
+CostProd = 150
+
+! Maximal refining capacity per month
+MaxRefineVeg = 200
+MaxRefineOil = 250
+
+! maximal storage capacity of raw oil
+! and the cost of storage in euro per month
+MaxStorage   = 1000
+CostStorage  = 5
+
+! Technological restriction of hardness
+MinHardness = 3
+Maxhardness = 6
+
+## END PARAMETERS
+
+## VARIABLES
+
+! The total amount of product to be made
+Prod = VEG1+VEG2+OIL1+OIL2+OIL3
+
+! TOTAL hardness of the blend
+TOTALHardness = HardVeg1*VEG1 + HardVeg2*VEG2    &
++ HardOil1*OIL1 + HardOil2*OIL2 + HardOil3*OIL3  
+
+## END VARIABLES
+
+## INEQUALITIES
+
+! Maximal amount of vegetative and non-vegetative oils per month:
+VEG1 + VEG2        < 200
+OIL1 + OIL2 + OIL3 < 250
+
+! Relative hardness of blend
+TotalHardness = [MinHardness,Maxhardness]*PROD
+
+## END INEQUALITIES
+
+
+## COST
+
+! The cost of production - cost of the final product must be minimised
+
+  CostVeg1*VEG1 + CostVeg2*VEG2                         &
++ CostOil1*OIL1 + CostOil2*OIL2 + CostOil3*OIL3         &
+- COSTPROD*PROD
+
+## END COST
+
+

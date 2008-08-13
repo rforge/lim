@@ -1,0 +1,41 @@
+Simple linear programming example from
+
+Vanderbei, R.J. (2000).  
+Linear programming, Foundations and extensions.
+Kluwer Academic Publishers, Boston.
+
+Example 2.11
+solution: (1,0,0,1,0,1) optimised value: 6 (p405)
+
+####################################################################
+
+## DECISION VARIABLES
+
+x12
+x13
+x14
+x23
+x24
+x34
+
+## END DECISION VARIABLES
+
+## EQUALITIES
+
+-x12             + x23 + x24       = 0
+     - x13       - x23       + x34 = 0
+
+## END EQUALITIES
+
+## INEQUALITIES
+
+ x12 + x13 + x14                   > 1
+             x14       + x24 + x34 < 1
+
+## END INEQUALITIES
+
+## MINIMISATION
+
+x12 + 8*x13 + 9*x14 + 2*x23 + 7*x24 + 3*x34
+
+## END MINIMISATION

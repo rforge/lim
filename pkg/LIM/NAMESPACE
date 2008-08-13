@@ -1,0 +1,7 @@
+export(Flowmatrix, Ldei, Ldei.lim, Ldei.limfile,  Ldei.double,
+Linp,  Linp.lim, Linp.limfile,  Linp.double,
+Lsei,  Lsei.lim, Lsei.limfile, Lsei.double,
+Plotranges, Plotranges.lim, Plotranges.double,
+Read, Setup, Setup.limfile, Setup.liminput,
+Variables, Varranges, Xranges, Xsample, Setup.character,
+Lsei.character,Linp.character, Ldei.character )

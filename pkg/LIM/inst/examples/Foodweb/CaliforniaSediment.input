@@ -1,0 +1,598 @@
+Food web input file for: 
+
+The Santa Monica Basin (California) sediment "food" web (biological and chemical species) as described in:
+Eldridge, P.M., Jackson, G.A., 1993. Benthic trophic dynamics in California coastal basin and 
+continental slope communities inferred using inverse analysis. Marine Ecology Progress Series 99, 115-135.
+
+Implemented by Henrik Andersson in 2003
+
+Station: Santa Monica Basin
+
+#########################################
+
+##Parameters
+
+NCRatio	  = 0.2
+NCRatioB7 = 0.17
+NCPOM	  =	0.088
+NCInput	  =	0.098
+Tfactor	  = 1.4
+Temp =	5
+Cmac =  15
+Imac =	0.074
+Amac = 0.0006
+
+##End parameters
+
+## Variables
+
+G1Assimilation	= Flow(B6,G1) + Flow(B7,G1) + Flow(B8,G1) + Flow(POC,G1)
+G2Assimilation	= Flow(B1,G2) + Flow(B2,G2) + Flow(B3,G2) + Flow(B4,G2) &
+				+ Flow(B5,G2) + Flow(POC,G2)
+G3Assimilation	= Flow(B1,G3) + Flow(B2,G3) + Flow(B3,G3) + Flow(B4,G3) &
+				+ Flow(B5,G3) + Flow(B6,G3) + Flow(B7,G3) + Flow(B8,G3) &
+				+ Flow(G1,G3) + Flow(G2,G3) + Flow(POC,G3)
+G4Assimilation	= Flow(B1,G4) + Flow(B2,G4) + Flow(B3,G4) + Flow(B4,G4) &
+				+ Flow(B5,G4) + Flow(B6,G4) + Flow(B7,G4) + Flow(B8,G4) &
+				+ Flow(G1,G4) + Flow(G2,G4) + Flow(G3,G4) + Flow(POC,G4)
+
+## End Variables
+
+## Stock
+!!!!!!!!!!!!!!!!!!
+!LIVING
+!!!!!!!!!!!!!!!!!!
+
+
+!Chemoautotrophic bacteria
+B1		!Nitrifiers (NH3-NO2)
+B2		!Nitrifiers (NO2-NO3)
+B3		!Iron oxiders
+B4		!Sulfide oxiders
+
+!Aerobic bacteria
+B5		!Heterotrophic bacteria
+
+!Anaerobic
+B6		!Denitrifiers
+B7		!Sulfate reducers
+B8		!Iron reducers
+
+!Grazers
+G1		!Microfauna (anoxic)
+G2		!Microfauna
+G3		!Meiofauna
+G4		!Macrofauna
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!NITROGEN
+!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!Chemoautotrophic bacteria
+NB1		!Nitrifiers (NH3-NO2)
+NB2		!Nitrifiers (NO2-NO3)
+NB3		!Iron oxiders
+NB4		!Sulfide oxiders
+
+!Aerobic bacteria
+NB5		!Heterotrophic bacteria
+
+!Anaerobic
+NB6		!Denitrifiers
+NB7		!Sulfate reducers
+NB8		!Iron reducers
+
+!Grazers
+NG1		!Microfauna (anoxic)
+NG2		!Microfauna
+NG3		!Meiofauna
+NG4		!Macrofauna
+
+
+!!!!!!!!!!!!!!!!!!!
+!DEAD
+!!!!!!!!!!!!!!!!!!!
+
+S2
+SO4
+Fe2
+Fe3
+NH3
+NO2
+NO3
+DON
+PON
+CO2
+DOC
+POC
+
+## End Stocks
+
+
+## Externals
+CO2BW		!Watercolumn CO2
+NH3BW		!Water column NH3
+NO3BW
+SO4BW
+
+
+N2
+SFeS
+FeFeS
+FeInput
+POCInput
+POCBurial
+
+PONINput
+PONBurial
+## End Externals
+
+
+## Flows
+
+
+
+!S2
+S2		->	SO4
+S2		->	SFeS
+
+!SO4
+SO4BW	->	SO4
+SO4		->	S2
+
+!Fe2
+Fe2		->	Fe3
+Fe2		->	FeFeS
+
+!Fe3
+Fe3	->	Fe2
+FeInput	->	Fe3
+
+
+!CO2
+CO2		->	B1
+CO2		->	B2
+CO2		->	B3
+CO2		->	B4
+CO2		->	CO2BW
+
+!DOC
+DOC		->	B5
+DOC		->	B6
+DOC		->	B7
+DOC		->	B8
+
+!POC
+POCInput	->	POC	
+POC		->	G1
+POC		->	G2
+POC		->	G3
+POC		->	G4
+POC		->	DOC
+POC		->	POCBURIAL
+
+
+!B1 Nitrifiers1
+
+B1		->	CO2
+B1		->	DOC
+B1		->	POC
+B1		->	G2
+B1		->	G3
+B1		->	G4
+
+!B2 Nitrifiers2
+
+B2		->	CO2
+B2		->	DOC
+B2		->	POC
+B2		->	G2
+B2		->	G3
+B2		->	G4
+
+!B3	Iron oxidizers
+
+B3		->	CO2
+B3		->	DOC
+B3		->	POC
+B3		->	G2
+B3		->	G3
+B3		->	G4
+
+!B4	Suilfide oxidizers
+
+B4		->	CO2
+B4		->	DOC
+B4		->	POC
+B4		->	G2
+B4		->	G3
+B4		->	G4
+
+!B5	Heterotrophic aerobic bacteria
+
+B5		->	CO2
+B5		->	DOC
+B5		->	POC
+B5		->	G2
+B5		->	G3
+B5		->	G4
+
+!B6  Denitrifiers
+
+B6		->	CO2
+B6		->	DOC
+B6		->	POC
+B6		->	G1
+B6		->	G3
+B6		->	G4
+
+!B7	Sulfate reducers
+
+B7		->	CO2
+B7		->	DOC
+B7		->	POC
+B7		->	G1
+B7		->	G3
+B7		->	G4
+
+!B8 Iron reducers
+
+B8		->	CO2
+B8		->	DOC
+B8		->	POC
+B8		->	G1
+B8		->	G3
+B8		->	G4
+
+!G1 Microfauna (anaerobic)
+G1		->	CO2
+G1		->	DOC
+G1		->	POC
+G1		->	G3
+G1		->	G4
+
+!G2 Microfauna (aerobic)
+G2		->	CO2
+G2		->	DOC
+G2		->	POC
+G2		->	G3
+G2		->	G4
+
+!G3 Meiofauna
+G3		->	CO2
+G3		->	DOC
+G3		->	POC
+G3		->	G4
+
+!G4 Macrofauna
+G4		->	CO2
+G4		->	DOC
+G4		->	POC
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!NITROGEN
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!NH3	Ammonia 
+NH3		->	NB1
+NH3		->	NB2
+NH3		->	NB3
+NH3		->	NB4
+NH3		->	NB5
+NH3		->	NB6
+NH3		->	NB7
+NH3		->	NB8
+NH3		->	NO2
+NH3		->	NH3BW
+
+!NO2	Nitrite
+NO2		->	NO3
+
+!NO3	Nitrate
+NO3BW	->	NO3
+NO3		->	N2
+
+!DON
+DON		->	NB5
+DON		->	NB6
+DON		->	NB7
+DON		->	NB8
+
+!PON
+PONInput	->	PON	
+PON		->	NG1
+PON		->	NG2
+PON		->	NG3
+PON		->	NG4
+PON		->	DON
+PON		->	PONBURIAL
+
+
+!B1 Nitrifiers1
+NB1		->	NH3
+NB1		->	DON
+NB1		->	PON
+NB1		->	NG2
+NB1		->	NG3
+NB1		->	NG4
+
+!B2 Nitrifiers2
+
+NB2		->	NH3
+NB2		->	DON
+NB2		->	PON
+NB2		->	NG2
+NB2		->	NG3
+NB2		->	NG4
+
+!B3	Iron oxidizers
+
+NB3		->	NH3
+NB3		->	DON
+NB3		->	PON
+NB3		->	NG2
+NB3		->	NG3
+NB3		->	NG4
+
+!B4	Suilfide oxidizers
+
+NB4		->	NH3
+NB4		->	DON
+NB4		->	PON
+NB4		->	NG2
+NB4		->	NG3
+NB4		->	NG4
+
+!B5	HeterotrophiN aerobiN baNteria
+
+NB5		->	NH3
+NB5		->	DON
+NB5		->	PON
+NB5		->	NG2
+NB5		->	NG3
+NB5		->	NG4
+
+!B6  Denitrifiers
+
+NB6		->	NH3
+NB6		->	DON
+NB6		->	PON
+NB6		->	NG1
+NB6		->	NG3
+NB6		->	NG4
+
+!B7	Sulfate reducers
+
+NB7		->	NH3
+NB7		->	DON
+NB7		->	PON
+NB7		->	NG1
+NB7		->	NG3
+NB7		->	NG4
+
+!B8 Iron reducers
+
+NB8		->	NH3
+NB8		->	DON
+NB8		->	PON
+NB8		->	NG1
+NB8		->	NG3
+NB8		->	NG4
+
+!G1 Microfauna (anaerobic)
+
+NG1		->	NH3
+NG1		->	DON
+NG1		->	PON
+NG1		->	NG3
+NG1		->	NG4
+
+!G2 Microfauna (aerobic)
+
+NG2		->	NH3
+NG2		->	DON
+NG2		->	PON
+NG2		->	NG3
+NG2		->	NG4
+
+!Meiofauana
+
+NG3		->	NH3
+NG3		->	DON
+NG3		->	PON
+NG3		->	NG4
+
+!G4 Macrofauna
+
+NG4		->	NH3
+NG4		->	DON
+NG4		->	PON
+
+
+
+## End Flows
+
+
+
+## Equalities
+
+!Sediment water fluxes
+
+Flow(CO2,CO2BW)		=	2.7
+Flow(POCInput,POC)	=	3.67
+
+Flow(NO3BW,NO3)		=	6.27
+Flow(PONInput,PON)	=	0.31
+
+Flow(SO4BW,SO4)		=	0.4
+
+
+Flow(S2,SFeS) = Flow(Fe2,FeFeS)
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!C/N of flow is equal to source
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Flow(NB1,PON) = NCRATIO*Flow(B1,POC)
+Flow(NB2,PON) = NCRATIO*Flow(B2,POC)
+Flow(NB3,PON) = NCRATIO*Flow(B3,POC)
+Flow(NB4,PON) = NCRATIO*Flow(B4,POC)
+Flow(NB5,PON) = NCRATIO*Flow(B5,POC)
+Flow(NB6,PON) = NCRATIO*Flow(B6,POC)
+Flow(NB7,PON) = NCRATIOB7*Flow(B7,POC)
+Flow(NB8,PON) = NCRATIO*Flow(B8,POC)
+Flow(NG1,PON) = NCRATIO*Flow(G1,POC)
+Flow(NG2,PON) = NCRATIO*Flow(G2,POC)
+Flow(NG3,PON) = NCRATIO*Flow(G3,POC)
+Flow(NG4,PON) = NCRATIO*Flow(G4,POC)
+
+Flow(B6,G1) = NCRATIO*Flow(NB6,NG1)
+Flow(B7,G1) = NCRATIOB7*Flow(NB7,NG1)
+Flow(B8,G1) = NCRATIO*Flow(NB8,NG1)
+ 
+Flow(B1,G2) = NCRATIO*Flow(NB1,NG2)
+Flow(B2,G2) = NCRATIO*Flow(NB2,NG2)
+Flow(B3,G2) = NCRATIO*Flow(NB3,NG2)
+Flow(B4,G2) = NCRATIO*Flow(NB4,NG2)
+Flow(B5,G2) = NCRATIO*Flow(NB5,NG2)
+
+Flow(NB1,NG3) = NCRATIO*Flow(B1,G3)
+Flow(NB2,NG3) = NCRATIO*Flow(B2,G3)
+Flow(NB3,NG3) = NCRATIO*Flow(B3,G3)
+Flow(NB4,NG3) = NCRATIO*Flow(B4,G3)
+Flow(NB5,NG3) = NCRATIO*Flow(B5,G3)
+Flow(NB6,NG3) = NCRATIO*Flow(B6,G3)
+Flow(NB7,NG3) = NCRATIOB7*Flow(B7,G3)
+Flow(NB8,NG3) = NCRATIO*Flow(B8,G3)
+
+Flow(NB1,NG4) = NCRATIO*Flow(B1,G4)
+Flow(NB2,NG4) = NCRATIO*Flow(B2,G4)
+Flow(NB3,NG4) = NCRATIO*Flow(B3,G4)
+Flow(NB4,NG4) = NCRATIO*Flow(B4,G4)
+Flow(NB5,NG4) = NCRATIO*Flow(B5,G4)
+Flow(NB6,NG4) = NCRATIO*Flow(B6,G4)
+Flow(NB7,NG4) = NCRATIOB7*Flow(B7,G4)
+Flow(NB8,NG4) = NCRATIO*Flow(B8,G4)
+
+Flow(NG1,NG3) = NCRATIO*Flow(G1,G3)
+Flow(NG2,NG3) = NCRATIO*Flow(G2,G3)
+
+Flow(NG1,NG4) = NCRATIO*Flow(G1,G4)
+Flow(NG2,NG4) = NCRATIO*Flow(G2,G4)
+Flow(NG3,NG4) = NCRATIO*Flow(G3,G4)
+
+
+
+
+
+## End Equalities
+
+
+## Constraints
+
+!Net production efficiencies
+Flow(B5,CO2)				= [0.4,0.9]*Flow(DOC,B5)
+Flow(B6,CO2) + Flow(B6,DOC) = [0.58,0.95]*Flow(DOC,B6)
+Flow(B7,CO2) + Flow(B7,DOC) = [0.7,0.95]*Flow(DOC,B7)
+Flow(B8,CO2) + Flow(B7,DOC) < 0.9*Flow(DOC,B8)
+
+!Excretion
+Flow(G1,DOC) = [0.33,1]*Flow(G1,CO2)
+Flow(G2,DOC) = [0.33,1]*Flow(G1,CO2)
+Flow(G3,DOC) = [0.33,1]*Flow(G1,CO2)
+Flow(G4,DOC) = [0.33,1]*Flow(G1,CO2)
+
+!Assimilation efficiency
+Flow(G1,POC) = [0.1,0.5]*G1Assimilation
+Flow(G2,POC) = [0.1,0.5]*G2Assimilation
+Flow(G3,POC) = [0.1,0.5]*G3Assimilation
+Flow(G4,POC) = [0.1,0.5]*G4Assimilation
+
+
+!C/N constraints
+
+!Egestion
+4.1*Flow(NB1,PON)	< Flow(B1,POC)
+4.1*Flow(NB2,PON)	< Flow(B2,POC)
+4.1*Flow(NB3,PON)	< Flow(B3,POC)
+4.1*Flow(NB4,PON)	< Flow(B4,POC)
+4.1*Flow(NB5,PON)	< Flow(B5,POC)
+4.1*Flow(NB6,PON)	< Flow(B6,POC)
+4.1*Flow(NB7,PON)	< Flow(B7,POC)
+4.1*Flow(NB8,PON)	< Flow(B8,POC)
+4.1*Flow(NG1,PON)	< Flow(G1,POC)
+4.1*Flow(NG2,PON)	< Flow(G2,POC)
+4.1*Flow(NG3,PON)	< Flow(G3,POC)
+4.1*Flow(NG4,PON)	< Flow(G4,POC)
+
+!Excretion
+4.1*Flow(NB1,DON)	< Flow(B1,DOC)
+4.1*Flow(NB2,DON)	< Flow(B2,DOC)
+4.1*Flow(NB3,DON)	< Flow(B3,DOC)
+4.1*Flow(NB4,DON)	< Flow(B4,DOC)
+4.1*Flow(NB5,DON)	< Flow(B5,DOC)
+4.1*Flow(NB6,DON)	< Flow(B6,DOC)
+4.1*Flow(NB7,DON)	< Flow(B7,DOC)
+4.1*Flow(NB8,DON)	< Flow(B8,DOC)
+4.1*Flow(NG1,DON)	< Flow(G1,DOC)
+4.1*Flow(NG2,DON)	< Flow(G2,DOC)
+4.1*Flow(NG3,DON)	< Flow(G3,DOC)
+4.1*Flow(NG4,DON)	< Flow(G4,DOC)
+
+
+!Respiration
+Flow(B1,CO2)	=	[3,13]*Flow(NB1,NH3)
+Flow(B2,CO2)	=	[3,13]*Flow(NB2,NH3)
+Flow(B3,CO2)	=	[3,13]*Flow(NB3,NH3)
+Flow(B4,CO2)	=	[3,13]*Flow(NB4,NH3)
+Flow(B5,CO2)	=	[3,13]*Flow(NB5,NH3)
+Flow(B6,CO2)	=	[3,13]*Flow(NB6,NH3)
+Flow(B7,CO2)	=	[3,13]*Flow(NB7,NH3)
+Flow(B8,CO2)	=	[3,13]*Flow(NB8,NH3)
+Flow(G1,CO2)	=	[3,13]*Flow(NG1,NH3)
+Flow(G2,CO2)	=	[3,13]*Flow(NG2,NH3)
+Flow(G3,CO2)	=	[3,13]*Flow(NG3,NH3)
+Flow(G4,CO2)	=	[3,13]*Flow(NG4,NH3)
+
+
+
+!Denitrification
+Flow(B6,CO2) = [0.8,1.25]*Flow(NO3,N2)
+
+!Iron reduction
+!Flow(B8,CO2)	=	[0.2,0.25]*Flow(Fe3,Fe2)
+
+!Sulfate reduction
+Flow(B7,CO2)	=	[1.33,2]*Flow(SO4,S2)
+
+!Nitrification
+Flow(CO2,B1) < 0.028*Flow(NH3,NO2)
+
+Flow(CO2,B2) < 0.01*Flow(NO2,NO3)
+
+
+!Iron2
+!Flow(CO2,B3) < 0.01*Flow(Fe2,Fe3)
+
+!Sulfide
+Flow(CO2,B4)	< 0.1*Flow(S2,SO4)
+
+Flow(G1,POC) + Flow(G1,DOC) + Flow(G1,CO2) = [0.4,0.9]*G1Assimilation
+
+Flow(G2,POC) + Flow(G2,DOC) + Flow(G2,CO2) = [0.4,0.9]*G2Assimilation
+
+Flow(G3,POC) + Flow(G3,DOC) + Flow(G3,CO2) = [0.4,0.9]*G3Assimilation
+
+0.6*G4Assimilation  < Flow(G4,POC) + Flow(G4,DOC) + Flow(G4,CO2)		!Strange
+
+
+G4assimilation < Cmac*Imac*Tfactor
+
+Cmac*Amac*Tfactor < Flow(G4,CO2)
+ 
+Flow(PON,PONBurial) < NCPOM*Flow(POC,POCBurial)
+
+
+
+
+## End Constraints
