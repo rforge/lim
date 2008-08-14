@@ -192,7 +192,7 @@ involved in reactions. The LIM will estimate the reaction rates.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{figgeneral}
+\includegraphics[width=0.8\textwidth]{FigGeneral}
 \caption{Three types of Linear Inverse Models that can be created
 and solved with \proglang{R} package \li. A. Flow networks. B.
 Reaction networks, C. Other. In type (A) and (B), a mass balance
@@ -619,7 +619,7 @@ segments(x1=webranges[,1],y1=cc,x2=webranges[,2],y2=cc)
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.3\textwidth]{figweb}
+\includegraphics[width=0.3\textwidth]{FigWeb}
 \caption{Ranges and parsimonious solution of foodweb example -
 seee text for \proglang{R}-code}\label{fig:range}
 \end{figure}
