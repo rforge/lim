@@ -1,0 +1,62 @@
+=====================================================
+Header of the file - ignored
+file: foodweb.lim
+
+Solve the model in R with:
+require(LIM)
+web.lim <- Setup("foodweb.lim")
+pars    <- Ldei(lim)
+
+webranges <- Xranges(web.lim)
+xlim <- range(webranges)
+dotchart(x=pars$X,labels=rownames(webranges),xlim=xlim,
+         main="Food web",pch=16)
+cc <- 1:nrow(webranges)
+segments(x0=webranges[,1],y0=cc,x1=webranges[,2],y1=cc)
+
+=====================================================
+
+## EXTERNAL
+  CO2
+  EXP   ! export
+## END EXTERNAL
+
+## COMPONENT
+  Pl    ! plant
+  AN    ! Animal
+  Det   ! Detritus
+## END COMPONENT
+
+## Flows
+  NPP   : CO2 -> Pl
+  Pgraz : Pl -> An
+  Pmort : Pl -> Det
+  Dgraz : Det -> An
+  Aresp : An ->CO2
+  Amort : An ->EXP
+  Faeces: An ->Det
+  Detmin: Det -> CO2
+## END Flows
+
+
+## PARAMETERS
+  minFaeces  = 0.3
+  maxFaeces  = 0.6
+  growthCost = 0.3
+## END PARAMETERS
+
+## VARIABLES
+  Ingestion     = Pgraz + Dgraz
+  Assimilation  = Ingestion - Faeces
+  GrowthResp    = Assimilation*growthCost
+## END VARIABLES
+
+## Equalities
+  Faeces = 30
+  Det -> CO2 = 10
+## End equalities
+
+## Inequalities
+  growthcost : Aresp > GrowthResp
+  defaecation: Faeces = [minFaeces,maxFaeces]*Ingestion
+## End inequalities

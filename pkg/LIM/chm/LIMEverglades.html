@@ -26,11 +26,13 @@ connected with 402 flows.  Units of the flows are gram wet weight / Ha / year
 </p>
 <p>
 The linear inverse model LIMEverglades is generated from the file Everglades.input 
-which can be found in subdirectory &lsquo;<span class="file">web</span>&rsquo; of the packages directory
+which can be found in subdirectory <a href="/examples/FoodWeb">/examples/FoodWeb</a> of the packages directory
 </p>
 <p>
 In this subdirectory you will find many foodweb example input files
-<br> These files can be read using <code><a href="Read.html">Read</a></code> and their output processed by 
+</p>
+<p>
+These files can be read using <code><a href="Read.html">Read</a></code> and their output processed by
 <code><a href="Setup.html">Setup</a></code> which will produce a linear inverse problem specification similar to LIMEverglades
 </p>
 
@@ -44,7 +46,12 @@ In this subdirectory you will find many foodweb example input files
 
 <p>
 a list of matrices, vectors, names and values that specify the linear inverse model problem.
-<br> see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+<p>
+see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+<p>
+A more complete description of this structures is in vignette("LIM")
 </p>
 
 
@@ -74,8 +81,9 @@ an example from the herpetological assemblage of the freshwater Everglades. Ecol
 
 <h3>Examples</h3>
 
-<pre>Flows &lt;- Lsei(LIMEverglades)
-Flowranges &lt;- Xranges(LIMEverglades)
+<pre>
+# Cannot be solved, but the least squares solution is found
+Flows &lt;- Lsei(LIMEverglades,parsimonious=TRUE)
 Everglades &lt;- Flowmatrix(LIMEverglades)
 plotweb(Everglades,main="Everglades Herpetological Wet Prairie model",
         sub="g WW/Ha/Yr",lab.size=0.8)</pre>

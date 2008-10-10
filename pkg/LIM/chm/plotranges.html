@@ -32,13 +32,16 @@ Plots the minimum and maximum and central values
 <h3>Usage</h3>
 
 <pre>
-Plotranges.double(min, max, value=NULL, labels=NULL,log="",pch=16,
-pch.col="black", line.col="gray", seg.col="black", xlim=NULL, 
-main=NULL, xlab=NULL, ylab=NULL, lab.cex=1.0, ...)
-Plotranges.lim(lim=NULL,labels=NULL,log="",pch=16,
+Plotranges.double(min, max, value=NULL, labels=NULL,log="",
+pch=16,pch.col="black", line.col="gray", seg.col="black", xlim=NULL,
+main=NULL, xlab=NULL, ylab=NULL, lab.cex=1.0, mark=NULL,...)
+
+Plotranges.lim(lim=NULL,labels=NULL,type="X",log="",pch=16,
 pch.col="black", line.col="gray", seg.col="black", xlim=NULL,
-main=NULL, xlab=NULL, ylab=NULL, lab.cex=1.0, ...)
+main=NULL, xlab=NULL, ylab=NULL, lab.cex=1.0,index=NULL, ...)
+
 Plotranges.character(file,...)
+
 Plotranges(...)
 </pre>
 
@@ -64,6 +67,9 @@ name of the linear inverse input file</td></tr>
 <tr valign="top"><td><code>labels </code></td>
 <td>
 names of each value</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+one of "X" or "V" for plotting of unknowns (X) or variables</td></tr>
 <tr valign="top"><td><code>log </code></td>
 <td>
 if = x: logarithmic scale for x-axis</td></tr>
@@ -94,6 +100,12 @@ y-axis label</td></tr>
 <tr valign="top"><td><code>lab.cex </code></td>
 <td>
 label expansion value</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+list of elements to be plotted, a vector of integers; default = all elements</td></tr>
+<tr valign="top"><td><code>mark</code></td>
+<td>
+list of elements to be marked with a "*", i.e. when range is unbounded</td></tr>
 <tr valign="top"><td><code>... </code></td>
 <td>
 arguments passed to R-function "text" when writing labels</td></tr>
@@ -121,6 +133,19 @@ the central value </td></tr>
 <p>
 Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
 </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# The Takapoto food web.
+# some ranges extend to infinity - they are marked with "*"
+Plotranges(LIMTakapoto,lab.cex=0.7,sub="*=unbounded",xlab="mgC/m2/d",
+        main="Takapoto atoll planktonic food web, Flowranges")
+# ranges of variables, exclude first variable
+Plotranges(LIMTakapoto,type="V",lab.cex=0.7, index=2:23,xlab="mgC/m2/d",
+        main="Takapoto atoll planktonic food web, Variable ranges")
+        </pre>
 
 
 

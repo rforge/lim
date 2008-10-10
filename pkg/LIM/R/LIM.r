@@ -54,7 +54,7 @@ Lsei.limfile <- function(file,
 # read file and create inverse matrices
 lim    <- Setup.limfile(file,verbose=verbose)
 # solve
-Lsei.lim(lim,exact,parsimonious,...)
+Lsei.lim(lim,exact,parsimonious=parsimonious,...)
 
 }
 
@@ -82,7 +82,7 @@ Ldei.lim(lim,...)
 ## Linp.lim : Solves linear programming model                      ##
 #########################################################################
 
-Linp.lim <- function(lim,ispos=lim$ispos,...)
+Linp.lim <- function(lim,cost=NULL,ispos=lim$ispos,...)
 
 #------------------------------------------------------------------------
 # Solves inverse problem, using linear programming
@@ -95,8 +95,8 @@ Linp.lim <- function(lim,ispos=lim$ispos,...)
    H  <-lim$H
    A  <- NULL
    G  <- NULL
-   Cost   <- lim$Cost
-   Profit <- lim$Profit
+   if(is.null(cost)) Cost   <- lim$Cost else Cost <- cost
+   if(is.null(cost)) Profit <- lim$Profit else Profit <- NULL
    if (! is.null(Cost  )&&is.vector(Cost  )) Cost   <- matrix(nr=1,data=Cost  )
    if (! is.null(Profit)&&is.vector(Profit)) Profit <- matrix(nr=1,data=Profit)
 if (ispos)
@@ -109,26 +109,32 @@ if (ispos)
      if (! is.null(Profit)) Profit <- cbind(Profit, -1 * Profit)
   }  
 res <- NULL
+i1 <- 0
 if (!is.null(Cost))
  {
  for ( i in 1:nrow(Cost))
    {resi <- linp (A,B,G,H,Cost[i,],...)
     res$residualNorm <- c(res$residualNorm, resi$residualNorm)
     res$solutionNorm <- c(res$solutionNorm, resi$solutionNorm)
-    res$X <- cbind(res$X,matrix(nc=1,resi$X))
-    colnames(res$X)[i]<-as.character(lim$costnames[i])
+    res$X <- rbind(res$X,matrix(nr=1,resi$X))
+    rownames(res$X)[i]<-as.character(lim$costnames[i])
    }
+   i1 <- i
 } else if (is.null(lim$Profit))
-{return(NULL)} else 
+
+{return(NULL)}
+if (! is.null(Profit))
 {for ( i in 1:nrow(Profit))
    {resi<-linp (A,B,G,H,-1*Profit[i,],...)
     res$residualNorm <- c(res$residualNorm, resi$residualNorm)
     res$solutionNorm <- c(res$solutionNorm, -resi$solutionNorm)
-    res$X <- cbind(res$X,matrix(nc=1,resi$X))
-    colnames(res$X)[i]<-as.character(lim$profitnames[i])
+    res$X <- rbind(res$X,matrix(nr=1,resi$X))
+    rownames(res$X)[i1+i]<-as.character(lim$profitnames[i])
     }
 }
-if (!ispos) res$X <-  res$X[1:Nx,]+res$X[(Nx+1):(2*Nx)]
+if (!ispos) res$X <-  res$X[,1:Nx]-res$X[,(Nx+1):(2*Nx)]
+res$X <- matrix(nc=Nx,data=res$X)
+colnames(res$X) <- lim$Unknowns
 
 return(res)
 }
@@ -146,8 +152,9 @@ Ldei.lim <- function(lim,...)
 #------------------------------------------------------------------------
 
 {
-if (is.null(lim$Cost) ) Cost <- rep(1,ncol(lim$A)) else Cost <- lim$Cost
-ld<-ldei (lim$A,lim$B,lim$G,lim$H,Cost,...)
+ld<-ldei (E=lim$A,F=lim$B,G=lim$G,H=lim$H,...)
+names(ld$X) <- lim$Unknowns
+if (ld$IsError) warning("Problem could not be solved")
 
 return(ld)
 } ########## END OF Ldei.lim ##########
@@ -157,10 +164,10 @@ return(ld)
 ## Lsei.lim  : Solves inverse model, lsei                          ##
 #########################################################################
 
-Lsei.lim <- function(lim,             # the linear inverse matrices, a list
-                     exact =NULL,     # a vector with the equations to be solved EXACTLY
+Lsei.lim <- function(lim,                  # the linear inverse matrices, a list
+                     exact =NULL,          # a vector with the equations to be solved EXACTLY
                      parsimonious = FALSE, # if true: also minimises sum of squared unknowns
-                     ...)   # to print error messages
+                     ...)                  # to print error messages
 
 #------------------------------------------------------------------------
 # Solves inverse problem, using lsei
@@ -208,6 +215,7 @@ if (Napp > 0)
  A <- rbind(A,diag(nrow=Nx,ncol=Nx))
  B <- c(B,rep(0,Nx))
  }
+ if (is.null(A))warning("Lsei.lim - there are no approximate equations in lsei!")
 
 # Inequalities G*X>=H
 G <- lim$G
@@ -215,6 +223,8 @@ H <- lim$H
 
 
 sol <- lsei(A,B,E,F,G,H,...)
+names(sol$X) <- lim$Unknowns
+if (sol$IsError) warning("Problem could not be solved - least squares solution returned")
 return(sol)
 
 } ########## END OF Lsei.lim ##########
@@ -258,7 +268,7 @@ Variables <- function(lim,res=NULL,...)
 {
 if (lim$NVariables == 0) return(NULL)
 
-if (is.null(res)) res <- Lsei.lim(lim,...)$X
+if (is.null(res)) res <- Lsei.lim(lim,parsimonious=TRUE,...)$X
 
 variables <- data.frame(values=lim$VarA%*%res-lim$VarB)
 rownames(variables)<-lim$Variables
@@ -275,9 +285,9 @@ Flowmatrix <- function(lim,web=NULL)
 
 {
 flowmatrix <- lim$Flowmatrix
-if (is.null(web))  web <- Lsei.lim(lim) 
+if (is.null(web)) web <- Lsei.lim(lim,parsimonious=TRUE)$X
 
-X          <- as.vector(web$X)
+X          <- as.vector(web)
 Xpos       <- pmax(0.,X)
 ii         <- which(flowmatrix >0,arr.ind=TRUE)
 flowmatrix[ii]<-Xpos[lim$Flowmatrix[ii]]
@@ -296,31 +306,32 @@ return(flowmatrix)
 #########################################################################
 
 Plotranges.double <- function (min,                # minimum value
-                            max,                # maximum value
-                            value = NULL,       # median or mean value
-                            labels=NULL,        # names of each value
-                            log="",             # if = x: logarithmic scale for x-axis
-                            pch = 16,           # pch symbol used for mean value
-                            pch.col="black",     # pch color for mean value
-                            line.col = "gray",   # color for each variable, spanning x-axis
-                            seg.col="black",     # color for variable range
-                            xlim = NULL, 
-                            main = NULL, 
-                            xlab = NULL, 
-                            ylab = NULL,
-                            lab.cex = 1.0, 
-                            ...)                   # arguments passed to R-function "text" when writing labels
+                               max,                # maximum value
+                               value = NULL,       # median or mean value
+                              labels=NULL,        # names of each value
+                              log="",             # if = x: logarithmic scale for x-axis
+                              pch = 16,           # pch symbol used for mean value
+                              pch.col="black",     # pch color for mean value
+                              line.col = "gray",   # color for each variable, spanning x-axis
+                              seg.col="black",     # color for variable range
+                              xlim = NULL,
+                              main = NULL,
+                              xlab = NULL,
+                              ylab = NULL,
+                              lab.cex = 1.0,
+                              mark = NULL,
+                              ...)                   # arguments passed to R-function "text" when writing labels
   {
   
   ##-----------------------------------------------------------------
   ## constructing the data 
   ##-----------------------------------------------------------------
-
+      if (! is.vector(value)) value<-as.vector(unlist(value))
       ranges   <- cbind(min,max,value)
       if (log =="x") {
 
 	    minflow<-min(ranges[ranges!=0])     ## minimum, different from 0
-      ranges[ranges==0] <-minflow
+      ranges[ranges==0] <- minflow
       min[min==0]       <- minflow        ## replace 0 with minimum	
       max[max==0]       <- minflow	
       value[value==0]   <- minflow	
@@ -358,6 +369,10 @@ Plotranges.double <- function (min,                # minimum value
     abline  (h = y, lty = "dotted", col = line.col)
     if(!is.null(value)) points  (value, y, pch = pch, col = pch.col)
     segments(min,y,max,y,col=seg.col,lty=1)
+    if (! is.null(mark)) {
+    text(labels=rep("*",length(mark)),
+         rep(xlim[2],length(mark)),mark)
+    }
     axis(1)
     box()
     title(main = main, xlab = xlab, ylab = ylab, ...)
@@ -373,6 +388,7 @@ Plotranges.double <- function (min,                # minimum value
 
 Plotranges.lim <- function (lim=NULL,           # lim
                             labels=NULL,        # names of each value
+                            type="X",
                             log="",             # if = x: logarithmic scale for x-axis
                             pch = 16,           # pch symbol used for mean value
                             pch.col="black",     # pch color for mean value
@@ -383,18 +399,37 @@ Plotranges.lim <- function (lim=NULL,           # lim
                             xlab = NULL,
                             ylab = NULL,
                             lab.cex = 1.0,
+                            index=NULL,         # if not NULL, list of values to be plotted...
                             ...)                # arguments passed to function "plotranges"
   {
   
   ##-----------------------------------------------------------------
   ## constructing the data 
   ##-----------------------------------------------------------------
+    if (type == "V")
+    {ranges <- Varranges(lim)
+     value  <- Variables(lim)
 
-    ranges <- Xranges(lim)
-    value  <- Lsei.lim(lim)$X
+    } else
+    {ranges <- Xranges(lim)
+     value  <- Lsei.lim(lim,parsimonious=TRUE)$X}
+    value <- unlist(value)
+    if (is.null(index))
+     {index <- 1:nrow(ranges)} else {
+     
+    ranges <- ranges[index,]
+    value <- value[index]            }
+
+    infinity <- which (ranges[,2]==1e30)
+    if (length(infinity) >0) ranges[infinity,2]<- NA else infinity <- NULL
+
+    if (is.null(labels)) labels <- rownames(ranges)
+    if (is.null(labels)) labels <- as.character(1:length(value))
+
     Plotranges.double(min=ranges[,1],max=ranges[,2],value =value,
-  labels=labels,log=log,pch=pch,pch.col=pch.col,line.col=line.col,
-  seg.col=seg.col,xlim=xlim,main=main,xlab=xlab,ylab=ylab,...)
+   labels=labels,log=log,pch=pch,pch.col=pch.col,line.col=line.col,
+   seg.col=seg.col,xlim=xlim,main=main,xlab=xlab,ylab=ylab,
+   lab.cex=lab.cex,mark=infinity,...)
 
 }  ########## END OF plotranges.lim ########## 
 
@@ -472,6 +507,37 @@ return(res)
 
 } ########## END OF Xsample ##########
 
+PrintMat<-function(lim)
+{
+A           <- lim$A
+colnames(A) <- lim$Unknowns
+rownames(A) <- lim$eqnames
+G           <- lim$G
+colnames(G) <- lim$Unknowns
+rownames(G) <- lim$ineqnames
+print("A,B")
+print(cbind(A,"  B = "=lim$B))
 
+print("G,H")
+print(cbind(G,"  H = "=lim$H))
+
+if (!is.null(lim$Cost))
+{
+Cost           <-  matrix(nc=lim$NUnknowns,data=lim$Cost)
+colnames(Cost) <- lim$Unknowns
+rownames(Cost) <- lim$costnames
+print("Cost")
+print(Cost)
+}
+
+if (!is.null(lim$Profit))
+{
+Profit           <-  matrix(nc=lim$NUnknowns,data=lim$Profit)
+colnames(Profit) <- lim$Unknowns
+rownames(Profit) <- lim$profitnames
+print("Profit")
+print(Profit)
+}
+}
 
 

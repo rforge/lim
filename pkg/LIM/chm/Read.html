@@ -16,7 +16,7 @@
 <h3>Description</h3>
 
 <p>
-Reads an inverse input file and creates the inverse problem as a list.
+Reads an inverse input file and creates the inverse problem as a list, of type "liminput"
 </p>
 
 
@@ -45,12 +45,15 @@ remove tabs</td></tr>
 <h3>Details</h3>
 
 <p>
-The inverse input file contains the declaration sections enclosed inbetween two lines starting with a ##.
-<br> For instance, the following section declares two state variables
-<br> # STATE
+The structure of an inverse input file is explained in vignette("LIM") which should be consulted.
+</p>
+<p>
+In short the inverse input file contains the declaration sections enclosed inbetween two lines starting with a ##.
+<br> For instance, the following section declares two components
+<br> # COMP
 <br> State1
 <br> State2
-<br> # END STATE
+<br> # END COMP
 </p>
 <p>
 Only the first 4 characters of the section names are read
@@ -68,7 +71,9 @@ Only the first 4 characters of the section names are read
 </p>
 <p>
 Any (part of a) line starting with a "!" is considered a comment.
-<br> Input is NOT case sensitive
+</p>
+<p>
+Input is NOT case sensitive
 </p>
 <p>
 The output of this function is used as input in function <code><a href="Setup.html">Setup</a></code> which creates the inverse matrices
@@ -94,9 +99,9 @@ name of inverse input file</td></tr>
 <tr valign="top"><td><code>pars </code></td>
 <td>
 a data.frame with parameter declarations</td></tr>
-<tr valign="top"><td><code>state </code></td>
+<tr valign="top"><td><code>comp </code></td>
 <td>
-a data.frame with state declarations</td></tr>
+a data.frame with compartments (or states, stocks)</td></tr>
 <tr valign="top"><td><code>rate </code></td>
 <td>
 a data.frame with rate declarations</td></tr>
@@ -121,21 +126,30 @@ a data.frame with equality declarations</td></tr>
 <tr valign="top"><td><code>constraints </code></td>
 <td>
 a data.frame with constraint declarations</td></tr>
+<tr valign="top"><td><code>reactions </code></td>
+<td>
+a data.frame with reaction declarations</td></tr>
+<tr valign="top"><td><code>posreac </code></td>
+<td>
+a vector with TRUE if reaction or flow is unidirectional (and is thus positive), FALSE if two-way reaction or flow</td></tr>
+<tr valign="top"><td><code>marker </code></td>
+<td>
+a data.frame with marker declarations - see vignette("LIM")</td></tr>
 <tr valign="top"><td><code>parnames </code></td>
 <td>
 a vector with parameter names</td></tr>
 <tr valign="top"><td><code>varnames </code></td>
 <td>
 a vector with variable names</td></tr>
-<tr valign="top"><td><code>statenames </code></td>
+<tr valign="top"><td><code>compnames </code></td>
 <td>
-a vector with state names</td></tr>
+a vector with compartment names</td></tr>
 <tr valign="top"><td><code>externnames </code></td>
 <td>
-a vector with external names</td></tr>
-<tr valign="top"><td><code>web </code></td>
+a vector with  names of externals</td></tr>
+<tr valign="top"><td><code>Type </code></td>
 <td>
-a logical; if TRUE: the input was a web, and flows are unknowns; if FALSE: states are the unknowns</td></tr>
+a string; one of "web" (flows are unknowns), "reaction" (reaction rates unknown) and "simple" (compartments are unknowns</td></tr>
 </table>
 
 <h3>Author(s)</h3>
@@ -155,7 +169,15 @@ Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
 <h3>Examples</h3>
 
 <pre>
-  ## Not run: Read("FILERigaAutumn")
+  # this input has been created with function Read:
+  LIMinputBlending
+  ## Not run: 
+  wd &lt;- getwd()
+  setwd(paste(system.file(package="LIM"), "/examples/Foodweb", sep=""))
+  Read("RigaAutumn.input")
+  setwd(wd)
+  
+## End(Not run)
   </pre>
 
 

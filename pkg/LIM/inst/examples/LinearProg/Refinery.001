@@ -63,26 +63,26 @@ ResiduumForLubeOil
 ## EQUALITIES
 
 ! Distillation
-Dist1:   0.10D0*Crude1 + 0.15D0*Crude2 = LightNaphta               
-Dist2:   0.20D0*Crude1 + 0.25D0*Crude2 = MediumNaphta        
-Dist3:   0.20D0*Crude1 + 0.18D0*Crude2 = HeavyNaphta         
-Dist4:   0.12D0*Crude1 + 0.08D0*Crude2 = LightOil
-Dist5:   0.20D0*Crude1 + 0.19D0*Crude2 = HeavyOil
-Dist6:   0.13D0*Crude1 + 0.12D0*Crude2 = Residuum
+Dist1:   0.10*Crude1 + 0.15*Crude2 = LightNaphta
+Dist2:   0.20*Crude1 + 0.25*Crude2 = MediumNaphta
+Dist3:   0.20*Crude1 + 0.18*Crude2 = HeavyNaphta
+Dist4:   0.12*Crude1 + 0.08*Crude2 = LightOil
+Dist5:   0.20*Crude1 + 0.19*Crude2 = HeavyOil
+Dist6:   0.13*Crude1 + 0.12*Crude2 = Residuum
 
 ! reformed gasoline produced
-Prod1:  ReformedGasoline =  0.6D0 *LightNaphtaForReformedGasoline  &
-                          + 0.52D0*MediumNaphtaForReformedGasoline &
-                          + 0.45D0*HeavyNaphtaForReformedGasoline
+Prod1:  ReformedGasoline =  0.6 *LightNaphtaForReformedGasoline  &
+                          + 0.52*MediumNaphtaForReformedGasoline &
+                          + 0.45*HeavyNaphtaForReformedGasoline
 ! Cracked oil and gasoline
-Prod2:  CrackedGasoline  =  0.28D0* LightOilForCrackedOilAndGasoline &
-                          + 0.20D0* HeavyOilForCrackedOilAndGasoline
+Prod2:  CrackedGasoline  =  0.28* LightOilForCrackedOilAndGasoline &
+                          + 0.20* HeavyOilForCrackedOilAndGasoline
 
-Prod3:  CrackedOil       =  0.68D0* LightOilForCrackedOilAndGasoline &
-                          + 0.75D0* HeavyOilForCrackedOilAndGasoline
+Prod3:  CrackedOil       =  0.68* LightOilForCrackedOilAndGasoline &
+                          + 0.75* HeavyOilForCrackedOilAndGasoline
  
 ! lube-oil and residuum from which produced
-Prod4:  LubeOil          = 0.5D0 * ResiduumForLubeOil
+Prod4:  LubeOil          = 0.5 * ResiduumForLubeOil
 
 ! types of oil used
 Oil1:   LightNaphta =  LightNaphtaForReformedGasoline  &
@@ -182,9 +182,9 @@ Vapor:     JetFuel > LightOilForJetFuel                  &
 
 ## PROFIT
 
- 7.D0*PremiumMotorFuel + 6.D0*RegularMotorFuel       &
- + 4.D0*JetFuel        + 3.5D0*FuelOil              &
- + 1.5D0*LubeOil
+ 7.0*PremiumMotorFuel + 6.0*RegularMotorFuel       &
+ + 4.0*JetFuel        + 3.50*FuelOil              &
+ + 1.50*LubeOil
 
 ## END PROFIT
 

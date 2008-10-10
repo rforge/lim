@@ -777,14 +777,21 @@ Read <-  function (file, verbose = FALSE, checkLinear = TRUE, remtabs = TRUE)
         print("reading cost")
     costsec <- findsection(c("COST", "MINI"))
     if (length(costsec) > 1)
-        cost <- ParseLine(Lines[costsec[1]:costsec[2]], "cost")
+    {   coststr <- Lines[costsec[1]:costsec[2]]
+       if (length(grep(":", coststr, fixed = TRUE)) > 0) {
+            eqnames <- Splitleftright(coststr, ":")
+            cost    <- ParseLine(eqnames[,2], names = eqnames[,1])
+    } else  cost <- ParseLine(coststr, "cost") }
 # ------------------------    Cost to minimise    ------------------------------
     if (verbose)
         print("reading profit")
     profitsec <- findsection(c("PROF", "MAXI"))
     if (length(profitsec) > 1)
-        profit <- ParseLine(Lines[profitsec[1]:profitsec[2]],
-            "profit")
+    {   profstr <- Lines[profitsec[1]:profitsec[2]]
+       if (length(grep(":", profstr, fixed = TRUE)) > 0) {
+            eqnames <- Splitleftright(profstr, ":")
+            profit  <- ParseLine(eqnames[,2], names = eqnames[,1])
+    } else  profit <- ParseLine(profstr, "cost") }
     createcomp <- FALSE
 # ---------------------------  Equalities (=)  ---------------------------------
     if (verbose)
@@ -1057,7 +1064,8 @@ Setup.liminput <- function (liminput, ...)
             val = compval), Externals = data.frame(name = liminput$externnames,
             val = externval), rates = data.frame(name = liminput$compnames,
             val = rateval), markers = markers, Variables = liminput$varnames,
-            costnames=liminput$cost$name,profitnames=liminput$profit$name,
+            costnames=unique(liminput$cost$name),profitnames=unique(liminput$profit$name),
+            eqnames=unique(liminput$equations$name), ineqnames=unique(liminput$constraints$name),
         Unknowns = Unknownnames,ispos=ispos)
     class(res) <- "lim"
     return(res)

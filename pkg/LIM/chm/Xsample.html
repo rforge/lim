@@ -36,7 +36,7 @@ a list that contains the linear inverse model or linear programming specificatio
 if not null, a vector containing the numbers of the equations to be solved exactly; if NULL, all equations are considered exact</td></tr>
 <tr valign="top"><td><code>... </code></td>
 <td>
-extra parameters passed to function <code>xsample</code></td></tr>
+extra parameters passed to function <code><a onclick="findlink('limSolve', 'xsample.html')" style="text-decoration: underline; color: blue; cursor: hand">xsample</a></code> from package<code>limSolve</code></td></tr>
 </table>
 
 <h3>Details</h3>
@@ -70,7 +70,12 @@ Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
 
 <p>
 <code><a href="Varranges.html">Varranges</a></code> which estimates the ranges of inverse variables
-<br> <code><a href="plotranges.html">Plotranges</a></code> to plot the ranges
+</p>
+<p>
+<code><a href="plotranges.html">Plotranges</a></code> to plot the ranges
+</p>
+<p>
+function <code><a onclick="findlink('limSolve', 'xsample.html')" style="text-decoration: underline; color: blue; cursor: hand">xsample</a></code> from package<code>limSolve</code>
 </p>
 
 
@@ -83,6 +88,15 @@ Karline Soetaert &lt;k.soetaert@nioo.knaw.nl&gt;
   #pairs plot
   pairs(xs,gap=0,pch=".",upper.panel=NULL)</pre>
 
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
 
 
 <hr><div align="center">[Package <em>LIM</em> version 1.1 <a href="00Index.html">Index]</a></div>

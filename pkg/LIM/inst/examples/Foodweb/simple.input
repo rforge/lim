@@ -1,14 +1,20 @@
 Input file for inverse analysis
+require(LIM)
+Ldei("simple.input")
+ls <- Read("simple.input")
 
+Res <- NULL
+for ( pars in seq(0,1,by=0.2))
+{
+ ls$pars$val <- pars
+ Res<- rbind(Res,c(pars,Ldei(Setup(ls))$X))
+}
+Res
 #######################################################################
 
-
-!## STOCKS
-!A         
-!B
-!C
-!D
-!## END STOCKS
+##Parameter
+ f1 = 1
+## end parameter
 
 ## FLOWS
 A             ->   B
@@ -22,6 +28,7 @@ D             ->   A
 
 ## EQUATIONS
 0.5* A->B = A->C
-C->A=D->A
-C->A=1
+
+C->A = D->A
+C->A = f1
 ## END EQUATIONS

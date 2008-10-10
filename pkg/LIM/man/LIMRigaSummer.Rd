@@ -10,14 +10,17 @@ The Gulf of Riga is a highly eutrophic system in the Baltic Sea.
 connected with 26 flows.  Units of the flows are mg C/m3/day
 
 The linear inverse model LIMRigaAutumn is generated from the file RigaAutumn.input 
-which can be found in subdirectory \file{web} of the packages directory
+which can be found in subdirectory \url{/examples/FoodWeb} of the packages directory
 
 In this subdirectory you will find many foodweb example input files
 \cr These files can be read using \code{\link{Read}} and their output processed by 
 \code{\link{Setup}} which will produce a linear inverse problem specification similar to LIMRigaSummer}
 \usage{data(LIMRigaSummer)}
 \format{a list of matrices, vectors, names and values that specify the linear inverse model problem.
-\cr see the return value of \code{\link{Setup}} for more information about this list}
+
+see the return value of \code{\link{Setup}} for more information about this list
+
+A more complete description of this structures is in vignette("LIM")}
 \author{Karline Soetaert <k.soetaert@nioo.knaw.nl>
    Dick van Oevelen<d.vanoevelen@nioo.knaw.nl>}
 \examples{rigaSummer <- Flowmatrix(LIMRigaSummer)

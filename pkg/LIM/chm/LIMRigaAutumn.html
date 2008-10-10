@@ -26,11 +26,13 @@ connected with 26 flows.  Units of the flows are mg C/m3/day
 </p>
 <p>
 The linear inverse model LIMRigaAutumn is generated from the file RigaAutumn.input 
-which can be found in subdirectory &lsquo;<span class="file">web</span>&rsquo; of the packages directory
+which can be found in subdirectory <a href="/examples/FoodWeb">/examples/FoodWeb</a> of the packages directory
 </p>
 <p>
 In this subdirectory you will find many foodweb example input files
-<br> These files can be read using <code><a href="Read.html">Read</a></code> and their output processed by 
+</p>
+<p>
+These files can be read using <code><a href="Read.html">Read</a></code> and their output processed by
 <code><a href="Setup.html">Setup</a></code> which will produce a linear inverse problem specification similar to LIMRigaAutumn
 </p>
 
@@ -44,7 +46,12 @@ In this subdirectory you will find many foodweb example input files
 
 <p>
 a list of matrices, vectors, names and values that specify the linear inverse model problem.
-<br> see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+<p>
+see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+<p>
+A more complete description of this structures is in vignette("LIM")
 </p>
 
 
@@ -77,10 +84,13 @@ a reconstruction by the inverse method. Journal of Marine Systems 23, 251..268.
 <pre>rigaAutumn &lt;- Flowmatrix(LIMRigaAutumn)
 plotweb(rigaAutumn,main="Gulf of Riga planktonic food web, autumn",
    sub="mgC/m3/day")
-Plotranges(LIMRigaAutumn,lab.cex=0.7,
+# ranges of flows
+Plotranges(LIMRigaAutumn,lab.cex=0.7,xlab="mgC/m3/d",
    main="Gulf of Riga planktonic food web, autumn, Flowranges")
-Plotranges(LIMRigaAutumn,type="V",lab.cex=0.7,
-   main="Gulf of Riga planktonic food web, autumn, Variable ranges")</pre>
+# ranges of variables
+Plotranges(LIMRigaAutumn,type="V",lab.cex=0.7,xlab="mgC/m3/d",
+   main="Gulf of Riga planktonic food web, autumn, variables")
+   </pre>
 
 
 

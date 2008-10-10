@@ -1,6 +1,6 @@
 Package: LIM
 Version: 1.1
-Title: Linear Inverse Modelling
+Title: Linear Inverse Model examples and solution methods.
 Author: Karline Soetaert <k.soetaert@nioo.knaw.nl>,
   Dick van Oevelen<d.vanoevelen@nioo.knaw.nl>
 Maintainer: Karline Soetaert <k.soetaert@nioo.knaw.nl>

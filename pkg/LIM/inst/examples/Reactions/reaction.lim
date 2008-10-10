@@ -3,17 +3,28 @@
 run with:
 require(LIM)
 reaction.lim <-Setup("reaction.lim")
-pars<-Lsei(reaction.lim)
+pars<-Ldei(reaction.lim)
 ranges<- Xranges(reaction.lim,ispos=FALSE)
 data.frame(ranges, pars=pars$X)
-xs<-Xsample(reaction.lim,jmp=1)
+xs<-Xsample(reaction.lim,jmp=10)
+
+panel.hist <- function(x, ...)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(usr[1:2], 0, 1.5) )  #redefine y-axis; x-axis stays the same
+    h <- hist(x, plot = FALSE)
+    breaks <- h$breaks; nB <- length(breaks)
+    y <- h$counts; y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col="grey", ...)
+}
+xs <- xs[,-(7:9)]                    #remove constant rates
+pairs(xs,upper.panel=NULL,diag.panel=panel.hist,
+      pch=".",main="Reaction network")
 
 Mean <- colMeans(xs)
 Sd   <- sd(xs)
 data.frame(mean=Mean, sd=Sd)
 
-
-pairs(xs,gap=0)
 
 ### COMPONENTS
 OM

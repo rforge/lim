@@ -3,7 +3,7 @@
 \alias{LIM}
 \docType{package}
 \title{
-  Linear Inverse Modelling
+  Linear Inverse Model examples and solution methods
 }
 \description{
   functions that read and solve linear inverse problems (food web problems, linear programming problems, flux balance analysis).

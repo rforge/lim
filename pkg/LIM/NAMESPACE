@@ -4,4 +4,4 @@ Lsei,  Lsei.lim, Lsei.limfile, Lsei.double,
 Plotranges, Plotranges.lim, Plotranges.double,
 Read, Setup, Setup.limfile, Setup.liminput,
 Variables, Varranges, Xranges, Xsample, Setup.character,
-Lsei.character,Linp.character, Ldei.character )
+Lsei.character,Linp.character, Ldei.character, PrintMat )

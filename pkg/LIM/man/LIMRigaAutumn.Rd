@@ -10,23 +10,30 @@ The Gulf of Riga is a highly eutrophic system in the Baltic Sea.
 connected with 26 flows.  Units of the flows are mg C/m3/day
 
 The linear inverse model LIMRigaAutumn is generated from the file RigaAutumn.input 
-which can be found in subdirectory \file{web} of the packages directory
+which can be found in subdirectory \url{/examples/FoodWeb} of the packages directory
 
 In this subdirectory you will find many foodweb example input files
-\cr These files can be read using \code{\link{Read}} and their output processed by 
+
+These files can be read using \code{\link{Read}} and their output processed by
 \code{\link{Setup}} which will produce a linear inverse problem specification similar to LIMRigaAutumn}
 \usage{data(LIMRigaAutumn)}
 \format{a list of matrices, vectors, names and values that specify the linear inverse model problem.
-\cr see the return value of \code{\link{Setup}} for more information about this list}
+
+see the return value of \code{\link{Setup}} for more information about this list
+
+A more complete description of this structures is in vignette("LIM")}
 \author{Karline Soetaert <k.soetaert@nioo.knaw.nl>
    Dick van Oevelen<d.vanoevelen@nioo.knaw.nl>}
 \examples{rigaAutumn <- Flowmatrix(LIMRigaAutumn)
 plotweb(rigaAutumn,main="Gulf of Riga planktonic food web, autumn",
    sub="mgC/m3/day")
-Plotranges(LIMRigaAutumn,lab.cex=0.7,
+# ranges of flows
+Plotranges(LIMRigaAutumn,lab.cex=0.7,xlab="mgC/m3/d",
    main="Gulf of Riga planktonic food web, autumn, Flowranges")
-Plotranges(LIMRigaAutumn,type="V",lab.cex=0.7,
-   main="Gulf of Riga planktonic food web, autumn, Variable ranges")}
+# ranges of variables
+Plotranges(LIMRigaAutumn,type="V",lab.cex=0.7,xlab="mgC/m3/d",
+   main="Gulf of Riga planktonic food web, autumn, variables")
+   }
 \references{Donali, E., Olli, K., Heiskanen, A.S., Andersen, T., 1999. Carbon flow 
 patterns in the planktonic food web of the Gulf of Riga, the Baltic Sea: 
 a reconstruction by the inverse method. Journal of Marine Systems 23, 251..268.}

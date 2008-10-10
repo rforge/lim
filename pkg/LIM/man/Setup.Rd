@@ -56,14 +56,9 @@ Setup.liminput(liminput,...)
 }
 \author{Karline Soetaert <k.soetaert@nioo.knaw.nl>}
 \examples{
-\dontrun{
-  # in two steps
-  liminput <- Read("FILERigaAutumn")
-   Setup(liminput)
+   LIMinputBlending
+   Setup(LIMinputBlending )
 
-  # or in one:
-  donali <- Setup(file="FILERigaAutumn",
-           verbose=TRUE)}
 
            }
 \seealso{\item \code{\link{Read}} function that reads inverse input files and

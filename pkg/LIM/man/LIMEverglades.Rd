@@ -11,18 +11,23 @@ The everglades are a freshwater wetland in Florida, USA.
 connected with 402 flows.  Units of the flows are gram wet weight / Ha / year
 
 The linear inverse model LIMEverglades is generated from the file Everglades.input 
-which can be found in subdirectory \file{web} of the packages directory
+which can be found in subdirectory \url{/examples/FoodWeb} of the packages directory
 
 In this subdirectory you will find many foodweb example input files
-\cr These files can be read using \code{\link{Read}} and their output processed by 
+
+These files can be read using \code{\link{Read}} and their output processed by
 \code{\link{Setup}} which will produce a linear inverse problem specification similar to LIMEverglades}
 \usage{data(LIMEverglades)}
 \format{a list of matrices, vectors, names and values that specify the linear inverse model problem.
-\cr see the return value of \code{\link{Setup}} for more information about this list}
+
+see the return value of \code{\link{Setup}} for more information about this list
+
+A more complete description of this structures is in vignette("LIM")}
 \author{Karline Soetaert <k.soetaert@nioo.knaw.nl>
    Dick van Oevelen<d.vanoevelen@nioo.knaw.nl>}
-\examples{Flows <- Lsei(LIMEverglades)
-Flowranges <- Xranges(LIMEverglades)
+\examples{
+# Cannot be solved, but the least squares solution is found
+Flows <- Lsei(LIMEverglades,parsimonious=TRUE)
 Everglades <- Flowmatrix(LIMEverglades)
 plotweb(Everglades,main="Everglades Herpetological Wet Prairie model",
         sub="g WW/Ha/Yr",lab.size=0.8)}

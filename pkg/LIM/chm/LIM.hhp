@@ -15,8 +15,10 @@ Title=R Help for package LIM
 FILERigaAutumn.html
 Flowmatrix.html
 LIM.html
+LIMBlending.html
 LIMBrouageMudflat.html
 LIMCaliforniaSediment.html
+LIMEcoli.html
 LIMEverglades.html
 LIMRigaAutumn.html
 LIMRigaSpring.html
@@ -26,6 +28,7 @@ LIMTakapoto.html
 Ldei.html
 Linp.html
 Lsei.html
+PrintMat.html
 Read.html
 Setup.html
 Variables.html

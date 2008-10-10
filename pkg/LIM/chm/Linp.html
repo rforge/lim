@@ -32,7 +32,7 @@ Solves a linear inverse model using linear programming
 
 <pre>
 Linp(...)
-Linp.lim(lim,ispos=lim$ispos,...)
+Linp.lim(lim,cost=NULL,ispos=lim$ispos,...)
 Linp.limfile(file, verbose=TRUE,...)
 Linp.character(...)
 Linp.double(...) </pre>
@@ -50,12 +50,15 @@ name of the linear inverse input file</td></tr>
 <tr valign="top"><td><code>verbose </code></td>
 <td>
 if TRUE: when reading the file, prints warnings and messages to the screen</td></tr>
+<tr valign="top"><td><code>cost </code></td>
+<td>
+if not NULL, a vector with the coefficients of the cost function (to be minimised)</td></tr>
 <tr valign="top"><td><code>ispos </code></td>
 <td>
 if TRUE: all x-values have to be positive</td></tr>
 <tr valign="top"><td><code>... </code></td>
 <td>
-other arguments passed to function <code>linp</code></td></tr>
+other arguments passed to function <code><a onclick="findlink('limSolve', 'linp.html')" style="text-decoration: underline; color: blue; cursor: hand">linp</a></code> from package<code>limSolve</code></td></tr>
 </table>
 
 <h3>Details</h3>
@@ -119,7 +122,25 @@ to solve linear/integer programs. R package version 1.1.9.
 <code><a onclick="findlink('lpSolve', 'linp.html')" style="text-decoration: underline; color: blue; cursor: hand">linp</a></code>, the more general function from package lpSolve
 <li><code><a href="Ldei.html">Ldei</a></code>, to solve the linear inverse problem by least distance programming 
 <li><code><a href="Lsei.html">Lsei</a></code>, to solve the linear inverse problem by lsei (least squares with equality and inequality constraints)
+<li>function <code><a onclick="findlink('limSolve', 'linp.html')" style="text-decoration: underline; color: blue; cursor: hand">linp</a></code> from package<code>limSolve</code>
 </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  # the Blending example
+  Linp(LIMBlending)
+
+  # the E coli example: two functions to maximimise
+  Linp(LIMEcoli)
+  # E coli example, but only first function optimised..
+  Linp(LIMEcoli,cost=-LIMEcoli$Profit[1,])
+
+  # a foodweb example: need to specify the cost function
+  # here just sum of absolute values of flows...
+  Linp(LIMRigaAutumn,cost=(rep(1,LIMRigaAutumn$NUnknowns)))
+  </pre>
 
 <script Language="JScript">
 function findlink(pkg, fn) {

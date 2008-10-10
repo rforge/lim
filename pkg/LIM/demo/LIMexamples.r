@@ -6,6 +6,6 @@ example(LIMBrouageMudflat)
 example(LIMEverglades)
 example(LIMScheldtIntertidal)
 example(LIMCaliforniaSediment)
-
-
+example(LIMBlending)
+example(LIMEcoli)
 

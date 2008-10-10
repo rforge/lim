@@ -14,8 +14,12 @@ Ingredient 2 (gram/kg)  200    150     10      -      60
 
 What should be the amounts of active ingredients and filler in one kg of feed mix? 
 
-solution is x1= 0.3667, x2=0.2667 and x3=0.3667 to four decimal places.
+solution is x1= 0.5905, x2=0.2364 and x3=0.2727.
 
+Solve in R with:
+require(LIM)
+LIMBlending <- Setup("blending.input")
+Linp(LIMBlending)
 #######################################3
 
 ### COMPONENT

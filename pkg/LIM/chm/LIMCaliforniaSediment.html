@@ -17,7 +17,7 @@
 
 <p>
 Linear inverse model specification for the Santa Monica Basin (California) sediment food web
-<br> as in Eldridge and Jackson (1993). 
+as in Eldridge and Jackson (1993).
 </p>
 <p>
 The Santa Monica Basin is a hypoxic-anoxic basin located near California.
@@ -27,7 +27,7 @@ connected with 32 flows.  Units of the flows are mg C/m2/day
 </p>
 <p>
 The linear inverse model LIMCaliforniaSediment is generated from the file 
-<br> &lsquo;<span class="file">CaliforniaSediment.input</span>&rsquo; which can be found in subdirectory &lsquo;<span class="file">web</span>&rsquo; of the packages directory
+&lsquo;<span class="file">CaliforniaSediment.input</span>&rsquo; which can be found in subdirectory <a href="/examples/FoodWeb">/examples/FoodWeb</a> of the packages directory
 </p>
 <p>
 In this subdirectory you will find many foodweb example input files
@@ -45,7 +45,12 @@ In this subdirectory you will find many foodweb example input files
 
 <p>
 a list of matrices, vectors, names and values that specify the linear inverse model problem.
-<br> see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+<p>
+see the return value of <code><a href="Setup.html">Setup</a></code> for more information about this list
+</p>
+<p>
+A more complete description of this structures is in vignette("LIM")
 </p>
 
 
@@ -77,16 +82,16 @@ continental slope communities inferred using inverse analysis. Marine Ecology Pr
 <pre>CaliforniaSediment &lt;- Flowmatrix(LIMCaliforniaSediment)
 plotweb(CaliforniaSediment,main="Santa Monica Basin Benthic web",
         sub="mgN/m2/day",lab.size=0.8)
-xr &lt;- Xranges(LIMCaliforniaSediment)
-min&lt;- xr[,1]
-max&lt;- xr[,2]
-xv &lt;- Lsei(LIMCaliforniaSediment)$X
-i1 &lt;- 1:(nrow(xr)/2)
-i2 &lt;- (nrow(xr)/2+1):nrow(xr)
-Plotranges(min[i1],max[i1],xv[i1],lab.cex=0.7,
+xr &lt;- LIMCaliforniaSediment$NUnknowns
+i1 &lt;- 1:(xr/2)
+i2 &lt;- (xr/2+1):xr
+Plotranges(LIMCaliforniaSediment,index=i1,lab.cex=0.7,sub="*=unbounded",
         main="Santa Monica Basin Benthic web, Flowranges - part1")
-Plotranges(min[i2],max[i2],xv[i2],lab.cex=0.7,
-        main="Santa Monica Basin Benthic web, Flowranges - part2")</pre>
+## Not run: 
+Plotranges(LIMCaliforniaSediment,index=i2,lab.cex=0.7,sub="*=unbounded",
+        main="Santa Monica Basin Benthic web, Flowranges - part2")
+## End(Not run)
+        </pre>
 
 
 

@@ -24,7 +24,7 @@ Lsei.character(...)}
   \item{parsimonious }{if TRUE, also minimises the sum of squared unknowns}
   \item{file }{name of the inverse input file}
   \item{verbose }{if TRUE: when reading the file prints warnings and messages to the screen}
-  \item{... }{other arguments passed to function \code{lsei}}
+  \item{... }{other arguments passed to function \code{\link[limSolve]{lsei}} from package\code{limSolve}}
 }
 \value{
   a list containing:
@@ -71,7 +71,8 @@ In theory both \code{Lsei.lim} and \code{Ldei} should return the same value for 
 }
 \seealso{\code{\link[limSolve]{lsei}}, the more general function from package limSolve
 \item \code{\link{Linp}}, to solve the linear inverse problem by linear programming 
-\item \code{\link{Ldei}}, to solve the linear inverse problem by least distance programming}
+\item \code{\link{Ldei}}, to solve the linear inverse problem by least distance programming
+\item function \code{\link[limSolve]{lsei}} from package\code{limSolve}}
 \keyword{algebra}
 \keyword{array}
 \keyword{optimize}
