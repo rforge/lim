@@ -34,6 +34,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 \newcommand{\li}{\textbf{\textsf{LIM }}}
 \newcommand{\ls}{\textbf{\textsf{limSolve }}}
+\newcommand{\footnoteremember}[2]{
+  \footnote{#2}
+  \newcounter{#1}
+  \setcounter{#1}{\value{footnote}}
+}
+\newcommand{\footnoterecall}[1]{
+  \footnotemark[\value{#1}]
+}
 
 \title{Package \li, implementing linear inverse models in \proglang{R} }
 \Plaintitle{Package LIM, implementing linear inverse models in R}
@@ -1394,8 +1402,54 @@ By renaming the "tex" file as "rnw", R is tricked to believing it
 is a true Sweave file (which it is not) and thus makes a vignette.
 This means that the "R-code" that you can read is not interpreted}
 
-\clearpage
+A list of all functions in \li is in table (1).
 
+A list of useful functions in other packages is table (2)
+\clearpage
+\begin{table*}[t]
+\caption{Table 1. Summary of the functions in package \ls}\label{tb:ls}
+\centering
+\begin{tabular}{p{.15\textwidth}p{.75\textwidth}}\\
+ Function & Description\\
+\hline
+\code{Flowmatrix}    &  Generates a flow matrix from a LIM problem\\
+\code{Plotranges}    &  Plots minimum and maximum (ranges) and a central value of a LIM problem\\
+\code{PrintMat}      &  Print the matrices of a LIM problem\\
+\code{Read}          &  Reads a LIM input file and creates a liminput list\\
+\code{Setup}         &  Composes a LIM problem from either a liminput list or from a file\\
+\code{Ldei}          &  Solves a LIM problem using ldei (Least distance programming with equalities and inequalities)\\
+\code{Linp}          &  Solves a LIM problem using Linear programming \\
+\code{Lsei}          &  Solves a LIM problem using lsei (Least squares with equality and inequality conditions)\\
+\code{Xranges}       &  Calculates ranges of unknowns\\
+\code{Varranges}     &  Calculates ranges of variables (linear combinations of unknonws)\\
+\code{Xsample}       &  Randomly samples a LIM problem for the unknowns\\
+\code{Varsample}     &  Randomly samples a LIM problem for the inverse variables\\
+\hline
+\end{tabular}
+\end{table*}
+ \clearpage
+\begin{table*}[t]
+\caption{Table 2. Useful functions from other packages: \pkg{diagram} \citep{diagram} and \pkg{NetIndices} \citep{NetIndices}}
+\centering
+\begin{tabular}{p{.15\textwidth}p{.15\textwidth}p{.65\textwidth}}\hline
+\rule[-3mm]{0mm}{8mm}       Function  & Package        &Description\\
+\hline \hline
+\code{plotweb}        & \code{diagram}   & Plots a web, based on a flowmatrix \footnoteremember{flowmatrix}{created using \li function \code{Flowmatrix}}, thickness of arrow =value of flow  \\
+\code{plotmat}        & \code{diagram}   & Visualises the transpose of a flowmatrix \footnoterecall{flowmatrix} as labeled boxes connected by arrows (created using \li function \code{Flowmatrix}  \\ \hline
+\code{AscInd}         & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the ascendency network indices\\
+\code{Dependency}     & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the dependency network indices\\
+\code{EffInd}         & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the effective connectivity, flows, nodes, roles network indices\\
+\code{EnvInd}         & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the indices of homogenization, synergism,...\\
+\code{GenInd}         & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the general network indices\\
+\code{PathInd}        & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the direct and indirecgt pathways in a network\\
+\code{UncInd}         & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the statistical, realised and conditional uncertainty,...\\
+\code{TrophInd}       & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the trophic level and omnivory indices\\
+
+\hline
+\end{tabular}
+\end{table*}
+
+\clearpage
 \bibliography{vignettes}
 
 \end{document}
