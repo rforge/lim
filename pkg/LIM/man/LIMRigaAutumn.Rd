@@ -3,10 +3,11 @@
 \alias{LIMRigaAutumn}
 \title{Linear inverse model specification for the Gulf of Riga *autumn* planktonic food web}
 \description{Linear inverse model specification for the Gulf of Riga planktonic food web in *autumn*
-\cr as in Donali et al. (1999). 
+as in Donali et al. (1999).
 
 The Gulf of Riga is a highly eutrophic system in the Baltic Sea.
-\cr The foodweb comprises 7 functional compartments and two external compartments,
+
+The foodweb comprises 7 functional compartments and two external compartments,
 connected with 26 flows.  Units of the flows are mg C/m3/day
 
 The linear inverse model LIMRigaAutumn is generated from the file RigaAutumn.input 

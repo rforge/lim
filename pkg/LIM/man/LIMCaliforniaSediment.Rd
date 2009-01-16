@@ -6,15 +6,18 @@
  as in Eldridge and Jackson (1993).
 
 The Santa Monica Basin is a hypoxic-anoxic basin located near California.
-\cr The model contains both chemical and biological species. 
-\cr The foodweb comprises 7 functional compartments and five external compartments,
+
+The model contains both chemical and biological species.
+
+The foodweb comprises 7 functional compartments and five external compartments,
 connected with 32 flows.  Units of the flows are mg C/m2/day
 
 The linear inverse model LIMCaliforniaSediment is generated from the file 
 \file{CaliforniaSediment.input} which can be found in subdirectory \url{/examples/FoodWeb} of the packages directory
 
 In this subdirectory you will find many foodweb example input files
-\cr These files can be read using \code{\link{Read}} and their output processed by 
+
+These files can be read using \code{\link{Read}} and their output processed by
 \code{\link{Setup}} which will produce a linear inverse problem specification similar to LIMCaliforniaSediment}
 \usage{data(LIMCaliforniaSediment)}
 \format{a list of matrices, vectors, names and values that specify the linear inverse model problem.

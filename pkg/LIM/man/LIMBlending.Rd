@@ -4,8 +4,10 @@
 \docType{data}
 \title{The blending problem specification}
 \description{A manufacturer produces a feeding mix for pet animals. 
-\cr The feed mix contains two nutritive ingredients and one ingredient (filler) to provide bulk. 
-\cr One kg of feed mix must contain a minimum quantity of each of four nutrients as below: 
+
+The feed mix contains two nutritive ingredients and one ingredient (filler) to provide bulk.
+
+One kg of feed mix must contain a minimum quantity of each of four nutrients as below:
 
        \tabular{rlllll}{
        \tab Nutrient  \tab A  \tab B  \tab C  \tab D \cr
@@ -54,7 +56,8 @@ The solution is Ingredient1 (x1) = 0.5909, Ingredient2 (x2)=0.1364 and Filler (x
 \usage{LIMBlending
 LIMinputBlending}
 \format{LIMBlending is of type \code{lim}, which is a list of matrices, vectors, names and values that specify the linear inverse model problem.
-\cr see the return value of \code{\link{Setup}} for more information about this list
+
+see the return value of \code{\link{Setup}} for more information about this list
 
 LIMinputBlending is of type \code{liminput}, see the return value of \code{\link{Read}} for more information.
 

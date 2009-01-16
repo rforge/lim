@@ -8,10 +8,14 @@
 \title{Solves a linear inverse model using least distance programming}
 \description{Solves a linear inverse model using least distance programming,
 i.e. minimizes the sum of squared unknowns.
-  \cr Input presented either:
+
+  Input presented either:
+
+    \itemize{
   \item as matrices E, F, A, B, G, H (Ldei.double)
   \item as a list (Ldei.lim) or 
   \item as a lim input file (Ldei.limfile)
+}
 }
 \usage{
 Ldei(...)

@@ -3,11 +3,12 @@
 \alias{LIMEverglades}
 \title{Linear inverse model specification for the herpetological food web of the Everglades}
 \description{Linear inverse model specification for the herpetological wet prairie example from the everglades. 
-\cr as described in Diffendorfer et al., 2001
+as described in Diffendorfer et al., 2001
  
 
 The everglades are a freshwater wetland in Florida, USA.
-\cr The model contains 9 functional compartments and 3 external compartments,
+
+The model contains 9 functional compartments and 3 external compartments,
 connected with 402 flows.  Units of the flows are gram wet weight / Ha / year
 
 The linear inverse model LIMEverglades is generated from the file Everglades.input 

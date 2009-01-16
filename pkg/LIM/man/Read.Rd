@@ -54,6 +54,7 @@ In short the inverse input file contains the declaration sections enclosed inbet
 
    Only the first 4 characters of the section names are read
    \cr The following sections are allowed:
+  \itemize{
    \item Parameters   - \#\# PARAMETERS
    \item Components   - \#\# STOCKS or \#\# DECISION VARIABLES or \#\# STATES or \#\# UNKNOWNS
    \item Externals    - \#\# EXTERNALS
@@ -64,7 +65,7 @@ In short the inverse input file contains the declaration sections enclosed inbet
    \item Profit       - \#\# PROFIT or \#\# MAXIMISE
    \item Equalities   - \#\# EQUALITIES
    \item InEqualities - \#\# INEQUALITIES or \#\# CONSTRAINTS
-
+}
    Any (part of a) line starting with a "!" is considered a comment.
 
    Input is NOT case sensitive

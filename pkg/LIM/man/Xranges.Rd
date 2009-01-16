@@ -21,9 +21,11 @@
            sub="ranges and parsimonious solution",pch=16)
   cc <- 1:nrow(xr)
   segments(xr[,1],cc,xr[,2],cc)}
-\seealso{\item \code{\link{Varranges}} which estimates the ranges of inverse variables
-  \item \code{\link{Plotranges}} to plot the ranges
-  \item function \code{\link[limSolve]{xranges}} from package\code{limSolve}}
+\seealso{ \code{\link{Varranges}} which estimates the ranges of inverse variables
+
+ \code{\link{Plotranges}} to plot the ranges
+
+ function \code{\link[limSolve]{xranges}} from package\code{limSolve}}
 \keyword{optimize}
 \keyword{utilities}
 

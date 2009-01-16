@@ -16,8 +16,8 @@
   \tabular{ll}{
     Package: \tab LIM\cr
     Type: \tab Package\cr
-    Version: \tab 1.1-1\cr
-    Date: \tab 2008-07-17\cr
+    Version: \tab 1.2\cr
+    Date: \tab 2000-01-16\cr
     License: \tab GNU Public License 2 or above\cr
   }
 
@@ -37,6 +37,7 @@ The package includes many examples
 }
 \author{
   Karline Soetaert (Maintainer),
+  
   Dick van Oevelen
 }
 %\references{

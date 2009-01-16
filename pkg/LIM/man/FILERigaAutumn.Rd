@@ -14,8 +14,10 @@ The original file, RigaAutumn.input can be found in subdirectory \file{web} of t
 
 In this subdirectory you will find many foodweb example input files
 
+  \itemize{
 \item They can be read using \code{\link{Read}}(file)
 \item Or they can be directly solved using \code{\link{Setup}}(file)}
+}
 \usage{data(FILERigaAutumn)}
 \format{vector of character strings as present in the original file}
 \author{Karline Soetaert <k.soetaert@nioo.knaw.nl>}

@@ -6,11 +6,14 @@
 \alias{Lsei.double}
 \title{Solves a linear inverse model using the least squares method}
 \description{Solves a linear inverse model using the least squares method
-  \cr Input presented as:
+
+  Input presented as:
+  \itemize{
   \item matrices E, F, A, B, G, H (Lsei.double) or
   \item a list (Lsei.lim) or
   \item as a lim input file (Lsei.limfile)
-  \cr Useful for solving overdetermined food webs.}
+}
+  Useful for solving overdetermined food webs.}
 \usage{
 Lsei(...)
 Lsei.double(...)
@@ -70,9 +73,12 @@ augmented with the unity matrix (of size Nunknowns) and BB contains Nunknowns ad
 In theory both \code{Lsei.lim} and \code{Ldei} should return the same value for underdetermined systems.
 }
 \seealso{\code{\link[limSolve]{lsei}}, the more general function from package limSolve
-\item \code{\link{Linp}}, to solve the linear inverse problem by linear programming 
-\item \code{\link{Ldei}}, to solve the linear inverse problem by least distance programming
-\item function \code{\link[limSolve]{lsei}} from package\code{limSolve}}
+
+\code{\link{Linp}}, to solve the linear inverse problem by linear programming
+
+ \code{\link{Ldei}}, to solve the linear inverse problem by least distance programming
+
+function \code{\link[limSolve]{lsei}} from package\code{limSolve}}
 \keyword{algebra}
 \keyword{array}
 \keyword{optimize}

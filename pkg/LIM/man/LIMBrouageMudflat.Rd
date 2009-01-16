@@ -3,7 +3,7 @@
 \alias{LIMBrouageMudflat}
 \title{Linear inverse model specification for the Intertidal mudflat food web on the Atlantic coast of France}
 \description{Linear inverse model specification for the Intertidal mudflat food web on the Atlantic coast of France
-\cr as in Leguerrier et al., 2003. 
+as in Leguerrier et al., 2003.
 
 The foodweb comprises 16 functional compartments and 3 external compartments,
 connected with 95 flows.  Units of the flows are g C/m2/year
@@ -12,7 +12,8 @@ The linear inverse model LIMBrouageMudflat is generated from the file BrouageMud
 which can be found in subdirectory \url{/examples/FoodWeb} of the packages directory
 
 In this subdirectory you will find many foodweb example input files
-\cr These files can be read using \code{\link{Read}} and their output processed by 
+
+These files can be read using \code{\link{Read}} and their output processed by
 \code{\link{Setup}} which will produce a linear inverse problem specification similar to LIMBrouageMudflat}
 \usage{data(LIMBrouageMudflat)}
 \format{a list of matrices, vectors, names and values that specify the linear inverse model problem.

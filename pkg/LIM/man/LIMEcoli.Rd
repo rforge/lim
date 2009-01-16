@@ -29,6 +29,7 @@ GLK1,  PGI1,  PFKA,  FBP, FBA, TPIA, GAPA, PGK, GPMA, ENO, PPSA, PYKA, ACEE, ZWF
  ACUP, LACUP, FORUP, ETHUP, SUCCUP, PYRUP, PIUP, O2TX, CO2TX, ATPM, ADK, Growth
 
 The model contains:
+  \itemize{
 \item 54 equalities (Ax=B): the 53 mass balances (one for each substance) and one equation
 that sets the ATP drain flux for constant maintenance requirements to a fixed value (5.87)
 \item 70 unknowns (x), the reaction rates
@@ -36,7 +37,7 @@ that sets the ATP drain flux for constant maintenance requirements to a fixed va
 The last 34 inequalities impose that the reaction rates have to be
 positive (for unidirectional reactions only).
 \item 2 functions that has to be maximised, the biomass production (growth).
-
+}
 }
 \usage{LIMEcoli}
 \format{LIMEcoli is of type \code{lim}, which is a list of matrices, vectors,
