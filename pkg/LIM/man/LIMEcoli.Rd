@@ -93,8 +93,9 @@ segments(xr[ii,1],1:nr,xr[ii,2],1:nr)
 mtext(side= 3, cex=1.5, outer = TRUE, line=-1.5,
       "E coli Core Metabolism, optimal solution and ranges")
 }
-\references{\item \url{http://gcrg.ucsd.edu/Downloads/Flux_Balance_Analysis }
-\item Edwards,J.S., Covert, M., and Palsson, B.., " Metabolic Modeling of Microbes: the Flux Balance Approach", Environmental Microbiology, 4(3): pp. 133-140 (2002).
+\references{\url{http://gcrg.ucsd.edu/Downloads/Flux_Balance_Analysis }
+
+ Edwards,J.S., Covert, M., and Palsson, B.., " Metabolic Modeling of Microbes: the Flux Balance Approach", Environmental Microbiology, 4(3): pp. 133-140 (2002).
 
 }
 \keyword{datasets}

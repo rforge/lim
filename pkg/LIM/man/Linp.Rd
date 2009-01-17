@@ -26,7 +26,7 @@ Linp.double(...) }
   \item{verbose }{if TRUE: when reading the file, prints warnings and messages to the screen}
   \item{cost }{if not NULL, a vector with the coefficients of the cost function (to be minimised)}
   \item{ispos }{if TRUE: all x-values have to be positive}
-  \item{... }{other arguments passed to function \\code{\link[limSolve]{linp}} from package\code{limSolve}}
+  \item{... }{other arguments passed to function \link[limSolve]{linp} from package\code{limSolve}}
 }
 \value{
   a list containing:
