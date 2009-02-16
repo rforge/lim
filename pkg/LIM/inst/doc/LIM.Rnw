@@ -1276,7 +1276,7 @@ in the equalities.
 \begin{verbatim}
 ## EQUALITIES
  ...
- Massbalance(AN) = -flowsto(AN)*Frac_iso
+ Massbalance(AN) = -flowto(AN)*Frac_iso
  ...
 ## END EQUALITIES
 \end{verbatim}
