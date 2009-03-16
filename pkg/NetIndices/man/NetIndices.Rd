@@ -3,24 +3,24 @@
 \alias{NetIndices}
 \docType{package}
 \title{
-Estimates network indices, including trophic structure of foodwebs
+  Estimates network indices, including trophic structure of foodwebs
 }
 \description{
-Given a network (e.g. a food web), estimates several network indices.
+  Given a network (e.g. a food web), estimates several network indices.
 
-These include:
-\itemize{
-\item Ascendency network indices,
-\item Direct and indirect dependencies,
-\item Effective measures,
-\item Environ network indices,
-\item General network indices,
-\item Pathway analysis,
-\item Network uncertainty indices and constraint efficiencies
-\item the trophic level and omnivory indices of food webs.
+  These include:
+  \itemize{
+    \item ascendency network indices,
+    \item direct and indirect dependencies,
+    \item effective measures,
+    \item environ network indices,
+    \item general network indices,
+    \item pathway analysis,
+    \item network uncertainty indices and constraint efficiencies
+    \item the trophic level and omnivory indices of food webs.
+  }
 }
 
-}
 \details{
   \tabular{ll}{
     Package: \tab NetIndices\cr
@@ -29,15 +29,16 @@ These include:
     Date: \tab 2009-01-16\cr
     License: \tab GNU Public License 2 or above\cr
   }
-
 }
+
 \author{
   Karline Soetaert (Maintainer), Netherlands Institute of Ecology
   
   Julius Kipyegon Kones, University of Nairobi
 }
+
 \references{
-Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
   Are network indices robust indicators of food web functioning? a
   Monte Carlo approach.  Ecological Modelling, 220, 370-382.
 }
