@@ -169,7 +169,7 @@
 
     \item The Synergism index both in the text and the equations were wrong.
       See Table (7) for how it is correctly estimated.
-
+  \end{enumerate}
 \section{Changes in later versions}
 \subsection{version 1.3}
   \begin{itemize}
