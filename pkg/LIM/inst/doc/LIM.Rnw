@@ -101,7 +101,7 @@ The Netherlands}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% R/Sweave specific LaTeX commands.
 %% need no \usepackage{Sweave}
-%\VignetteIndexEntry{LIM}
+%\VignetteIndexEntry{LIM: implementing linear inverse models in R}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin of the document
 \begin{document}
