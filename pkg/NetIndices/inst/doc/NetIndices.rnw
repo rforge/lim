@@ -15,7 +15,7 @@
 \usepackage{longtable}
 \usepackage{listings}
 \usepackage{Sweave}
-%\VignetteIndexEntry{NetIndices}
+%\VignetteIndexEntry{NetIndices: network indices and food web descriptors in R}
 \makeatletter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
