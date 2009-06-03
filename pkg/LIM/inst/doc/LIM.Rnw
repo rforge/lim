@@ -61,7 +61,7 @@ The Netherlands}
 
 \Plainauthor{Karline Soetaert, Dick van oevelen}
 
-\Abstract{We present \proglang{R} package \li which is designed
+\Abstract{We present \proglang{R} package \li \citep{LIM} which is designed
   for reading and solving linear inverse models (LIM). The model
   problem is formulated in text files in a way that is natural and
   comprehensible. \li then converts this input into the required
@@ -187,7 +187,7 @@ The Netherlands}
           for each unknown.
         \item \emph{xsample} -  randomly samples the solution space using
           a Markov chain. This method returns the marginal probability
-          density function for each unknown.
+          density function for each unknown. \citep{xsample}
       \end{itemize}
   \end{itemize}
   All these functions are also available from package \li.
