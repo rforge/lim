@@ -88,14 +88,14 @@ The Netherlands}
   Netherlands Institute of Ecology (NIOO)\\
   4401 NT Yerseke, Netherlands
   E-mail: \email{k.soetaert@nioo.knaw.nl}\\
-  URL: \url{http://www.nioo.knaw.nl/ppages/ksoetaert}\\
+  URL: \url{http://www.nioo.knaw.nl/users/ksoetaert}\\
    \\
   Dick van Oevelen\\
   Centre for Estuarine and Marine Ecology (CEME)\\
   Netherlands Institute of Ecology (NIOO)\\
   4401 NT Yerseke, Netherlands
   E-mail: \email{d.vanoevelen@nioo.knaw.nl}\\
-  URL: \url{http://www.nioo.knaw.nl/ppages/dvanoevelen}\\
+  URL: \url{http://www.nioo.knaw.nl/users/dvanoevelen}\\
 }
 
 
