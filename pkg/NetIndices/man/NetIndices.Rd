@@ -25,8 +25,8 @@
   \tabular{ll}{
     Package: \tab NetIndices\cr
     Type: \tab Package\cr
-    Version: \tab 1.2\cr
-    Date: \tab 2009-01-16\cr
+    Version: \tab 1.4\cr
+    Date: \tab 2009-07-01\cr
     License: \tab GNU Public License 2 or above\cr
   }
 }

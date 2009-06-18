@@ -21,8 +21,8 @@
   \tabular{ll}{
     Package: \tab LIM\cr
     Type: \tab Package\cr
-    Version: \tab 1.3\cr
-    Date: \tab 2009-03-19\cr
+    Version: \tab 1.4\cr
+    Date: \tab 2009-07-01\cr
     License: \tab GNU Public License 2 or above\cr
   }
 
