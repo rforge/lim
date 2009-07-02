@@ -22,7 +22,7 @@
 
 
   The linear inverse model LIMTakapoto is generated from the file
-  Takapoto.input which can be found in subdirectory \url{/examples/FoodWeb}
+  Takapoto.input which can be found in subdirectory \code{/examples/FoodWeb}
   of the package directory
 
   In this subdirectory you will find many foodweb example input files
@@ -67,6 +67,10 @@ Plotranges(LIMTakapoto,type="V",lab.cex=0.7, index=2:23,xlab="mgC/m2/d",
 }
 
 \seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+
+  contains "Takapoto.input", the input file; read this with \code{Setup}
+
   \code{\link{LIMRigaAutumn}} and many others
 }
 

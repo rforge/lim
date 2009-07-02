@@ -16,7 +16,7 @@
   connected with 26 flows.  Units of the flows are mg C/m3/day
 
   The linear inverse model LIMRigaAutumn is generated from the file
-  RigaAutumn.input which can be found in subdirectory \url{/examples/FoodWeb}
+  RigaAutumn.input which can be found in subdirectory \code{/examples/FoodWeb}
   of the package directory
 
   In this subdirectory you will find many foodweb example input files
@@ -66,6 +66,10 @@ Plotranges(LIMRigaAutumn,type="V",lab.cex=0.7,xlab="mgC/m3/d",
 }
 
 \seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+
+  contains "RigaAutumn.input", the input file; read this with \code{Setup}
+
   \code{\link{LIMTakapoto}}, \code{\link{LIMRigaSummer}},
   \code{\link{LIMRigaSpring}} and many others
 }

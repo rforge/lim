@@ -12,7 +12,7 @@
   (as from \url{http://gcrg.ucsd.edu/Downloads/Flux_Balance_Analysis}).
 
   The original input file can be found in the package subdirectory
-  \url{/examples/Reactions/E_coli.lim}
+  \code{/examples/Reactions/E_coli.lim}
 
   There are 53 substances:
 
@@ -119,6 +119,13 @@ segments(xr[ii,1],1:nr,xr[ii,2],1:nr)
 mtext(side= 3, cex=1.5, outer = TRUE, line=-1.5,
       "E coli Core Metabolism, optimal solution and ranges")
 }
+\seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Reactions/", sep=""))
+
+  contains "E\_coli.lim", the input file; read this with \code{Setup}
+
+}
+
 \references{
   \url{http://gcrg.ucsd.edu/Downloads/Flux_Balance_Analysis }
 

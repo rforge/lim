@@ -21,7 +21,7 @@
   Units of the flows are gram wet weight / Ha / year
 
   The linear inverse model LIMEverglades is generated from the file
-  Everglades.input which can be found in subdirectory \url{/examples/FoodWeb}
+  Everglades.input which can be found in subdirectory \code{/examples/FoodWeb}
   of the package directory
 
   In this subdirectory you will find many foodweb example input files
@@ -66,6 +66,10 @@ plotweb(Everglades,main="Everglades Herpetological Wet Prairie model",
 }
 
 \seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+
+  contains "Everglades.input", the input file; read this with \code{Setup}
+
   \code{\link{LIMTakapoto}}, \code{\link{LIMRigaSummer}} and many others
 }
 

@@ -1,0 +1,663 @@
+Data    :   CWC model for Rockall
+
+Units   :   Fluxes:             mmol C/m2/d
+            Standing stocks:    mmol C/m2
+
+Dick van Oevelen et al.
+
+#####################################################################
+
+################################ PARAMETERS 
+
+!!!!!!!!!!!!!!!!!!!!
+!--     DATA     --!
+!!!!!!!!!!!!!!!!!!!!
+
+!-- STOCK DATA
+ ColdwaterCoral     = 1222.0        {mmol C m-2}
+ Eunice             =  310.6        {mmol C m-2}
+ Bacteria_c         =23826.4        {mmol C m-2}
+ Hesionidae         =   40.5        {mmol C m-2}
+ Urchins            =   37.8        {mmol C m-2}
+ Sponges            =  607.8        {mmol C m-2}
+ Starfish           =   18.7        {mmol C m-2}
+ Crabs              =    3.2        {mmol C m-2}
+ Hydrozoa           =  123.2        {mmol C m-2}
+ Crinoidea          =   16.6        {mmol C m-2}
+ LimaMarioni        =   22.9        {mmol C m-2}
+ Asperarca          =  109.2        {mmol C m-2}
+ Polychaeta         =   16.2        {mmol C m-2}
+ Bivalvia           =   47.6        {mmol C m-2}  !XNA+XNA+47.6, biomass Delectopecten + Chlamys ignored
+ SuspensionFeeders  =  172.5        {mmol C m-2}  !19+33.1+12.7+70.5+11.3+25.9
+ OmnivorePredator   =   13.9        {mmol C m-2}  !XNA+XNA+13.9, biomass shrimp small en Plesionika (large shrimp) ignored.
+ TotalEpifauna      = 1875.0        {mmol C m-2}  !sum of above + unspecified
+ Infauna            =  390.7        {mmol C m-2}  !total infaunal community
+ Detritus_s         = 8243.9        {mmol C m-2}  !labile detritus
+
+!-- RESPIRATION DATA 
+ RespirationCWC     =   1.83        {mmol C m-2 d-1}
+ RespirationBIO     =  13.7         {mmol C m-2 d-1}
+ RespirationHES     =   0.10        {mmol C m-2 d-1}
+ RespirationURC     =   0.20        {mmol C m-2 d-1}
+ RespirationSPO     =   2.30        {mmol C m-2 d-1}
+ RespirationEUN     =   0.35        {mmol C m-2 d-1}
+ RespirationSTA     =   0.014       {mmol C m-2 d-1}
+ RespirationASP     =   0.20        {mmol C m-2 d-1}
+ RespirationCRA     =   0.013       {mmol C m-2 d-1}
+ RespirationLIM     =   0.13        {mmol C m-2 d-1}
+ RespirationHYD     =   0.34        {mmol C m-2 d-1}
+ RespirationCRI     =   0.014       {mmol C m-2 d-1}
+ RespirationSED     =  33.2         {mmol C m-2 d-1}
+
+!-- STABLE ISOTOPE DATA
+ FracCWC            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracEUN            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracHES            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracSPO            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracHYD            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracCRI            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracPOL            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracBIV            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracLIM            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracASP            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracSUS            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracOMN            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracCRA            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracURC            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracSTA            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracFIS            =   3.4         {‰}  ! -, Minagawa&Wada88, trophic fractionation
+ FracBIO            =   1.35        {‰}  ! -, Altabet, pg 168 in Particle Flux in the Ocean
+ IsoDET_w           =   4.5         {‰}  !from Kiriakoulakis, check Fisher (1991, Mar Chem) for difference between Det_w and Det_s
+ IsoPHY_w           =   4.0         {‰}  !assumed to be lower than DET_w because of increased 15N during aging + allows isotope eqs to be solved
+ IsoZOO_w           =   8.0         {‰}  !assumed
+ IsoDET_s           =   7.3         {‰}  !measured
+ IsoCWC             =   8.7         {‰}
+ IsoBIO             =   5.9         {‰}  !average of range
+ IsoHES             =   9.5         {‰}
+ IsoURC             =  12.9         {‰}  !changed from 12.96 to 12.9 or 12.8 to meet 15N balance
+ IsoSPO             =   9.1         {‰}
+ IsoEUN             =  11.29        {‰}  !should be 11.3, 
+ IsoSTA             =  11.7         {‰}  
+ IsoASP             =   8.9         {‰}  
+ IsoCRA             =  10.5         {‰}  !average 8.81;12.51
+ IsoLIM             =   7.8         {‰}  
+ IsoHYD             =   8.6         {‰}  
+ IsoCRI             =   7.41        {‰}  !should be 7.4
+ IsoPOL             =   IsoHES      {‰}  !assumed
+ IsoBIV             =   7.6         {‰}  !average Chlamys,Delectopecten. Biv-diversen no data 
+ IsoSUS             =   8.6         {‰}    
+ IsoOMN             =   8.7         {‰}   
+ IsoFIS             =  11.5         {‰}   
+
+!-- Carbon burial
+ DETburial	        =   0.186       {mmol C m-2 d-1} 
+
+
+!!!!!!!!!!!!!!!!!!!!  
+!-- CONSTRAINTS  --!  
+!!!!!!!!!!!!!!!!!!!!  
+
+!-- General - used for compartments that have respiration data
+ minAE        =  0.40
+ maxAE        =  0.80 
+ minPE        =  0.30
+ maxPE        =  0.60
+
+!-- Coldwater corals
+ minProdCWC   =  0.05
+ maxProdCWC   =  0.50
+
+!-- Bacteria
+ minBGE       =  0.20
+ maxBGE       =  0.45
+
+!-- Polychaeta
+ minRespPOL   =  0.0024            {d-1} !Mahaut et al. /2
+ maxRespPOL   =  0.0096            {d-1} !Mahaut et al. *2
+
+!-- Bivalvia
+ minRespBIV   =  0.0040             {d-1} !Mahaut et al. /2
+ maxRespBIV   =  0.0160             {d-1} !Mahaut et al. *2
+
+!-- Suspension feeders (= total respiration)
+ minRespSUS   =  0.55     {mmolC m-2 d-1} !Mahaut et al. /2
+ maxRespSUS   =  2.20     {mmolC m-2 d-1} !Mahaut et al. *2
+
+!-- Omnivores/predators
+ minRespOMN   =  0.0038             {d-1} !Mahaut et al. /2
+ maxRespOMN   =  0.0150             {d-1} !Mahaut et al. *2 
+
+!-- Infauna
+ minRespINF   =  minRespPOL         {d-1} !Mahaut et al. /2 
+ maxRespINF   =  maxRespPOL         {d-1} !Mahaut et al. *2
+ minRelBacINF =  0.30               {-}   !Van Oevelen et al.  
+
+################################ END PARAMETERS 
+
+################################ VARIABLES 
+
+!-- Coldwater corals
+ RespCWC         =  CWC->DIC
+ UptaCWC         =  flowto(CWC)           !sums all inflows
+ AssiCWC         =  UptaCWC - CWC->DET_w
+ ProdCWC         =  AssiCWC - RespCWC
+
+!-- Eunice norvegica
+ RespEUN         =  EUN->DIC 
+ UptaEUN         =  flowto(EUN)           !sums all inflows
+ AssiEUN         =  UptaEUN - EUN->DET_w
+ ProdEUN         =  AssiEUN - RespEUN  
+
+!-- Fouling bacteria
+ RespBIO       =  BIO->DIC
+ UptaBIO       =  flowto(BIO)         !sums all inflows
+ ProdBIO       =  UptaBIO - RespBIO
+
+!-- Hesionidae
+ RespHES         =  HES->DIC   
+ UptaHES         =  flowto(HES)           !sums all inflows
+ AssiHES         =  UptaHES - HES->DET_w
+ ProdHES         =  AssiHES - RespHES  
+
+!-- Sponges
+ RespSPO         =  SPO->DIC
+ UptaSPO         =  flowto(SPO)           !sums all inflows
+ AssiSPO         =  UptaSPO - SPO->DET_w
+ ProdSPO         =  AssiSPO - RespSPO  
+ 
+!-- Urchins
+ RespURC         =  URC->DIC
+ UptaURC         =  flowto(URC)           !sums all inflows  
+ AssiURC         =  UptaURC - URC->DET_w
+ ProdURC         =  AssiURC - RespURC  
+
+!-- Starfish
+ RespSTA         =  STA->DIC   
+ UptaSTA         =  flowto(STA)           !sums all inflows  
+ AssiSTA         =  UptaSTA - STA->DET_w
+ ProdSTA         =  AssiSTA - RespSTA  
+
+!-- Lima marioni
+ RespLIM         =  LIM->DIC   
+ UptaLIM         =  flowto(LIM)           !sums all inflows  
+ AssiLIM         =  UptaLIM - LIM->DET_w
+ ProdLIM         =  AssiLIM - RespLIM  
+
+!-- Asperarca
+ RespASP         =  ASP->DIC   
+ UptaASP         =  flowto(ASP)           !sums all inflows  
+ AssiASP         =  UptaASP - ASP->DET_w
+ ProdASP         =  AssiASP - RespASP  
+
+!-- Crabs
+ RespCRA         =  CRA->DIC   
+ UptaCRA         =  flowto(CRA)           !sums all inflows  
+ AssiCRA         =  UptaCRA - CRA->DET_w
+ ProdCRA         =  AssiCRA - RespCRA  
+ 
+!-- Hydrozoa
+ RespHYD         =  HYD->DIC   
+ UptaHYD         =  flowto(HYD)           !sums all inflows  
+ AssiHYD         =  UptaHYD - HYD->DET_w
+ ProdHYD         =  AssiHYD - RespHYD  
+ 
+!-- Crinoids
+ RespCRI         =  CRI->DIC   
+ UptaCRI         =  flowto(CRI)           !sums all inflows  
+ AssiCRI         =  UptaCRI - CRI->DET_w
+ ProdCRI         =  AssiCRI - RespCRI  
+
+!-- Polychaeta
+ RespPOL         =  POL->DIC   
+ UptaPOL         =  flowto(POL)           !sums all inflows  
+ AssiPOL         =  UptaPOL - POL->DET_w
+ ProdPOL         =  AssiPOL - RespPOL  
+
+!-- Bivalvia
+ RespBIV         =  BIV->DIC   
+ UptaBIV         =  flowto(BIV)           !sums all inflows  
+ AssiBIV         =  UptaBIV - BIV->DET_w
+ ProdBIV         =  AssiBIV - RespBIV  
+ 
+!-- Suspension feeders
+ RespSUS         =  SUS->DIC 
+ UptaSUS         =  flowto(SUS)           !sums all inflows  
+ AssiSUS         =  UptaSUS - SUS->DET_w
+ ProdSUS         =  AssiSUS - RespSUS  
+
+!-- Omnivores/predators
+ RespOMN         =  OMN->DIC 
+ UptaOMN         =  flowto(OMN)           !sums all inflows  
+ AssiOMN         =  UptaOMN - OMN->DET_w
+ ProdOMN         =  AssiOMN - RespOMN  
+
+!-- Fish
+ RespFIS         =  FIS->DIC
+ UptaFIS         =  flowto(FIS)           !sums all inflows  
+ AssiFIS         =  UptaFIS - FIS->DET_w
+ ProdFIS         =  AssiFIS - RespFIS  
+
+!-- Sedimentary bacteria
+ RespBac_s       = Bac_s->DIC
+ UptaBac_s       =  DET_s->BAC_s
+ ProdBAC_s       =  UptaBAC_s - RespBAC_s
+ 
+!-- Infauna
+ RespINF         =  INF->DIC
+ RelBacUptaINF   =  BAC_s->INF 
+ UptaINF         =  DET_s->INF + BAC_s->INF
+ AssiINF         =  UptaINF - INF->DET_s
+ ProdINF         =  AssiINF - RespINF  
+
+!-- Various
+ DETbur          =  DET_s->BUR 
+
+!-- Totals
+ RespLivCWC      =  RespCWC   + RespEUN 
+ RespDeadCWC     =  RespBIO + RespHES + RespSPO + RespURC &
+                   +RespSTA   + RespLIM + RespASP + RespCRA + RespHYD + RespCRI   &
+                   +RespPOL   + RespBIV + RespSUS + RespOMN + RespFIS
+ RespSed         =  RespBAC_s + RespINF
+ RespAll         =  RespLivCWC + RespDeadCWC + RespSed
+ 
+################################ END VARIABLES 
+
+
+################################ STOCK 
+! Definition of the compartments and their magnitude
+
+ !living coral
+ CWC    =   ColdwaterCoral       !living coldwater corals
+ EUN    =   Eunice               !polychaete living in association with living coral
+ BIO  =   XNA                    !bacteria on cwc that mineralize living coral -> dead coral
+                                              
+ !dead coral framework 
+ HES    =   Hesionidae           !living as epifauna on dead coral branches (Polychaete)
+ URC    =   Urchins              !sea urchins
+ SPO    =   Sponges              !various species of sponges
+ STA    =   Starfish             !
+ CRA    =   Crabs                !crabs
+ HYD    =   Hydrozoa             !
+ CRI    =   Crinoidea            !feather star
+ LIM    =   LimaMarioni          !bivalve species
+ ASP    =   Asperarca            !bivalve species
+ POL    =   Polychaeta           !
+ BIV    =   Bivalvia             !
+ SUS    =   SuspensionFeeders    !
+ OMN    =   OmnivorePredator     !omnivores and predators 
+ FIS    =   XNA                 !
+
+ !sediment 
+ INF    =   Infauna              !fauna living in the sediment
+ BAC_s  =   XNA                  !bacteria in the sediment
+ DET_s  =   XNA                  !detritus in the sediment
+
+################################ END STOCK
+
+################################ EXTERNALS 
+ 
+ DIC      ! dissolved inorganic carbon
+ DET_w    ! detritus from the water column
+ PHY_w    ! phytodetritus from the water column
+ ZOO_w    ! zooplankton from the water column
+ EXP      ! export from the ecosystem
+ BUR      ! burial in the underlying sediment
+ 
+################################ END EXTERNALS
+
+################################ MARKER
+!-- STABLE ISOTOPE DATA
+ DET_w           =   4.5 !IsoDET_w         {‰}  !from Kiriakoulakis, check Fisher (1991, Mar Chem) for difference between Det_w and Det_s
+ PHY_w           =   4.0 !IsoPHY_w         {‰}  !assumed to be lower than DET_w because of increased 15N during aging + allows isotope eqs to be solved
+ ZOO_w           =   8.0 !IsoPHY_w+Frac        {‰}  !IsoPHY_w+Frac changed for 7.9 because of 15N balance of Eunice norvegica
+ DET_s           =   7.3         {‰}  !measured
+ CWC             =   8.7         {‰}
+ BIO           =   5.9         {‰}  !assumed, should be between 5.0 and 6.7
+ HES             =   9.5         {‰}
+ URC             =  12.89        {‰}  !changed from 12.96 to 12.9 or 12.8 to meet 15N balance
+ SPO             =   9.1         {‰}
+ EUN             =  11.29        {‰}  !should be 11.3, 
+ STA             =  11.7         {‰}  
+ ASP             =   8.9         {‰}  
+ CRA             =  10.5         {‰}  !average 8.81;12.51
+ LIM             =   7.8         {‰}  
+ HYD             =   8.6         {‰}  
+ CRI             =   7.41        {‰}  !should be 7.4
+ POL             =   9.5         {‰}  !assumed = HES
+ BIV             =   7.6         {‰}  !average Chlamys,Delectopecten. Biv-diversen no data 
+ SUS             =   8.6         {‰}    
+ OMN             =   8.7         {‰}   
+ FIS             =  11.5         {‰}   
+
+################################ END MARKER
+
+
+################################ FLOW 
+
+!!!!!!!!!!!!!!!!!!!!
+!-- LIVING CORAL --!
+!!!!!!!!!!!!!!!!!!!!
+
+!-- Coldwater coral - OK
+ DET_w ->  CWC   !feeding on water column detritus
+ PHY_w ->  CWC   !feeding on water column phytodetritus
+ ZOO_w ->  CWC   !feeding on water column zooplankton
+ CWC   ->  DIC   !respiration
+ CWC   ->  DET_w !faeces production
+ CWC   ->  BIO !degradation of living coral tissue
+
+!-- Eunice norvegica - OK
+ DET_w ->  EUN   !feeding on water column detritus
+ PHY_w ->  EUN   !feeding on water column phytodetritus
+ ZOO_w ->  EUN   !feeding on water column zooplankton
+ EUN   ->  DIC   !respiration
+ EUN   ->  DET_w !faeces production
+ EUN   ->  EXP   !export production
+ 
+!-- Bacteria on corals - OK
+ DET_w ->  BIO !feeding on water column detritus
+ PHY_w ->  BIO !feeding on water column phytodetritus
+ BIO ->  DIC   !respiration
+ BIO ->  EXP   !death and subsequent loss
+ BIO ->  POL   !feeding on bacteria 
+ BIO ->  HES   !feeding on bacteria  
+ BIO ->  OMN   !feeding on bacteria
+ BIO ->  CRA   !feeding on bacteria
+ BIO ->  STA   !feeding on bacteria
+ BIO ->  URC   !feeding on bacteria  
+
+!!!!!!!!!!!!!!!!!!!!
+!--  DEAD CORAL  --!
+!!!!!!!!!!!!!!!!!!!!
+
+!-- Hesionidae - OK
+ DET_w ->  HES   !feeding on water column detritus
+ PHY_w ->  HES   !feeding on water column phytodetritus
+ ZOO_w ->  HES   !feeding on water column zooplankton 
+ HES   ->  DIC   !respiration
+ HES   ->  DET_w !faeces production
+ HES   ->  EXP   !export production
+ HES   ->  CRA   !predation
+ HES   ->  URC   !predation
+ HES   ->  STA   !predation
+ HES   ->  FIS   !predation
+
+!-- Sponges - OK
+ DET_w ->  SPO   !feeding on water column detritus
+ PHY_w ->  SPO   !feeding on water column phytodetritus
+ ZOO_w ->  SPO   !feeding on water column zooplankton
+ SPO   ->  DIC   !respiration
+ SPO   ->  DET_w !faeces production
+ SPO   ->  EXP   !export production
+ SPO   ->  CRA   !predation by crabs 
+ SPO   ->  URC   !predation
+ SPO   ->  STA   !predation 
+
+!-- Hydrozoa - OK
+ DET_w ->  HYD   !feeding on water column detritus
+ PHY_w ->  HYD   !feeding on water column phytodetritus
+ ZOO_w ->  HYD   !feeding on water column zooplankton
+ HYD   ->  DIC   !respiration
+ HYD   ->  DET_w !faeces production
+ HYD   ->  EXP   !export production
+ HYD   ->  URC   !predation
+ HYD   ->  CRA   !predation
+
+!-- Crinoidea - OK
+ DET_w ->  CRI   !feeding on water column detritus
+ PHY_w ->  CRI   !feeding on water column phytodetritus
+ ZOO_w ->  CRI   !feeding on water column zooplankton
+ CRI   ->  DIC   !respiration
+ CRI   ->  DET_w !faeces production
+ CRI   ->  EXP   !export production
+ CRI   ->  CRA   !predation
+
+!-- Polychaeta - OK
+ DET_w ->  POL   !feeding on water column detritus
+ PHY_w ->  POL   !feeding on water column phytodetritus
+ ZOO_w ->  POL   !feeding on water column zooplankton
+ POL   ->  DIC   !respiration
+ POL   ->  DET_w !faeces production
+ POL   ->  EXP   !export production
+ POL   ->  HES   !predation
+ POL   ->  CRA   !predation
+ POL   ->  STA   !predation 
+ POL   ->  URC   !predation
+ POL   ->  FIS   !predation
+ 
+!-- Bivalvia - OK
+ DET_w ->  BIV   !feeding on water column detritus
+ PHY_w ->  BIV   !feeding on water column phytodetritus
+ ZOO_w ->  BIV   !feeding on water column zooplankton
+ BIV   ->  DIC   !respiration
+ BIV   ->  DET_w !faeces production
+ BIV   ->  EXP   !export production
+ BIV   ->  CRA   !predation
+ BIV   ->  STA   !predation                                
+
+!-- Lima marioni - OK
+ DET_w ->  LIM   !feeding on water column detritus
+ PHY_w ->  LIM   !feeding on water column phytodetritus
+ ZOO_w ->  LIM   !feeding on water column zooplankton
+ LIM   ->  DIC   !respiration
+ LIM   ->  DET_w !faeces production
+ LIM   ->  EXP   !export production
+ LIM   ->  STA   !predation
+ LIM   ->  CRA   !predation
+
+!-- Asperarca - OK
+ DET_w ->  ASP   !feeding on water column detritus
+ PHY_w ->  ASP   !feeding on water column phytodetritus
+ ZOO_w ->  ASP   !feeding on water column zooplankton
+ ASP   ->  DIC   !respiration
+ ASP   ->  DET_w !faeces production
+ ASP   ->  EXP   !export production
+ ASP   ->  STA   !predation
+ ASP   ->  CRA   !predation
+             
+!-- Suspension feeders (anemones, tunicata) - OK
+ DET_w ->  SUS   !feeding on water column detritus
+ PHY_w ->  SUS   !feeding on water column phytodetritus
+ ZOO_w ->  SUS   !feeding on water column zooplankton
+ SUS   ->  DIC   !respiration
+ SUS   ->  DET_w !faeces production
+ SUS   ->  EXP   !export production
+ SUS   ->  CRA   !predation
+ SUS   ->  URC   !predation
+ SUS   ->  FIS   !predation
+ 
+!-- Omnivore/predators - OK
+ DET_w ->  OMN   !feeding on water column detritus
+ PHY_w ->  OMN   !feeding on water column phytodetritus
+ ZOO_w ->  OMN   !feeding on water column zooplankton
+ OMN   ->  DIC   !respiration
+ OMN   ->  DET_w !faeces production
+ OMN   ->  EXP   !export production
+ OMN   ->  CRA   !predation
+ OMN   ->  URC   !predation
+ OMN   ->  STA   !predation
+ OMN   ->  FIS   !predation 
+
+!-- Crabs - OK
+ DET_w ->  CRA   !feeding on water column detritus
+ PHY_w ->  CRA   !feeding on water column phytodetritus
+ ZOO_w ->  CRA   !feeding on water column zooplankton
+ CRA   ->  DIC   !respiration
+ CRA   ->  EXP   !export production
+ CRA   ->  DET_w !faeces production
+
+!-- Urchins - OK
+ URC   ->  DIC   !respiration
+ URC   ->  EXP   !export production
+ URC   ->  DET_w !faeces production
+ URC   ->  STA   !predation
+
+!-- Starfish - OK
+ DET_w ->  STA   !feeding on water column detritus
+ PHY_w ->  STA   !feeding on water column phytodetritus
+ ZOO_w ->  STA   !feeding on water column zooplankton
+ STA   ->  DIC   !respiration
+ STA   ->  EXP   !export production
+ STA   ->  DET_w !faeces production
+
+!-- Fish
+ ZOO_w ->  FIS   !feeding on water column zooplankton
+ FIS   ->  DIC   !respiration
+ FIS   ->  EXP   !export production
+ FIS   ->  DET_w !faeces production
+
+
+!!!!!!!!!!!!!!!!!!!!
+!--   SEDIMENT   --!
+!!!!!!!!!!!!!!!!!!!!
+ 
+!-- Detritus_sediment
+ DET_w ->  DET_s !deposition of detritus
+ DET_s ->  BUR   !long time burial in the coral mound
+ DET_s ->  INF   !consumption by infauna
+ DET_s ->  BAC_s !consumption by sedimentary bacteria
+
+!-- Bacteria_sediment
+ BAC_s ->  DIC   !respiration
+ BAC_s ->  DET_s !death
+ BAC_s ->  INF   !grazing
+ 
+!-- Infauna
+ INF   ->  DIC   !respiration
+ INF   ->  DET_s !faeces production
+ INF   ->  EXP   !export production
+  
+################################ END FLOW
+
+################################ RATE  
+
+################################ END RATE
+ 
+################################ EQUATION 
+
+!-- Respiration equations
+ RespCWC     =   RespirationCWC   
+ RespBIO     =   RespirationBIO  
+ RespHES     =   RespirationHES    
+ RespURC     =   RespirationURC    
+ RespSPO     =   RespirationSPO    
+ RespEUN     =   RespirationEUN    
+ RespSTA     =   RespirationSTA    
+ RespASP     =   RespirationASP    
+ RespCRA     =   RespirationCRA    
+ RespLIM     =   RespirationLIM    
+ RespHYD     =   RespirationHYD    
+ RespCRI     =   RespirationCRI   
+ RespSed     =   RespirationSED   
+
+!-- Isotope equations
+ Massbalance(CWC)   = -flowto(CWC)*FracCWC
+ Massbalance(EUN)   = -flowto(EUN)*FracEUN
+ Massbalance(BIO)   = -flowto(BIO)*FracBIO
+ Massbalance(HES)   = -flowto(HES)*FracHES
+ Massbalance(SPO)   = -flowto(SPO)*FracSPO
+ Massbalance(HYD)   = -flowto(HYD)*FracHYD
+ Massbalance(CRI)   = -flowto(CRI)*FracCRI
+ Massbalance(POL)   = -flowto(POL)*FracPOL
+ Massbalance(BIV)   = -flowto(BIV)*FracBIV
+ Massbalance(LIM)   = -flowto(LIM)*FracLIM
+ Massbalance(ASP)   = -flowto(ASP)*FracASP
+ Massbalance(SUS)   = -flowto(SUS)*FracSUS
+ Massbalance(OMN)   = -flowto(OMN)*FracOMN
+ Massbalance(CRA)   = -flowto(CRA)*FracCRA
+ Massbalance(URC)   = -flowto(URC)*FracURC
+ Massbalance(STA)   = -flowto(STA)*FracSTA
+ Massbalance(FIS)   = -flowto(FIS)*FracFIS
+
+!-- Various
+ DETbur  =  DETburial  
+################################ END EQUATION
+
+################################ CONSTRAINT 
+
+!-- Physiological constraints
+ 
+ !-- Coldwater corals
+ AssiCWC         =  [minAE,maxAE]*UptaCWC
+ ProdCWC         =  [minPE,maxPE]*AssiCWC
+ !ProdCWC         =  [minProdCWC,maxProdCWC]*CWC
+
+ !-- Eunice norvegica
+ AssiEUN         =  [minAE,maxAE]*UptaEUN
+ ProdEUN         =  [minPE,maxPE]*AssiEUN
+
+ !-- Fouling bacteria
+ ProdBIO         =  [minBGE,maxBGE]*UptaBIO
+
+ !-- Hesionidae
+ AssiHES         =  [minAE,maxAE]*UptaHES
+ ProdHES         =  [minPE,maxPE]*AssiHES
+
+ !-- Sponges  
+ AssiSPO         =  [minAE,maxAE]*UptaSPO
+ ProdSPO         =  [minPE,maxPE]*AssiSPO
+
+ !-- Urchins
+ AssiURC         =  [minAE,maxAE]*UptaURC
+ ProdURC         =  [minPE,maxPE]*AssiURC
+
+ !-- Starfish
+ AssiSTA         =  [minAE,maxAE]*UptaSTA
+ ProdSTA         =  [minPE,maxPE]*AssiSTA
+ 
+ !-- Lima marioni
+ AssiLIM         =  [minAE,maxAE]*UptaLIM
+ ProdLIM         =  [minPE,maxPE]*AssiLIM
+ 
+ !-- Asperarca
+ AssiASP         =  [minAE,maxAE]*UptaASP
+ ProdASP         =  [minPE,maxPE]*AssiASP
+
+ !-- Crabs
+ AssiCRA         =  [minAE,maxAE]*UptaCRA
+ ProdCRA         =  [minPE,maxPE]*AssiCRA
+
+ !-- Hydrozoa
+ AssiHYD         =  [minAE,maxAE]*UptaHYD
+ ProdHYD         =  [minPE,maxPE]*AssiHYD
+ 
+ !-- Crinoids
+ AssiCRI         =  [minAE,maxAE]*UptaCRI
+ ProdCRI         =  [minPE,maxPE]*AssiCRI
+
+!-- Polychaeta
+ RespPOL         =  [minRespPOL,maxRespPOL]*Polychaeta
+ AssiPOL         =  [minAE,maxAE]*UptaPOL
+ ProdPOL         =  [minPE,maxPE]*AssiPOL
+
+!-- Bivalvia (delectopecten, diversen)
+ RespBIV         =  [minRespBIV,maxRespBIV]*Bivalvia
+ AssiBIV         =  [minAE,maxAE]*UptaBIV
+ ProdBIV         =  [minPE,maxPE]*AssiBIV
+ 
+!-- Suspension feeders (anemones, tunicata)
+ RespSUS         =  [minRespSUS,maxRespSUS]
+ AssiSUS         =  [minAE,maxAE]*UptaSUS
+ ProdSUS         =  [minPE,maxPE]*AssiSUS
+
+!-- Omnivore/predators
+ RespOMN         =  [minRespOMN,maxRespOMN]*OmnivorePredator
+ AssiOMN         =  [minAE,maxAE]*UptaOMN
+ ProdOMN         =  [minPE,maxPE]*AssiOMN
+
+!-- Fish
+ AssiFIS         =  [minAE,maxAE]*UptaFIS
+ ProdFIS         =  [minPE,maxPE]*AssiFIS
+  
+!-- Sedimentary bacteria
+ ProdBAC_s       =  [minBGE,maxBGE]*UptaBAC_s
+
+!-- Infauna
+ RespINF         =  [minRespINF,maxRespINF]*Infauna
+ AssiINF         =  [minAE,maxAE]*UptaINF
+ ProdINF         =  [minPE,maxPE]*AssiINF
+ RelBacUptaINF   <   minRelBacINF*UptaINF
+   
+################################ END CONSTRAINT
+
+

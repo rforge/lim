@@ -17,7 +17,7 @@
   Units of the flows are mg C/m3/day
 
   The linear inverse model LIMRigaSummer is generated from the file
-  RigaSummer.input which can be found in subdirectory \url{/examples/FoodWeb}
+  RigaSummer.input which can be found in subdirectory \code{/examples/FoodWeb}
   of the package directory
 
   In this subdirectory you will find many foodweb example input files
@@ -60,6 +60,10 @@ Plotranges(LIMRigaSummer,type="V",lab.cex=0.7,
   251..268.
 }
 \seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+
+  contains "RigaSummer.input", the input file; read this with \code{Setup}
+
   \code{\link{LIMTakapoto}},\code{\link{LIMRigaAutumn}},
   \code{\link{LIMRigaSpring}} and many others
 }

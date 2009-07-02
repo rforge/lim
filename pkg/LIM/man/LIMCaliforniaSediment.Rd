@@ -20,7 +20,7 @@
 
   The linear inverse model LIMCaliforniaSediment is generated from the file
   \file{CaliforniaSediment.input} which can be found in
-  subdirectory \url{/examples/FoodWeb} of the package directory
+  subdirectory \code{/examples/FoodWeb} of the package directory
 
   In this subdirectory you will find many foodweb example input files
 
@@ -68,6 +68,11 @@ Plotranges(LIMCaliforniaSediment,index=i2,lab.cex=0.7,sub="*=unbounded",
 }
 
 \seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+
+  contains "CaliforniaSediment.input", the input file; read this with \code{Setup}
+
+
   \code{\link{LIMTakapoto}}, \code{\link{LIMRigaSummer}} and many others
 }
 

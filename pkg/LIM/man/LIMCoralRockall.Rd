@@ -8,6 +8,13 @@
 \description{
   Linear inverse model specification for the deep-water coral ecosystem
   at Rockall Bank, North-East Atlantic. See van Oevelen et al. (2009)
+
+  Units of the flows are mmol C/m2/day
+
+  The linear inverse model LIMCoralRockall is generated from the file
+  \file{CWCRockall.input} which can be found in
+  subdirectory \code{/examples/FoodWeb} of the package directory
+
 }
 
 \usage{
@@ -21,7 +28,8 @@ data(LIMCoralRockall)
   see the return value of \code{\link{Setup}} for more information about
   this list
 
-  A more complete description of this structures is in vignette("LIM")
+  A more complete description of this structure is in vignette("LIM")
+  
 }
 
 \author{
@@ -64,6 +72,10 @@ par(mfrow=pm)
 }
 
 \seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+
+  contains "CWCRockall.input", the input file; read this with \code{Setup}
+
   \code{\link{LIMTakapoto}}, \code{\link{LIMRigaSummer}} and many others
 }
 

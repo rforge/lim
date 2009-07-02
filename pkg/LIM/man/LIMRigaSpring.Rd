@@ -17,7 +17,7 @@
   Units of the flows are mg C/m3/day
 
   The linear inverse model LIMRigaSpring is generated from the file
-  RigaSpring.input which can be found in subdirectory \url{/examples/FoodWeb}
+  RigaSpring.input which can be found in subdirectory \code{/examples/FoodWeb}
   of the package directory
 
   In this subdirectory you will find many foodweb example input files
@@ -64,6 +64,10 @@ Plotranges(LIMRigaSpring,type="V",lab.cex=0.7,
   251..268.
 }
 \seealso{
+  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+
+  contains "RigaSpring.input", the input file; read this with \code{Setup}
+
   \code{\link{LIMTakapoto}},\code{\link{LIMRigaAutumn}},
   \code{\link{LIMRigaAutumn}} and many others
 }
