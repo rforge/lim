@@ -8,9 +8,9 @@
   Prints the linear inverse problem:
 
   \itemize{
-    \item inverse matrices and vectors \bf{A}, \bf{b} of the
+    \item inverse matrices and vectors \code{A}, \code{b} of the
       equalities \deqn{Ax=b}
-    \item inverse matrices and vectors \bf{G}, \bf{h} of the
+    \item inverse matrices and vectors \code{G}, \code{h} of the
       inequalities \deqn{Gx>=h}
     \item if present, also writes the cost/profit function
   }
