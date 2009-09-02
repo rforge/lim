@@ -36,9 +36,9 @@ Linp.lim <- function(lim,cost=NULL,ispos=lim$ispos,...) {
   else Profit <- NULL
   
   if (! is.null(Cost  )&& is.vector(Cost  ))
-    Cost   <- matrix(nr=1,data=Cost  )
+    Cost   <- matrix(data=Cost, nrow=1)
   if (! is.null(Profit)&& is.vector(Profit))
-    Profit <- matrix(nr=1,data=Profit)
+    Profit <- matrix(data=Profit, nrow=1)
 
   if (ispos) {
     A <- lim$A
@@ -60,7 +60,7 @@ Linp.lim <- function(lim,cost=NULL,ispos=lim$ispos,...) {
       resi <- linp (A,B,G,H,Cost[i,],...)
       res$residualNorm <- c(res$residualNorm, resi$residualNorm)
       res$solutionNorm <- c(res$solutionNorm, resi$solutionNorm)
-      res$X <- rbind(res$X,matrix(nr=1,resi$X))
+      res$X <- rbind(res$X,matrix(data=resi$X, nrow=1))
       rownames(res$X)[i]<-as.character(lim$costnames[i])
     }
     i1 <- i
@@ -71,13 +71,13 @@ Linp.lim <- function(lim,cost=NULL,ispos=lim$ispos,...) {
       resi<-linp (A,B,G,H,-1*Profit[i,],...)
       res$residualNorm <- c(res$residualNorm, resi$residualNorm)
       res$solutionNorm <- c(res$solutionNorm, -resi$solutionNorm)
-      res$X <- rbind(res$X,matrix(nr=1,resi$X))
+      res$X <- rbind(res$X,matrix(data=resi$X,nrow=1))
       rownames(res$X)[i1+i]<-as.character(lim$profitnames[i])
     }
   }
   if (!ispos)
     res$X <-  res$X[,1:Nx]-res$X[,(Nx+1):(2*Nx)]
-  res$X <- matrix(nc=Nx,data=res$X)
+  res$X <- matrix(data=res$X, ncol=Nx)
   colnames(res$X) <- lim$Unknowns
 
   return(res)

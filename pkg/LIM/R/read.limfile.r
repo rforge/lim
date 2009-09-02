@@ -395,7 +395,7 @@ Read <-  function (file, verbose = FALSE, checkLinear = TRUE, remtabs = TRUE) {
     hasdel <- grep(del, string)
     if (check & length(hasdel) != length(string))
       stop(paste("cannot split in left and right: delimiter not found", del))
-    leftright <- matrix(ncol = 2, nrow = length(string), data = string)
+    leftright <- matrix(data = string, nrow = length(string), ncol = 2)
 
     for (i in hasdel)
       leftright[i, ] <- unlist(strsplit(string[i], del, fixed = TRUE))[1:2]
@@ -450,16 +450,16 @@ Read <-  function (file, verbose = FALSE, checkLinear = TRUE, remtabs = TRUE) {
     equal <- grep("=", string)
     large <- grep(">", string)
     small <- grep("<", string)
-    leftright <- matrix(ncol = 2, nrow = length(string))
+    leftright <- matrix(nrow = length(string), ncol = 2)
     if (length(equal) > 0)
       leftright[equal, ] <- matrix(ncol = 2, byrow = TRUE,
-            unlist(strsplit(string[equal], "=", fixed = TRUE)))
+            data = unlist(strsplit(string[equal], "=", fixed = TRUE)))
     if (length(large) > 0)
       leftright[large, ] <- matrix(ncol = 2, byrow = TRUE,
-            unlist(strsplit(string[large], ">", fixed = TRUE)))
+            data = unlist(strsplit(string[large], ">", fixed = TRUE)))
     if (length(small) > 0)
       leftright[small, ] <- matrix(ncol = 2, byrow = TRUE,
-            unlist(strsplit(string[small], "<", fixed = TRUE)))
+            data = unlist(strsplit(string[small], "<", fixed = TRUE)))
     type <- vector(length = length(string))
     type[large] <- ">"
     type[small] <- "<"
@@ -966,7 +966,7 @@ Setup.liminput <- function (liminput, ...)  {
     rateval[is.na(rateval)] <- 0
     VarA <- VarB <- NULL
     if (!is.null(liminput$vars)) {
-        varmat <- matrix(nrow = nvars, ncol = nunkn + 1, data = 0)
+        varmat <- matrix(data = 0, nrow = nvars, ncol = nunkn + 1)
         for (i in 1:nvars) varmat[i, ] <- calcvariable(liminput$vars,
             i)
         VarA <- varmat[, 1:nunkn]
@@ -982,21 +982,21 @@ Setup.liminput <- function (liminput, ...)  {
     eqmat <- NULL
     if (!is.null(liminput$equations)) {
         neqs <- max(liminput$equations$nr)
-        eqmat <- matrix(nrow = neqs, ncol = nunkn + 1, data = 0)
+        eqmat <- matrix(data = 0, nrow = neqs, ncol = nunkn + 1)
         for (i in 1:neqs) eqmat[i, ] <- calcvariable(liminput$equations,
             i)
     }       
     ineqmat <- NULL
     if (!is.null(liminput$constraints)) {
         nineqs <- max(liminput$constraints$nr)
-        ineqmat <- matrix(nrow = nineqs, ncol = nunkn + 1, data = 0)
+        ineqmat <- matrix(data = 0, nrow = nineqs, ncol = nunkn + 1)
         for (i in 1:nineqs) ineqmat[i, ] <- calcvariable(liminput$constraints,
             i)
     }
     cost <- NULL
     if (!is.null(liminput$cost)) {
         ncost <- max(liminput$cost$nr)
-        costmat <- matrix(nrow = ncost, ncol = nunkn + 1, data = 0)
+        costmat <- matrix(data = 0, nrow = ncost, ncol = nunkn + 1)
         for (i in 1:ncost) costmat[i, ] <- calcvariable(liminput$cost,
             i)
         cost <- costmat[, 1:nunkn]
@@ -1004,15 +1004,14 @@ Setup.liminput <- function (liminput, ...)  {
     profit <- NULL
     if (!is.null(liminput$profit)) {
         nprofit <- max(liminput$profit$nr)
-        profitmat <- matrix(nrow = nprofit, ncol = nunkn + 1,
-            data = 0)
+        profitmat <- matrix(data = 0, nrow = nprofit, ncol = nunkn + 1)
         for (i in 1:nprofit) profitmat[i, ] <- calcvariable(liminput$profit,
             i)
         profit <- profitmat[, 1:nunkn]
     }
     A <- B <- G <- H <- NULL
     if (nflow > 0) {
-        A <- matrix(nrow = ncomp, ncol = nunkn, data = 0)
+        A <- matrix(data = 0, nrow = ncomp, ncol = nunkn)
         for (i in 1:nflow) {
             if (flows$from[i] > 0)
                 A[flows$from[i], i] <- A[flows$from[i], i] -
@@ -1024,7 +1023,7 @@ Setup.liminput <- function (liminput, ...)  {
     } else 
     if (nreac>0)
     {
-        A <- matrix(nrow = ncomp, ncol = nunkn, data = 0)
+        A <- matrix(data = 0, nrow = ncomp, ncol = nunkn)
 # KARLINE: HERE IS THE NEW SECTION
         for (i in 1:nrow(reactions)) {
             st <- reactions[i,"comp"]
@@ -1057,7 +1056,7 @@ Setup.liminput <- function (liminput, ...)  {
     if (nflow > 0) {
         nel <- ncomp + nextern
         elnames <- c(liminput$compnames, liminput$externnames)
-        Flowmatrix <- matrix(nrow = nel, ncol = nel, data = 0,
+        Flowmatrix <- matrix(data = 0, nrow = nel, ncol = nel, 
             dimnames = list(elnames, elnames))
         flowsft <- as.matrix(flows[, 1:2])
         flowsft[flowsft < 0] <- -flowsft[flowsft < 0] + ncomp
