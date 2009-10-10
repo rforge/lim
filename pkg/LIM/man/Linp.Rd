@@ -102,7 +102,7 @@ Linp.double(...) }
 }
 
 \seealso{
-  \code{\link[lpSolve]{linp}}, the more general function from package lpSolve
+  \code{linp}, the more general function from package \code{lpSolve}
 
   \code{\link{Ldei}}, to solve the linear inverse problem by least
     distance programming

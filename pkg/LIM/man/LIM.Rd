@@ -22,7 +22,7 @@
     Package: \tab LIM\cr
     Type: \tab Package\cr
     Version: \tab 1.4\cr
-    Date: \tab 2009-07-01\cr
+    Date: \tab 2009-10-10\cr
     License: \tab GNU Public License 2 or above\cr
   }
 
@@ -75,6 +75,10 @@ browseURL(paste(system.file(package="LIM"), "/examples/Reactions", sep=""))
 
 ## show package vignette with tutorial about how to create input files
 vignette("LIM")
+
+## E.coli example vignette
+vignette("LIMecoli")
+
 browseURL(paste(system.file(package="LIM"), "/doc", sep=""))
 }
 }
