@@ -34,9 +34,15 @@
   simple to reformulate the model in case a parameter value changes,
   or a component is added or removed.
 
-  Three different types of problems are supported: flow networks,
-  reaction networks and other (operations research) problems. The
-  first two cases are based on mass balances of the components.
+  Three different types of problems are supported: 
+  
+  flow networks,
+  
+  reaction networks (e.g. flux balance analysis).
+  
+  and other (operations research) problems. 
+  
+  The first two cases are based on mass balances of the components.
 
   The package includes many examples
 }
@@ -45,9 +51,29 @@
   
   Dick van Oevelen
 }
-%\references{
-%% to be filled
-%}
+\references{
+Description of the software:
+
+van Oevelen D, Van den Meersche K, Meysman FJR Soetaert K, Middelburg JJ, Vézina AF.,
+  2009. Quantifying Food Web Flows Using Linear Inverse Models.  Ecosystems DOI:
+  10.1007/s10021-009-9297-6.
+
+(please use the above citation when using the software)
+
+Application of deep-water food web:
+
+van Oevelen, Dick, Gerard Duineveld, Marc Lavaleye, Furu Mienis,    
+Karline Soetaert, and Carlo H. R. Heip, 2009.                      
+The cold-water coral community as hotspot of carbon cycling on     
+continental margins: A food web analysis from Rockall Bank         
+(northeast Atlantic). Limnology and Oceangraphy 54:1829-1844.      
+
+A flux balance analysis application:
+
+Karline Soetaert. Escherichia coli Core Metabolism Model in LIM. 
+LIM package vignette (see also below).
+
+}
 \seealso{
  \code{\link{Read}}, \code{\link{Setup}} for reading files and creating the model
 
@@ -72,6 +98,9 @@ demo("LIMexamples")
 browseURL(paste(system.file(package="LIM"), "/examples/Foodweb", sep=""))
 browseURL(paste(system.file(package="LIM"), "/examples/LinearProg", sep=""))
 browseURL(paste(system.file(package="LIM"), "/examples/Reactions", sep=""))
+
+## the deep-water coral food -web
+browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/coral", sep=""))
 
 ## show package vignette with tutorial about how to create input files
 vignette("LIM")
