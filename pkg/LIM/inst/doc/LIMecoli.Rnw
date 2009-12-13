@@ -64,7 +64,7 @@ The Netherlands}
   for reading and solving linear inverse models (LIM). 
   
   A package vignette deals with the structure of the LIM input files
-  and how to solve the problems.
+  and how to solve the problems \citep{LIMvignette}.
   
   To open it, type:
   
@@ -78,6 +78,9 @@ The Netherlands}
   
   The original input file can be found in the package subdirectory 
   \url{/examples/Reactions/E_coli.lim}
+  
+  Citation of the package: \citep{oevelen09}.
+  
 }
 
 %% The address of (at least) one author should be given

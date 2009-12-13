@@ -77,6 +77,8 @@ The Netherlands}
 
   We give three examples, a food web example, a biogechemical
   reaction example and a blending example.
+  
+  Citation of the package: \citep{oevelen09}.
 
 }
 
@@ -405,6 +407,13 @@ In matrix notation, we obtain
   between two compartments was allowed, in reaction problems there may exist
   many links between the constituents.
   Solving the LIM amounts to finding values for the reaction rates.
+
+\subsubsection{The core metabolism of E.coli}
+The LIM software can be used for performing flux balance analysis 
+(e.g. \citep{Edwards02}).
+
+See vignette ("LIMecoli") \citep{limecoli} for an example of how to do that.
+
 
 \subsubsection{Example: chemical reactions.}
   In the natural environment, the cycles of many constituents are

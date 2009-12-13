@@ -13,7 +13,7 @@
 ## Karline Soetaert, and Carlo H. R. Heip, 2009.                       ##
 ## The cold-water coral community as hotspot of carbon cycling on      ##
 ## continental margins: A food web analysis from Rockall Bank          ##
-## (northeast Atlantic). Limnology and Oceanography, in press.         ##
+## (northeast Atlantic). Limnology and Oceangraphy 54:1829-1844.       ##
 ##                                                                     ##
 ##                                                                     ##
 ##    do not run this script if you do not have plenty of time !       ##

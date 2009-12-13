@@ -60,6 +60,12 @@ van Oevelen D, Van den Meersche K, Meysman FJR Soetaert K, Middelburg JJ, Vézina
 
 (please use the above citation when using the software)
 
+About food web modelling:
+
+Soetaert, K., van Oevelen, D., 2009. 
+Modeling food web interactions in benthic deep-sea ecosystems: a practical guide. 
+Oceanography (22) 1: 130-145.
+
 Application of deep-water food web:
 
 van Oevelen, Dick, Gerard Duineveld, Marc Lavaleye, Furu Mienis,    
