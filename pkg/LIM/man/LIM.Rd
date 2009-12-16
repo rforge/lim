@@ -21,7 +21,7 @@
   \tabular{ll}{
     Package: \tab LIM\cr
     Type: \tab Package\cr
-    Version: \tab 1.4\cr
+    Version: \tab 1.4.1\cr
     Date: \tab 2009-10-10\cr
     License: \tab GNU Public License 2 or above\cr
   }
@@ -54,7 +54,7 @@
 \references{
 Description of the software:
 
-van Oevelen D, Van den Meersche K, Meysman FJR Soetaert K, Middelburg JJ, Vézina AF.,
+van Oevelen D, Van den Meersche K, Meysman FJR Soetaert K, Middelburg JJ, Vezina AF.,
   2009. Quantifying Food Web Flows Using Linear Inverse Models.  Ecosystems DOI:
   10.1007/s10021-009-9297-6.
 
