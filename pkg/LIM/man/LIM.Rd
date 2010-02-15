@@ -55,8 +55,9 @@
 Description of the software:
 
 van Oevelen D, Van den Meersche K, Meysman FJR Soetaert K, Middelburg JJ, Vezina AF.,
-  2009. Quantifying Food Web Flows Using Linear Inverse Models.  Ecosystems DOI:
-  10.1007/s10021-009-9297-6.
+  2009. Quantifying Food Web Flows Using Linear Inverse Models.  
+  Ecosystems 13: 32-45
+  DOI: 10.1007/s10021-009-9297-6.
 
 (please use the above citation when using the software)
 
