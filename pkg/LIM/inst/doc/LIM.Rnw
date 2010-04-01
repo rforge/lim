@@ -78,7 +78,7 @@ The Netherlands}
   We give three examples, a food web example, a biogechemical
   reaction example and a blending example.
   
-  Citation of the package: \citep{oevelen09}.
+  If you use this package, please cite as: \citep{oevelen09}.
 
 }
 

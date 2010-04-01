@@ -79,7 +79,7 @@ The Netherlands}
   The original input file can be found in the package subdirectory 
   \url{/examples/Reactions/E_coli.lim}
   
-  Citation of the package: \citep{oevelen09}.
+  If you use this package, please cite as: \citep{oevelen09}.
   
 }
 
