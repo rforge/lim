@@ -251,7 +251,7 @@ The Netherlands}
   Solving the LIM-problem consists of finding the values of the flows.
 
   After solution, several indices and food web properties can be estimated,
-  using functions from package \pkg{NetIndices} \citep{NetIndices}
+  using functions from package \pkg{NetIndices} \citep{NetIndices, NetIndicesArt}
 
 \subsubsection{Example: a simple food-web}
   Organisms eat and are eaten; they use part of their food for
@@ -1350,7 +1350,7 @@ $constraints
         5 examples from the book of \citep{Vanderbei00}
     \end{itemize}
   \end{itemize}
-
+  Additional foodweb examples can be found in package \pkg{ToxLim} \citep{ToxLim}
 \section{Extensions}
 \subsection{Markers}
   For some flow network applications it may be useful to solve not
@@ -1589,13 +1589,16 @@ Res
 \end{table*}
  \clearpage
 \begin{table*}[t]
-\caption{Table 2. Useful functions from other packages: \pkg{diagram} \citep{diagram} and \pkg{NetIndices} \citep{NetIndices}}
+\caption{Table 2. Useful functions from other packages: 
+\pkg{diagram} \citep{diagram}, \pkg{ToxLim} \citep{ToxLim} 
+and \pkg{NetIndices} \citep{NetIndices, NetIndicesArt}}
 \centering
 \begin{tabular}{p{.15\textwidth}p{.15\textwidth}p{.65\textwidth}}\hline
 \rule[-3mm]{0mm}{8mm}       Function  & Package        &Description\\
 \hline \hline
 \code{plotweb}        & \code{diagram}   & Plots a web, based on a flowmatrix \footnoteremember{flowmatrix}{created using \li function \code{Flowmatrix}}, thickness of arrow =value of flow  \\
 \code{plotmat}        & \code{diagram}   & Visualises the transpose of a flowmatrix \footnoterecall{flowmatrix} as labeled boxes connected by arrows (created using \li function \code{Flowmatrix}  \\ \hline
+\code{LimOmega}       & \code{ToxLim}    & Predicts internal concentrations of hydrophobic chemicals in aquatic organisms, based on a LIM  \\
 \code{AscInd}         & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the ascendency network indices\\
 \code{Dependency}     & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the dependency network indices\\
 \code{EffInd}         & \code{NetIndices} & Based on a flowmatrix\footnoterecall{flowmatrix}, estimates the effective connectivity, flows, nodes, roles network indices\\
