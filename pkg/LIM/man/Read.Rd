@@ -7,7 +7,7 @@
 }
 
 \usage{
-Read(file, verbose=FALSE, checkLinear=TRUE, remtabs=TRUE)
+Read(file, verbose = FALSE, checkLinear = TRUE, remtabs = TRUE)
 }
 \arguments{
   \item{file }{name of inverse input file.
@@ -69,14 +69,15 @@ Read(file, verbose=FALSE, checkLinear=TRUE, remtabs=TRUE)
 }
 
 \examples{
-  # this input has been created with function Read:
+# this input has been created with function Read:
   LIMinputBlending
-  \dontrun{
+
+\dontrun{
   wd <- getwd()
-  setwd(paste(system.file(package="LIM"), "/examples/Foodweb", sep=""))
+  setwd(paste(system.file(package = "LIM"), "/doc/examples/Foodweb", sep = ""))
   Read("RigaAutumn.input")
   setwd(wd)
-  }
+}
 }
 
 \details{

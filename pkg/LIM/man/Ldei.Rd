@@ -24,8 +24,8 @@
 
 \usage{
 Ldei(...)
-Ldei.lim(lim,...)
-Ldei.limfile(file, verbose=TRUE, ...)
+Ldei.lim(lim, ...)
+Ldei.limfile(file, verbose = TRUE, ...)
 Ldei.character(...)
 Ldei.double(...)
 }

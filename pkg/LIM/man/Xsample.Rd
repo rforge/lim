@@ -9,7 +9,7 @@
 }
 
 \usage{
-Xsample(lim, exact=NULL, ...)
+Xsample(lim, exact = NULL, ...)
 }
 \arguments{
   \item{lim }{a list that contains the linear inverse model
@@ -32,11 +32,11 @@ Xsample(lim, exact=NULL, ...)
   Karline Soetaert <k.soetaert@nioo.knaw.nl>
 }
 \examples{# sample solution space
-  xs <- Xsample(LIMRigaAutumn,iter=500,jmp=5)
+  xs <- Xsample(LIMRigaAutumn, iter = 500, jmp = 5)
   # remove flows that are invariable (sd=0)
-  xs <- xs[,-which(sd(xs)==0)]
+  xs <- xs[ ,-which( sd(xs)==0 )]
   #pairs plot
-  pairs(xs,gap=0,pch=".",upper.panel=NULL)
+  pairs(xs, gap = 0, pch = ".", upper.panel = NULL)
 }
 
 \details{

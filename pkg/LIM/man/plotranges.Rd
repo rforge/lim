@@ -15,15 +15,17 @@
   
 }
 \usage{
-Plotranges.double(min, max, value=NULL, labels=NULL,log="",
-  pch=16,pch.col="black", line.col="gray", seg.col="black", xlim=NULL,
-  main=NULL, xlab=NULL, ylab=NULL, lab.cex=1.0, mark=NULL,...)
+Plotranges.double(min, max, value = NULL, labels = NULL, log = "",
+  pch = 16, pch.col = "black", line.col = "gray", 
+  seg.col = "black", xlim = NULL, main = NULL, 
+  xlab = NULL, ylab = NULL, lab.cex = 1.0, mark = NULL,...)
 
-Plotranges.lim(lim=NULL,labels=NULL,type="X",log="",pch=16,
-  pch.col="black", line.col="gray", seg.col="black", xlim=NULL,
-  main=NULL, xlab=NULL, ylab=NULL, lab.cex=1.0,index=NULL, ...)
+Plotranges.lim(lim = NULL, labels = NULL, type = "X", log = "",
+  pch = 16, pch.col = "black", line.col = "gray", 
+  seg.col = "black", xlim = NULL, main = NULL, 
+  xlab = NULL, ylab = NULL, lab.cex = 1.0, index = NULL, ...)
 
-Plotranges.character(file,...)
+Plotranges.character(file, ...)
 
 Plotranges(...)
 }
@@ -89,11 +91,13 @@ Plotranges(...)
 \examples{
 # The Takapoto food web.
 # some ranges extend to infinity - they are marked with "*"
-Plotranges(LIMTakapoto,lab.cex=0.7,sub="*=unbounded",xlab="mgC/m2/d",
-        main="Takapoto atoll planktonic food web, Flowranges")
+Plotranges(LIMTakapoto, lab.cex = 0.7, sub = "*=unbounded",
+           xlab = "mgC/m2/d",  
+           main = "Takapoto atoll planktonic food web, Flowranges")
 # ranges of variables, exclude first variable
-Plotranges(LIMTakapoto,type="V",lab.cex=0.7, index=2:23,xlab="mgC/m2/d",
-        main="Takapoto atoll planktonic food web, Variable ranges")
+Plotranges(LIMTakapoto, type = "V", lab.cex = 0.7, 
+           index = 2:23, xlab = "mgC/m2/d",
+           main = "Takapoto atoll planktonic food web, Variable ranges")
 }
 
 \keyword{hplot}

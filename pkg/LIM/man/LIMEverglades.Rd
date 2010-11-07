@@ -52,10 +52,10 @@ data(LIMEverglades)
 \examples{
 
 # Cannot be solved, but the least squares solution is found
-Flows <- Lsei(LIMEverglades,parsimonious=TRUE)
+Flows <- Lsei(LIMEverglades, parsimonious = TRUE)
 Everglades <- Flowmatrix(LIMEverglades)
-plotweb(Everglades,main="Everglades Herpetological Wet Prairie model",
-        sub="g WW/Ha/Yr",lab.size=0.8)
+plotweb(Everglades, main = "Everglades Herpetological Wet Prairie model",
+        sub = "g WW/Ha/Yr", lab.size = 0.8)
 }
 
 \references{
@@ -66,7 +66,7 @@ plotweb(Everglades,main="Everglades Herpetological Wet Prairie model",
 }
 
 \seealso{
-  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+  browseURL(paste(system.file(package="LIM"), "/doc/examples/Foodweb/", sep=""))
 
   contains "Everglades.input", the input file; read this with \code{Setup}
 

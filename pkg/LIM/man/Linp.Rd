@@ -22,8 +22,8 @@
 
 \usage{
 Linp(...)
-Linp.lim(lim,cost=NULL,ispos=lim$ispos,...)
-Linp.limfile(file, verbose=TRUE,...)
+Linp.lim(lim, cost = NULL, ispos = lim$ispos, ...)
+Linp.limfile(file, verbose = TRUE,...)
 Linp.character(...)
 Linp.double(...) }
 
@@ -93,12 +93,13 @@ Linp.double(...) }
 
   # the E coli example: two functions to maximimise
   Linp(LIMEcoli)
+ 
   # E coli example, but only first function optimised..
-  Linp(LIMEcoli,cost=-LIMEcoli$Profit[1,])
+  Linp(LIMEcoli, cost = -LIMEcoli$Profit[1,])
 
   # a foodweb example: need to specify the cost function
   # here just sum of absolute values of flows...
-  Linp(LIMRigaAutumn,cost=(rep(1,LIMRigaAutumn$NUnknowns)))
+  Linp(LIMRigaAutumn, cost = (rep(1, LIMRigaAutumn$NUnknowns)))
 }
 
 \seealso{

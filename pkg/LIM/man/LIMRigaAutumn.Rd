@@ -48,14 +48,14 @@ data(LIMRigaAutumn)
 
 \examples{
 rigaAutumn <- Flowmatrix(LIMRigaAutumn)
-plotweb(rigaAutumn,main="Gulf of Riga planktonic food web, autumn",
-   sub="mgC/m3/day")
+plotweb(rigaAutumn, main = "Gulf of Riga planktonic food web, autumn",
+        sub = "mgC/m3/day")
 # ranges of flows
-Plotranges(LIMRigaAutumn,lab.cex=0.7,xlab="mgC/m3/d",
-   main="Gulf of Riga planktonic food web, autumn, Flowranges")
+Plotranges(LIMRigaAutumn, lab.cex = 0.7, xlab = "mgC/m3/d",
+        main = "Gulf of Riga planktonic food web, autumn, Flowranges")
 # ranges of variables
-Plotranges(LIMRigaAutumn,type="V",lab.cex=0.7,xlab="mgC/m3/d",
-   main="Gulf of Riga planktonic food web, autumn, variables")
+Plotranges(LIMRigaAutumn, type="V", lab.cex = 0.7, xlab = "mgC/m3/d",
+        main = "Gulf of Riga planktonic food web, autumn, variables")
 }
 
 \references{
@@ -66,7 +66,7 @@ Plotranges(LIMRigaAutumn,type="V",lab.cex=0.7,xlab="mgC/m3/d",
 }
 
 \seealso{
-  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+  browseURL(paste(system.file(package="LIM"), "/doc/examples/Foodweb/", sep=""))
 
   contains "RigaAutumn.input", the input file; read this with \code{Setup}
 

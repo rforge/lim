@@ -24,7 +24,7 @@
 
 \usage{
 Setup(...)
-Setup.limfile(file, verbose=TRUE, ...)
+Setup.limfile(file, verbose = TRUE, ...)
 Setup.character(...)
 Setup.liminput(liminput,...)
 }
@@ -101,7 +101,6 @@ Setup.liminput(liminput,...)
 \examples{
    LIMinputBlending
    Setup(LIMinputBlending )
-
 }
 
 \seealso{

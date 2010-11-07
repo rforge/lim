@@ -46,12 +46,13 @@ data(LIMBrouageMudflat)
 }
 \examples{
 Brouage <- Flowmatrix(LIMBrouageMudflat)
-plotweb(Brouage,main="Brouage mudflat food web",sub="gC/m2/yr")
+plotweb(Brouage, main = "Brouage mudflat food web", sub = "gC/m2/yr")
 # Some ranges are infinite ->marked with "*
-Plotranges(LIMBrouageMudflat,lab.cex=0.7, sub="*=unbounded",
-               xlab="gC/m2/year",main="Brouage mudflat, Flowranges")
-Plotranges(LIMBrouageMudflat,type="V",lab.cex=0.7, sub="*=unbounded",
-               xlab="gC/m2/year",main="Brouage mudflat, Variable ranges")
+Plotranges(LIMBrouageMudflat, lab.cex = 0.7, sub = "*=unbounded",
+           xlab = "gC/m2/year", main = "Brouage mudflat, Flowranges")
+Plotranges(LIMBrouageMudflat, type = "V", lab.cex = 0.7, 
+           sub = "*=unbounded",
+           xlab = "gC/m2/year",main="Brouage mudflat, Variable ranges")
 }
 
 \references{
@@ -62,7 +63,7 @@ Plotranges(LIMBrouageMudflat,type="V",lab.cex=0.7, sub="*=unbounded",
 }
 
 \seealso{
-  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+  browseURL(paste(system.file(package="LIM"), "/doc/examples/Foodweb/", sep=""))
 
   contains "BrouageMudflat.input", the input file; read this with \code{Setup}
 

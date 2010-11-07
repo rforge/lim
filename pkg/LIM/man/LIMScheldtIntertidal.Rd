@@ -56,12 +56,12 @@ data(LIMScheldtIntertidal)
 
 \examples{
 ScheldtIntertidal <- Flowmatrix(LIMScheldtIntertidal)
-plotweb(ScheldtIntertidal,main="Scheldt intertidal flat food web",
-        sub="mgC/m2/day")
-Plotranges(LIMScheldtIntertidal,lab.cex=0.7,
-        main="Scheldt intertidal flat food web, Flowranges")
-Plotranges(LIMScheldtIntertidal,type="V",lab.cex=0.7,
-        main="Scheldt intertidal flat food web, Variable ranges")
+plotweb(ScheldtIntertidal, main = "Scheldt intertidal flat food web",
+        sub = "mgC/m2/day")
+Plotranges(LIMScheldtIntertidal, lab.cex = 0.7,
+        main = "Scheldt intertidal flat food web, Flowranges")
+Plotranges(LIMScheldtIntertidal, type = "V", lab.cex = 0.7,
+        main = "Scheldt intertidal flat food web, Variable ranges")
 }
 
 \references{
@@ -72,7 +72,7 @@ Plotranges(LIMScheldtIntertidal,type="V",lab.cex=0.7,
 }
 
 \seealso{
-  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+  browseURL(paste(system.file(package="LIM"), "/doc/examples/Foodweb/", sep=""))
 
   contains "ScheldtIntertidal.input", the input file; read this with \code{Setup}
 

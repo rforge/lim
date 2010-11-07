@@ -40,8 +40,8 @@ data(LIMCoralRockall)
 \examples{
 Coral <- Flowmatrix(LIMCoralRockall)
 
-plotweb(Coral,main="Deep Water Coral Foodweb, Rockall Bank",
-        sub="mmolC/m2/day",lab.size=0.8)
+plotweb(Coral, main = "Deep Water Coral Foodweb, Rockall Bank",
+        sub = "mmolC/m2/day", lab.size = 0.8)
 
 
 \dontrun{
@@ -49,15 +49,15 @@ xr <- LIMCoralRockall$NUnknowns
 i1 <- 1:(xr/2)
 i2 <- (xr/2+1):xr
 
-pm <- par(mfrow=c(1,1))
+pm <- par(mfrow = c(1, 1))
 Simplest <- Ldei(LIMCoralRockall)$X
 Ranges <- Xranges(LIMCoralRockall)
-Plotranges(Ranges[i1,1],Ranges[i1,2],Simplest[i1],lab.cex=0.7,
-        main="Deep Water Coral - ranges part 1")
+Plotranges(Ranges[i1, 1], Ranges[i1, 2], Simplest[i1], lab.cex = 0.7,
+        main = "Deep Water Coral - ranges part 1")
 
-Plotranges(Ranges[i2,1],Ranges[i2,2],Simplest[i2],lab.cex=0.7,
-        main="Deep Water Coral - ranges part 2")
-par(mfrow=pm)
+Plotranges(Ranges[i2, 1], Ranges[i2, 2], Simplest[i2], lab.cex = 0.7,
+        main = "Deep Water Coral - ranges part 2")
+par(mfrow = pm)
 }
 }
 
@@ -67,8 +67,9 @@ par(mfrow=pm)
 
   The cold-water coral community as hotspot of carbon cycling on
   continental margins: A food web analysis from Rockall Bank
-  (northeast Atlantic). Limnology and Oceanography, in press.
+  (northeast Atlantic). Limnology and Oceangraphy 54 : 1829 -- 1844.
 
+  \url{http://www.aslo.org/lo/toc/vol_54/issue_6/1829.pdf}
 }
 
 \seealso{

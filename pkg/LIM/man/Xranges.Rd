@@ -29,16 +29,20 @@ Xranges (lim, ...)
   Karline Soetaert <k.soetaert@nioo.knaw.nl>
 }
 
-\examples{# ranges
-  xr <- Xranges(LIMRigaAutumn)
-  xlim <- range(xr)
-  # parsimonious
-	xpars <- Lsei(LIMRigaAutumn)$X
-  dotchart(x=xpars,labels=rownames(xr),xlim=xlim,                                                        
-           main="Riga Autumn ",
-           sub="ranges and parsimonious solution",pch=16)
-  cc <- 1:nrow(xr)
-  segments(xr[,1],cc,xr[,2],cc)}
+\examples{
+# ranges
+xr   <- Xranges(LIMRigaAutumn)
+xlim <- range(xr)
+
+# parsimonious
+pars <- Lsei(LIMRigaAutumn)$X
+
+# plot
+dotchart(x = pars, labels = rownames(xr), xlim = xlim,                                                        
+         main = "Riga Autumn ",
+         sub = "ranges and parsimonious solution", pch = 16)
+cc <- 1:nrow(xr)
+segments(xr[ ,1], cc, xr[ ,2], cc)}
 \seealso{
   \code{\link{Varranges}} which estimates the ranges of inverse variables
 

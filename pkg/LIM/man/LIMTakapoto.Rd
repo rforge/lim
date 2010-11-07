@@ -50,14 +50,16 @@ data(LIMTakapoto)
   Dick van Oevelen<d.vanoevelen@nioo.knaw.nl>
 }
 \examples{Takapoto <- Flowmatrix(LIMTakapoto)
-plotweb(Takapoto,main="Takapoto atoll planktonic food web",
-        sub="mgC/m2/day",lab.size=1)
+plotweb(Takapoto, main="Takapoto atoll planktonic food web",
+        sub = "mgC/m2/day", lab.size = 1)
 # some ranges extend to infinity - they are marked with "*"
-Plotranges(LIMTakapoto,lab.cex=0.7,sub="*=unbounded",xlab="mgC/m2/d",
-        main="Takapoto atoll planktonic food web, Flowranges")
+Plotranges(LIMTakapoto, lab.cex = 0.7, 
+        sub = "*=unbounded", xlab = "mgC/m2/d",
+        main = "Takapoto atoll planktonic food web, Flowranges")
 # ranges of variables, exclude first
-Plotranges(LIMTakapoto,type="V",lab.cex=0.7, index=2:23,xlab="mgC/m2/d",
-        main="Takapoto atoll planktonic food web, Variable ranges")
+Plotranges(LIMTakapoto, type = "V", lab.cex = 0.7, 
+        index = 2:23, xlab = "mgC/m2/d",
+        main = "Takapoto atoll planktonic food web, Variable ranges")
 }
 
 \references{
@@ -67,7 +69,7 @@ Plotranges(LIMTakapoto,type="V",lab.cex=0.7, index=2:23,xlab="mgC/m2/d",
 }
 
 \seealso{
-  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+  browseURL(paste(system.file(package="LIM"), "/doc/examples/Foodweb/", sep=""))
 
   contains "Takapoto.input", the input file; read this with \code{Setup}
 

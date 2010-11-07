@@ -48,10 +48,10 @@ data(LIMRigaSummer)
 
 \examples{
 rigaSummer <- Flowmatrix(LIMRigaSummer)
-plotweb(rigaSummer,sub="mgC/m3/day",
-  main="Gulf of Riga planktonic food web, summer")
-Plotranges(LIMRigaSummer,type="V",lab.cex=0.7,
-  main="Gulf of Riga planktonic food web, summer, Variable ranges")}
+plotweb(rigaSummer, sub = "mgC/m3/day",
+        main = "Gulf of Riga planktonic food web, summer")
+Plotranges(LIMRigaSummer, type = "V", lab.cex = 0.7,
+        main = "Gulf of Riga planktonic food web, summer, Variable ranges")}
 
 \references{
   Donali, E., Olli, K., Heiskanen, A.S., Andersen, T., 1999. Carbon flow
@@ -60,7 +60,7 @@ Plotranges(LIMRigaSummer,type="V",lab.cex=0.7,
   251..268.
 }
 \seealso{
-  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+  browseURL(paste(system.file(package="LIM"), "/doc/examples/Foodweb/", sep=""))
 
   contains "RigaSummer.input", the input file; read this with \code{Setup}
 

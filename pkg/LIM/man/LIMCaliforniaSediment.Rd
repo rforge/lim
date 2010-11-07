@@ -49,16 +49,18 @@ data(LIMCaliforniaSediment)
 }
 \examples{
 CaliforniaSediment <- Flowmatrix(LIMCaliforniaSediment)
-plotweb(CaliforniaSediment,main="Santa Monica Basin Benthic web",
-        sub="mgN/m2/day",lab.size=0.8)
+plotweb(CaliforniaSediment, main = "Santa Monica Basin Benthic web",
+        sub = "mgN/m2/day", lab.size = 0.8)
 xr <- LIMCaliforniaSediment$NUnknowns
 i1 <- 1:(xr/2)
 i2 <- (xr/2+1):xr
-Plotranges(LIMCaliforniaSediment,index=i1,lab.cex=0.7,sub="*=unbounded",
-        main="Santa Monica Basin Benthic web, Flowranges - part1")
+Plotranges(LIMCaliforniaSediment, index = i1, lab.cex = 0.7,
+        sub = "*=unbounded",
+        main = "Santa Monica Basin Benthic web, Flowranges - part1")
 \dontrun{
-Plotranges(LIMCaliforniaSediment,index=i2,lab.cex=0.7,sub="*=unbounded",
-        main="Santa Monica Basin Benthic web, Flowranges - part2")}
+Plotranges(LIMCaliforniaSediment, index = i2, lab.cex = 0.7,
+        sub = "*=unbounded",
+        main = "Santa Monica Basin Benthic web, Flowranges - part2")}
 }
 
 \references{
@@ -68,7 +70,7 @@ Plotranges(LIMCaliforniaSediment,index=i2,lab.cex=0.7,sub="*=unbounded",
 }
 
 \seealso{
-  browseURL(paste(system.file(package="LIM"), "/examples/Foodweb/", sep=""))
+  browseURL(paste(system.file(package="LIM"), "/doc/examples/Foodweb/", sep=""))
 
   contains "CaliforniaSediment.input", the input file; read this with \code{Setup}
 

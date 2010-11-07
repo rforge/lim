@@ -22,9 +22,9 @@
 \usage{
 Lsei(...)
 Lsei.double(...)
-Lsei.lim(lim, exact=NULL, parsimonious = FALSE, ...)
-Lsei.limfile(file, exact=NULL, parsimonious = FALSE, 
-             verbose=TRUE, ...)
+Lsei.lim(lim, exact = NULL, parsimonious = FALSE, ...)
+Lsei.limfile(file, exact = NULL, parsimonious = FALSE, 
+             verbose = TRUE, ...)
 Lsei.character(...)}
 \arguments{
   \item{lim }{a list that contains the linear inverse model
@@ -68,7 +68,7 @@ Lsei.character(...)}
   Karline Soetaert <k.soetaert@nioo.knaw.nl>
 }
 \examples{
-  Lsei.lim(LIMRigaAutumn,parsimonious=TRUE)
+  Lsei.lim(LIMRigaAutumn, parsimonious = TRUE)
 }
 
 \references{

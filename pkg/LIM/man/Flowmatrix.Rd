@@ -9,7 +9,7 @@
 }
 
 \usage{
-Flowmatrix(lim, web=NULL)
+Flowmatrix(lim, web = NULL)
 }
 
 \arguments{
