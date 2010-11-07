@@ -11,7 +11,7 @@
   Based on Finn(1980) (and not Finn (1976))
 }
 \usage{
-PathInd(Flow=NULL, Tij=t(Flow), Import=NULL, Export=NULL)
+PathInd(Flow = NULL, Tij = t(Flow), Import = NULL, Export = NULL)
 }
 
 \arguments{
@@ -53,11 +53,14 @@ PathInd(Flow=NULL, Tij=t(Flow), Import=NULL, Export=NULL)
   Julius Kipyegon Kones<jkones@uonbi.ac.ke>
 }
 \examples{# The takapoto atoll network
-PathInd(Takapoto,Import ="CO2",
-        Export=c("CO2","Sedimentation","Grazing"))
-        # Conesprings is the example set 1a from Latham 2006.
-as.data.frame(PathInd(Tij=Conesprings,Import="Inflows",
-    Export=c("Export","Dissipation")))
+PathInd(Takapoto, Import = "CO2",
+        Export = c("CO2", "Sedimentation", "Grazing"))
+
+# Conesprings is the example set 1a from Latham 2006.
+as.data.frame(
+  PathInd(Tij = Conesprings, Import = "Inflows",
+          Export = c("Export", "Dissipation"))
+)
 }
 
 \references{
@@ -73,6 +76,10 @@ as.data.frame(PathInd(Tij=Conesprings,Import="Inflows",
 
   Allesina and Ulanowicz, 2004. Cycling in ecological netowrks: Finn's index
   revisited. Computational Biology and Chemistry 28, 227-233.
+
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
 }
 
 \details{

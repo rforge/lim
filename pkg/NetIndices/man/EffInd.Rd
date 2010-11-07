@@ -8,8 +8,8 @@
   effective roles of a network.
 }
 \usage{
-EffInd(Flow=NULL, Tij=t(Flow), 
-  Import=NULL, Export=NULL)}
+EffInd(Flow = NULL, Tij = t(Flow), 
+       Import = NULL, Export = NULL)}
 \arguments{
   \item{Flow }{network matrix with Flow[i,j] the flow from i (row) to j
     (column); component positions in rows and columns must be the same;
@@ -43,12 +43,14 @@ EffInd(Flow=NULL, Tij=t(Flow),
 }
 
 \examples{# The takapoto atoll network
-EffInd(Takapoto,Import ="CO2",
-       Export=c("CO2","Sedimentation","Grazing"))
+EffInd(Takapoto, Import = "CO2",
+       Export = c("CO2", "Sedimentation", "Grazing"))
 
 # Conesprings is the example set 1a from Latham 2006.
-as.data.frame(EffInd(Tij=Conesprings,Import="Inflows",
-    Export=c("Export","Dissipation")))
+as.data.frame(
+  EffInd(Tij = Conesprings, Import = "Inflows",
+         Export = c("Export", "Dissipation"))
+)
 }
 
 \references{
@@ -57,6 +59,10 @@ as.data.frame(EffInd(Tij=Conesprings,Import="Inflows",
 
   Zorach and Ulanowicz, 2003. Quantifying the complexity of flow
   networks: how many roles are there?. Complexity 8,68-76.
+
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
 }
 
 \details{

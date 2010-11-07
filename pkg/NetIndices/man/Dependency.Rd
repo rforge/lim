@@ -7,8 +7,10 @@
   Calculates for each component in a flow network the direct+indirect
   dependency on the other components.
 }
-\usage{Dependency(Flow=NULL, Tij=t(Flow), 
-  Import=NULL, Export=NULL)}
+\usage{
+Dependency(Flow = NULL, Tij = t(Flow), 
+           Import = NULL, Export = NULL)
+}
 \arguments{
   \item{Flow }{network matrix with Flow[i,j] the flow from i (row) to j
     (column); component positions in rows and columns must be the same;
@@ -35,18 +37,28 @@
 \author{
   Karline Soetaert <k.soetaert@nioo.knaw.nl>,
   Julius Kipyegon Kones<jkones@uonbi.ac.ke>}
+
+\references{
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
+}
 \examples{# The takapoto atoll network
-Dependency(Takapoto,Import ="CO2",
-           Export=c("CO2","Sedimentation","Grazing"))
+Dependency(Takapoto, Import = "CO2",
+           Export = c("CO2", "Sedimentation", "Grazing"))
 
 # making "Bacteria" a "primary food source"  
 TAK <- Takapoto
-TAK[,"Bacteria"]<-c(0,0,0,0,0,0,1,0)
+TAK[,"Bacteria"] <- c(0, 0, 0, 0, 0, 0, 1, 0)
+
 # first two columns
-(DD<-Dependency(TAK,Import =c("CO2","DOC"),
-         Export=c("CO2","DOC","Sedimentation","Grazing")))
-barplot(t(DD[3:nrow(DD),1:2]),beside=TRUE,ylab="-",
-       legend=c("Phytoplankton","Bacteria"),
-       main="dependency on (primary) food sources")}
+DD <- Dependency(TAK, Import = c("CO2", "DOC"),
+                 Export = c("CO2", "DOC", "Sedimentation", "Grazing"))
+DD
+
+barplot(t (DD[3:nrow(DD), 1:2]), beside = TRUE, ylab = "-",
+       legend = c("Phytoplankton","Bacteria"),
+       main = "dependency on (primary) food sources")
+}
 \keyword{utilities}
 

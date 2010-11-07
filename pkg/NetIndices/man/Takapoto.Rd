@@ -47,8 +47,8 @@
   Karline Soetaert <k.soetaert@nioo.knaw.nl>
 }
 
-\examples{UncInd(Takapoto,Import ="CO2",
-       Export=c("CO2","Sedimentation","Grazing"))
+\examples{UncInd(Takapoto, Import = "CO2",
+       Export = c("CO2", "Sedimentation", "Grazing"))
 }
 
 \references{

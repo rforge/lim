@@ -25,8 +25,8 @@
   \tabular{ll}{
     Package: \tab NetIndices\cr
     Type: \tab Package\cr
-    Version: \tab 1.4\cr
-    Date: \tab 2009-07-01\cr
+    Version: \tab 1.4.1\cr
+    Date: \tab 2010-11-01\cr
     License: \tab GNU Public License 2 or above\cr
   }
 }
@@ -41,6 +41,7 @@
   Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
   Are network indices robust indicators of food web functioning? a
   Monte Carlo approach.  Ecological Modelling, 220, 370-382.
+  
 }
 
 \examples{

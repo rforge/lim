@@ -40,17 +40,23 @@
   rownames and columnames are the components.
 }
 
-\examples{GenInd(Tij=Conesprings,Import="Inflows",
-                 Export=c("Export","Dissipation"))
-AscInd(Tij=Conesprings,Import="Inflows",
-                 Export=c("Export","Dissipation"),
-                 Dissipation="Dissipation")
-UncInd(Tij=Conesprings,Import="Inflows",
-                 Export=c("Export","Dissipation"))
-EffInd(Tij=Conesprings,Import="Inflows",
-                 Export=c("Export","Dissipation"))
-EnvInd(Tij=Conesprings,Import="Inflows",
-           Export=c("Export","Dissipation"),full=TRUE)
+\examples{
+GenInd(Tij = Conesprings, Import = "Inflows",
+       Export = c("Export", "Dissipation"))
+
+AscInd(Tij = Conesprings, Import = "Inflows",
+       Export = c("Export", "Dissipation"),
+       Dissipation = "Dissipation")
+
+UncInd(Tij = Conesprings,Import="Inflows",
+       Export = c("Export", "Dissipation"))
+
+EffInd(Tij = Conesprings, Import = "Inflows",
+       Export = c("Export", "Dissipation"))
+
+EnvInd(Tij = Conesprings, Import = "Inflows",
+       Export = c("Export", "Dissipation"),
+       full = TRUE)
 }
 
 \references{

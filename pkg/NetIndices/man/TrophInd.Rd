@@ -7,8 +7,8 @@
 }
 
 \usage{
-TrophInd(Flow=NULL, Tij=t(Flow), 
-  Import=NULL, Export=NULL, Dead=NULL)}
+TrophInd(Flow = NULL, Tij = t(Flow), 
+         Import = NULL, Export = NULL, Dead = NULL)}
 
 \arguments{
   \item{Flow }{network matrix with Flow[i,j] the flow from i (row) to j
@@ -50,13 +50,13 @@ TrophInd(Flow=NULL, Tij=t(Flow),
   Julius Kipyegon Kones<jkones@uonbi.ac.ke>}
 \examples{# The takapoto atoll network
 # First trophic level without assuming that TL of detritus and DOC is 1
-TrophInd(Takapoto,Import ="CO2",
-        Export=c("CO2","Sedimentation","Grazing"))
+TrophInd(Takapoto, Import = "CO2",
+        Export = c("CO2", "Sedimentation", "Grazing"))
 
 # Now imposing TL=1 for detritus and DOC 
-TrophInd(Takapoto,Import ="CO2",
-        Export=c("CO2","Sedimentation","Grazing"),
-        Dead=c("Detritus","DOC"))}
+TrophInd(Takapoto, Import = "CO2",
+        Export = c("CO2", "Sedimentation", "Grazing"),
+        Dead = c("Detritus", "DOC"))}
 \references{
   Christensen V, Pauly D. 1992. ECOPATH II - a software for balancing
   steady-state ecosystem models and calculating network characteristics.
@@ -64,6 +64,11 @@ TrophInd(Takapoto,Import ="CO2",
 
   Lindeman RL. 1942. The trophic dynamic aspect of ecology.
   Ecology 23: 399-418.
+
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
+
 }
 
 \details{

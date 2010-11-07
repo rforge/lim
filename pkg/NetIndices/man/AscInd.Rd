@@ -9,8 +9,8 @@
   Overhead and Capacity for several (sub)networks.
 }
 \usage{
-AscInd(Flow=NULL, Tij=t(Flow), Import=NULL, 
-  Export=NULL, Dissipation=NULL)
+AscInd(Flow = NULL, Tij = t(Flow), Import = NULL, 
+       Export = NULL, Dissipation = NULL)
 }
 \arguments{
   \item{Flow }{network matrix with Flow[i,j] the flow from i (row) to j
@@ -67,13 +67,17 @@ The ascendency indices comprise (columns:)
   Julius Kipyegon Kones<jkones@uonbi.ac.ke>
 }
 \examples{# The takapoto atoll network
-AscInd(Takapoto,Import ="CO2",
-       Export=c("CO2","Sedimentation","Grazing"),
-       Dissipation="CO2")
+AscInd(Takapoto, Import = "CO2",
+       Export = c("CO2", "Sedimentation", "Grazing"),
+       Dissipation = "CO2")
        
 # Conesprings is the example set 1a from Latham 2006.
-as.data.frame(AscInd(Tij=Conesprings,Import="Inflows",
-    Export=c("Export","Dissipation"),Dissipation="Dissipation"))}
+as.data.frame(
+    AscInd(Tij = Conesprings, Import = "Inflows",
+    Export = c("Export","Dissipation"), 
+    Dissipation = "Dissipation")
+    )
+}
 \references{
   Latham LG. 2006. Network flow analysis algorithms.
   Ecological Modelling 192: 586-600.
@@ -84,6 +88,10 @@ as.data.frame(AscInd(Tij=Conesprings,Import="Inflows",
 
   Ulanowicz RE, Norden JS. 1990. Symmetrical overhead in flow networks.
   International Journal of System Science 21: 429-437.
+
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
 }
 
 \details{

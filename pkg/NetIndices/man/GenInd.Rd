@@ -9,8 +9,8 @@
 }
 
 \usage{
-GenInd(Flow=NULL, Tij=t(Flow), 
-  Import=NULL, Export=NULL, tol=0)}
+GenInd(Flow = NULL, Tij = t(Flow), 
+       Import = NULL, Export = NULL, tol = 0)}
 \arguments{
   \item{Flow }{network matrix with Flow[i,j] the flow from i (row) to j
     (column); component positions in rows and columns must be the same;
@@ -65,14 +65,18 @@ GenInd(Flow=NULL, Tij=t(Flow),
 }
 
 \examples{# The takapoto atoll network
-(GI<- GenInd(Takapoto,Import ="CO2",
-             Export=c("CO2","Sedimentation","Grazing")))
+(GI<- GenInd(Takapoto, Import = "CO2",
+             Export = c("CO2", "Sedimentation", "Grazing")))
 as.data.frame(GI)  
+
+# a simple system
 as.data.frame(GenInd(diag(5)))
 
 # Conesprings is the example set 1a from Latham 2006.
-as.data.frame(GenInd(Tij=Conesprings,Import="Inflows",
-       Export=c("Export","Dissipation")))
+as.data.frame(
+  GenInd(Tij = Conesprings, Import = "Inflows",
+         Export = c("Export", "Dissipation"))
+)
 }
 
 \references{
@@ -86,6 +90,10 @@ as.data.frame(GenInd(Tij=Conesprings,Import="Inflows",
 
   Pimm SL, Lawton JH. 1980. Are food webs divided into compartments?
   Journal of Animal Ecology 49: 879-898.
+
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
 }
 
 \details{

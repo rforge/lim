@@ -9,8 +9,9 @@
   network constraint and constraint efficiency,...
 }
 \usage{
-UncInd(Flow=NULL, Tij=t(Flow), 
-  Import=NULL, Export=NULL)}
+UncInd(Flow = NULL, Tij = t(Flow), 
+       Import = NULL, Export = NULL)
+}
 \arguments{
   \item{Flow }{network matrix with Flow[i,j] the flow from i (row) to j
     (column); component positions in rows and columns must be the same;
@@ -56,12 +57,16 @@ UncInd(Flow=NULL, Tij=t(Flow),
 \author{Karline Soetaert <k.soetaert@nioo.knaw.nl>,
    Julius Kipyegon Kones<jkones@uonbi.ac.ke>}
 \examples{# The takapoto atoll network
-UncInd(Takapoto,Import ="CO2",
-       Export=c("CO2","Sedimentation","Grazing"))
+UncInd(Takapoto, Import = "CO2",
+       Export = c("CO2", "Sedimentation", "Grazing"))
 
 # Conesprings is the example set 1a from Latham 2006.
-as.data.frame(UncInd(Tij=Conesprings,Import="Inflows",
-    Export=c("Export","Dissipation")))}
+as.data.frame(
+   UncInd(Tij = Conesprings, Import = "Inflows",
+          Export = c("Export", "Dissipation"))
+)
+}
+
 \references{
   Latham LG. 2006. Network flow analysis algorithms.
   Ecological Modelling 192: 586-600.
@@ -84,6 +89,10 @@ as.data.frame(UncInd(Tij=Conesprings,Import="Inflows",
 
   Rutledge RW, Basorre BL, Mulholland RJ. 1976. Ecological stability: an
   information theory viewpoint. Journal of Theoretical Biology 57: 355-371.
+
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
 }
 \details{
   The mathematical formulation of these indices can be found in the package

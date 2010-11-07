@@ -8,8 +8,8 @@
   indirect effects,... of a network.
 }
 \usage{
-EnvInd(Flow=NULL, Tij=t(Flow), Import=NULL, 
-  Export=NULL, full=FALSE)
+EnvInd(Flow = NULL, Tij = t(Flow), Import = NULL, 
+       Export = NULL, full = FALSE)
 }
 \arguments{
   \item{Flow }{network matrix with Flow[i,j] the flow from i (row) to j
@@ -66,13 +66,16 @@ EnvInd(Flow=NULL, Tij=t(Flow), Import=NULL,
 }
 
 \examples{# The takapoto atoll network
-EnvInd(Takapoto,Import ="CO2",
-         Export=c("CO2","Sedimentation","Grazing"))
+EnvInd(Takapoto, Import = "CO2",
+         Export = c("CO2", "Sedimentation", "Grazing"))
 
-as.data.frame(EnvInd(Tij=Conesprings,Import="Inflows",
-    Export=c("Export","Dissipation")))
-EnvInd(Tij=Conesprings,Import="Inflows",
-    Export=c("Export","Dissipation"),full=TRUE)
+as.data.frame(
+  EnvInd(Tij = Conesprings, Import = "Inflows",
+         Export = c("Export", "Dissipation"))
+)
+
+EnvInd(Tij = Conesprings, Import = "Inflows",
+    Export = c("Export", "Dissipation"), full = TRUE)
 }
 
 \references{
@@ -90,12 +93,15 @@ EnvInd(Tij=Conesprings,Import="Inflows",
 
   Higashi M, Patten BC. 1989. Dominance of indirect causality in ecosystems.
     The American Naturalist 133: 288-302.
+
+  Kones, J.K., Soetaert, K., van Oevelen, D. and J.Owino (2009).
+  Are network indices robust indicators of food web functioning? a
+  Monte Carlo approach.  Ecological Modelling, 220, 370-382.
 }
 
 \details{
   The mathematical formulation of these indices can be found in the package
   vignette - \emph{vignette("NetIndices")}.
-
 
   The PDF can be found in the subdirectory \file{doc} of the NetIndices package.
 }
