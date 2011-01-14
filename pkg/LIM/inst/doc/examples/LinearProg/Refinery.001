@@ -121,9 +121,9 @@ Oil8:    ReformedGasoline = ReformedGasolineForPremiumMotorFuel  &
 ! Quantity of premium motor fuel produced
 Fuel1:   RegularMotorFuel = LightNaphtaForRegularMotorFuel  &
                            +MediumNaphtaForRegularMotorFuel &
-		 	               +HeavyNaphtaForRegularMotorFuel  &
-		 		           +ReformedGasolineForRegularMotorFuel &
-		 		           +CrackedGasolineForRegularMotorFuel
+		 	                     +HeavyNaphtaForRegularMotorFuel  &
+		 		               +ReformedGasolineForRegularMotorFuel &
+		 		               +CrackedGasolineForRegularMotorFuel
 
 Fuel2:    PremiumMotorFuel = LightNaphtaForPremiumMotorFuel      &
                             +MediumNaphtaForPremiumMotorFuel     &
@@ -162,9 +162,9 @@ Capacity5:   PremiumMotorFuel > 0.4*RegularMotorFuel
 ! Quality: the octane number
 Quality1:    94*PremiumMotorFuel < 90*LightNaphtaForPremiumMotorFuel        &
                                   +80*MediumNaphtaForPremiumMotorFuel       &
-            					  +70*HeavyNaphtaForPremiumMotorFuel        &
-			                 	  +115*ReformedGasolineForPremiumMotorFuel  &
-					              +105*CrackedGasolineForPremiumMotorFuel
+            					            +70*HeavyNaphtaForPremiumMotorFuel        &
+        			                 	  +115*ReformedGasolineForPremiumMotorFuel  &
+				        	                +105*CrackedGasolineForPremiumMotorFuel
 
 Quality2:     84*RegularMotorFuel < 90*LightNaphtaForRegularMotorFuel        &
                                   +80*MediumNaphtaForRegularMotorFuel       &

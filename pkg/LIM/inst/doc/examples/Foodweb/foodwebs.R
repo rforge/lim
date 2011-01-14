@@ -29,6 +29,3 @@ Ldei(lim)$X
 Lsei("LIM_example.input",verbose=FALSE)$X
 Ldei("LIM_example.input",verbose=FALSE)$X
 
-lim<- Setup("cosmF_.input")
-X0 <- Ldei(lim)$X
-SolXS <- xsample(E=lim$A, F=lim$B, G=lim$G, H=lim$H, sdB=1, iter=runs, type = "mirror", jmp=NULL, x0=X0, fulloutput = FALSE)

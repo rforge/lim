@@ -1,105 +1,92 @@
 Transportation problem (Minimal Cost)
-There are three warehouses at different cities: Detroit, Pittsburgh and Buffalo.
-They have 250, 130 and 235 tons of paper accordingly.
 
-There are four publishers in Boston, New York, Chicago and Indianapolis.
-They ordered 75, 230, 240 and 70 tons of paper to publish new books.
+There are three sellers in different cities: CityA, CityB and CityC.
+They have 250, 130 and 250 tons of goods. 
 
+There are four buyers in CityD, CityE, CityF and CityG.
+They ordered 75, 230, 240 and 70 tons of goods for their production.
 
-There are the following costs in dollars of transportation of one ton of paper:
-From \ To
- Boston (BS) New York (NY) Chicago (CH) Indianapolis (IN)
-Detroit (DT) 15 20 16 21
-Pittsburgh (PT) 25 13 5 11
-Buffalo (BF) 15 15 7 17
-We denote the cost of transportation from one city to another by C_ prefix,
-for example cost from Buffalo to Chicago is C_BF_CH.
+The following costs of transportation for one ton of goods apply from one city 
+to another city:
+from\to  (D) (E) (F) (G)
+CityA (A) 10  20  15  20
+CityB (B) 20  15   5  10
+CityC (C) 10  15   5  15
+
+The stocks in city A are denoted with x_A
+The requests for city D are denoted with x_D
+The cost of transportation from one city to another is denoted by C_from_to,
+for example cost from CityC to CityF is C_C_F.
 
 ## parameters
-x_dt = 250
-x_pi = 130
-x_bf = 235
+x_A  = 250
+x_B  = 130
+x_C  = 250
 
-x_bs = 75
-x_ny = 230
-x_ch = 240
-x_in = 70
+x_D  = 75
+x_E  = 230
+x_F  = 240
+x_G  = 70
 
-c_dt_bs = 15
-c_dt_ny = 20
-c_dt_ch = 16
-c_dt_in = 21
-c_pi_bs = 25
-c_pi_ny = 13
-c_pi_ch = 5
-c_pi_in = 11
-c_bf_bs = 15
-c_bf_ny = 15
-c_bf_ch = 7
-c_bf_in = 17
-
+c_A_D = 10
+c_A_E = 20
+c_A_F = 15
+c_A_G = 20
+c_B_D = 20
+c_B_E = 15
+c_B_F = 5
+c_B_G = 10
+c_C_D = 10
+c_C_E = 15
+c_C_F = 5
+c_C_G = 15
 ## end parameters
 
-The decision variables are amounts of tons transported from one city to another denoted by prefix X_:
-X_DT_BS= tons from Detroit to Boston,
-X_PT_BS= tons from Pittsburgh to Boston,
-X_BF_NY= tons from Buffalo to New York and etc.
+The decision variables are tons transported from one city to another.
+They are denoted as x_from_to:
+X_A_D = tons from CityA to CityD, etc.
 
 ## DECISION
-x_dt_bs
-x_dt_ny
-x_dt_ch
-x_dt_in
-x_pi_bs
-x_pi_ny
-x_pi_ch
-x_pi_in
-x_bf_bs
-x_bf_ny
-x_bf_ch
-x_bf_in
-
+x_A_D
+x_A_E
+x_A_F
+x_A_G
+x_B_D
+x_B_E
+x_B_F
+x_B_G
+x_C_D
+x_C_E
+x_C_F
+x_C_G
 ## END DECISION
 
-We have to find a plan that all orders will be performed and the transportation costs will be minimized.
+All orders should be performed while the transportation costs should be minimized.
 
 ## COST
-x_dt_bs * c_dt_bs  +x_dt_ny * c_dt_ny +x_dt_ch * c_dt_ch  +x_dt_in * c_dt_in  + &
-x_pi_bs * c_pi_bs  +x_pi_ny * c_pi_ny +x_pi_ch * c_pi_ch  +x_pi_in * c_pi_in  + &
-x_bf_bs * c_bf_bs  +x_bf_ny * c_bf_ny +x_bf_ch * c_bf_ch  +x_bf_in * c_bf_in ! 
+x_A_D * c_A_D + x_A_E * c_A_E + x_A_F * c_A_F + x_A_G * c_A_G  + &
+x_B_D * c_B_D + x_B_E * c_B_E + x_B_F * c_B_F + x_B_G * c_B_G  + &
+x_C_D * c_C_D + x_C_E * c_C_E + x_C_F * c_C_F + x_C_G * c_C_G  
 ## END COST
 
 
-
-The constraints are defined in terms of the transported paper amount from one warehouse or to one publisher.
+The constraints are defined in terms of the transported amount from one 
+seller or to one buyer.
 
 For example:
-Amount transported from Detroit cannot be more than 250 tons:
-X_DT_BS + X_DT_NY + X_DT_CH + X_DT_IN <= 250
+Amount transported from CityA cannot be more than 250 tons:
+X_A_D + X_A_E + X_A_F + X_A_G <= 250
 
 ## Constraint
-x_dt_bs  +x_dt_ny + x_dt_ch + x_dt_in < x_dt
-x_pi_bs  +x_pi_ny + x_pi_ch + x_pi_in < x_pi
-x_bf_bs  +x_bf_ny + x_bf_ch + x_bf_in < x_bf
-
+x_A_D + x_A_E + x_A_F + x_A_G < x_A
+x_B_D + x_B_E + x_B_F + x_B_G < x_B
+x_C_D + x_C_E + x_C_F + x_C_G < x_C
 ## END constraint
 
 ## EQUALITIES
-x_dt_bs+x_pi_bs+x_bf_bs          =x_bs
-x_bf_ny+x_pi_ny+x_dt_ny          =x_ny
-x_dt_ch+x_pi_ch+x_bf_ch          =x_ch
-x_dt_in+x_pi_in+x_bf_in          =x_in
-
+x_A_D + x_B_D + x_C_D         =x_D
+x_C_E + x_B_E + x_A_E         =x_E
+x_A_F + x_B_F + x_C_F         =x_F
+x_A_G + x_B_G + x_C_G         =x_G
 ## END EQUALITIES
---------------------------------------------------------------------------------
-
-The problem has been solved successfully with the following plan: From \ To
- Boston New York Chicago Indianapolis Sent
-Detroit  75 175 - - 250
-Pittsburgh  - 21.34 35.66 70 130
-Buffalo (BF) - 33.66 201.34 - 235
-Received: 75 230 240 70
-
-
-The Total Cost of Transportation is $7780
 

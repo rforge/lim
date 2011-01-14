@@ -20,7 +20,7 @@ PrintMat<-function(lim)  {
   print(cbind(G,"  H = "=lim$H))
 
   if (!is.null(lim$Cost)) {
-    Cost           <-  matrix(nc=lim$NUnknowns,data=lim$Cost)
+    Cost           <-  matrix(ncol = lim$NUnknowns, data=lim$Cost)
     colnames(Cost) <- lim$Unknowns
     rownames(Cost) <- lim$costnames
     print("Cost")
@@ -28,7 +28,7 @@ PrintMat<-function(lim)  {
   }
 
   if (!is.null(lim$Profit)) {
-    Profit           <-  matrix(nc=lim$NUnknowns,data=lim$Profit)
+    Profit           <-  matrix(ncol = lim$NUnknowns, data=lim$Profit)
     colnames(Profit) <- lim$Unknowns
     rownames(Profit) <- lim$profitnames
     print("Profit")
