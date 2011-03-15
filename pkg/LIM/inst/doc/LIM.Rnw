@@ -827,7 +827,7 @@ function first (it is copied from one of the examples in the pairs
 help file). We plot only the lower part of the pairs plot (i.e.
 set \code{upper.panel = NULL}).
 \begin{verbatim}
-xs <- Xsample(reaction.lim, jmp = 10)
+xs <- Xsample(reaction.lim, jmp = 10, iter = 500)
 panel.hist <- function(x, ...)  {
     usr <- par("usr")
     on.exit(par(usr))
@@ -840,7 +840,7 @@ panel.hist <- function(x, ...)  {
 }
 xs <- xs[ ,-(7:9)]                    #remove constant rates
 pairs(xs, upper.panel = NULL, diag.panel = panel.hist,
-      pch = ".", main = "Reaction network")
+      pch = ".", cex = 2, main = "Reaction network")
 \end{verbatim}
 
   The results are in Figure \ref{fig:mcmc}

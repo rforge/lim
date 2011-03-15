@@ -424,12 +424,12 @@ It is also possible to sample the solution space in a random way. Function
 \code{xsample} does that; each point it generates is equally valid and equally
 likely.
 
-We take 1000 random samples; it takes a while to do this; 
+We take 500 random samples; it takes a while to do this;
 \code{print(system.time()} estimates the time,
 in seconds.
 <<>>=
 print(system.time(
-  xs <- Xsample(LIMEcoli, iter = 1000, type = "mirror", test = TRUE)  #))
+  xs <- Xsample(LIMEcoli, iter = 500, type = "mirror", test = TRUE)  #))
 ))
   
 @

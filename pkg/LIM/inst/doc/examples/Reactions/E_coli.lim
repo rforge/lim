@@ -30,7 +30,7 @@ pairs(xs[,1:10],pch=".",cex=2)
 # Sample solution space  - takes a while
 #print(system.time(
 #xs<-Xsample(lim,iter=10000,out=5000,jmp=50,type="mirror",test=TRUE)  #))
-xs<-Xsample(lim,iter=5000,type="mirror",test=TRUE)  #))
+xs<-Xsample(lim,iter=1000,type="mirror",test=TRUE)  #))
 #xs<-Xsample(lim,iter=5,jmp=100,type="mirror",test=TRUE)  #
 pairs(xs[,1:10],pch=".",cex=2)
 
