@@ -1073,14 +1073,16 @@ Setup.liminput <- function (liminput, ...)  {
         NExternal = nrow(liminput$extern), NVariables = nvars,
         A = A, B = B, G = G, H = H, Cost = cost, Profit = profit,
         Flowmatrix = Flowmatrix, VarA = VarA, VarB = VarB, 
-        Parameters = data.frame(name = liminput$parnames,
-            val = parval), Components = data.frame(name = liminput$compnames,
-            val = compval), Externals = data.frame(name = liminput$externnames,
-            val = externval), rates = data.frame(name = liminput$compnames,
-            val = rateval), markers = markers, Variables = liminput$varnames,
-            costnames=unique(liminput$cost$name),profitnames=unique(liminput$profit$name),
-            eqnames=unique(liminput$equations$name), ineqnames=unique(liminput$constraints$name),
-        Unknowns = Unknownnames,ispos=ispos)
+        Parameters = data.frame(name = liminput$parnames, val = parval), 
+        Components = data.frame(name = liminput$compnames, val = compval), 
+        Externals = data.frame(name = liminput$externnames, val = externval), 
+        rates = data.frame(name = liminput$compnames, val = rateval), 
+        markers = markers, Variables = liminput$varnames,
+        costnames = unique(liminput$cost$name),
+        profitnames = unique(liminput$profit$name),
+        eqnames = unique(liminput$equations$name), 
+        ineqnames = unique(liminput$constraints$name),
+        Unknowns = Unknownnames, ispos = ispos)
     class(res) <- "lim"
     return(res)
 }

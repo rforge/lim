@@ -1,0 +1,595 @@
+Data    :   LIM model for Hausgarten IV, spring/summer of 2003/2004
+
+Units   :   Fluxes:             mmol C/m2/d
+            Standing stocks:    mmol C/m2
+
+Depth   :   upper 5 cm
+
+Dick van Oevelen, AWI deep-sea group et al.
+
+to be published as:
+Oevelen, D. van, Bergmann, M., Soetaert, K.E.R., Bauerfeind, E., 
+Hasemann, C., Klages, M., Schewe, I., Soltwedel, T. & Budaeva, N. E. (2011). 
+Carbon flows in the benthic food web at the deep-sea observatory HAUSGARTEN 
+(Fram Strait). Deep-Sea Research Part I-Oceanographic Research Papers. In press.
+doi:10.1016/j.dsr.2011.08.002 
+http://www.sciencedirect.com/science/article/pii/S0967063711001385
+
+
+Run this model with:
+
+library(LIM)
+LIM <- Setup("Hausgarten_LIMpackage.input")
+plotweb(Flowmatrix(LIM))
+Plotranges(LIM, log = "x")
+
+#####################################################################
+
+!--------------------------------------------------------------------------------------------------!
+!                                                                                                  !
+!                                     PARAMETER & VARIABLES                                        !
+!                                                                                                  !
+!--------------------------------------------------------------------------------------------------!
+
+
+## PARAMETERS			
+			
+!!!! FLOW MEASUREMENTS			
+			
+minPOCdeposition	=	0.77	{mmol C m-2 d-1}
+maxPOCdeposition	=	3.99	{mmol C m-2 d-1}
+maxTotalHydrolysis	=	14.0	{mmol C m-2 d-1}
+minTotResp	=	1.50	{mmol C/m2/d}
+maxTotResp	=	15.32	{mmol C/m2/d}
+Tlim	=	0.24	{-}
+			
+!!!! STOCKS			
+!-- Three detritus pools: labile, semi-labile and refractory detritus			
+lDetritus              	=	149.1	{mmol C m-2}
+sDetritus              	=	761.2	{mmol C m-2}
+rDetritus              	=	30698.2	{mmol C m-2}
+Bacteria               	=	135.9	{mmol C m-2}
+NemDepositFeeder	=	1.01	{mmol C m-2}
+NemPredatorOmnivore	=	0.03	{mmol C m-2}
+MacroSurfaceDepositFeeder     	=	4.7	{mmol C m-2}
+MacroDepositFeeder     	=	1.8	{mmol C m-2}
+MacroSuspensionFeeder  	=	1.9	{mmol C m-2}
+MacroPredatorScavenger 	=	0.7	{mmol C m-2}
+MegaDepositFeeder      	=	2.90	{mmol C m-2}
+MegaSuspensionFeeder   	=	13.07	{mmol C m-2}
+MegaPredatorScavenger  	=	5.29	{mmol C m-2}
+			
+fracLabSemNem	=	0.374	{-}
+fracLabSemMac	=	0.376	{-}
+fracLabSemMeg	=	0.376	{-}
+			
+!-- DETRITUS			
+min_lDetDegr	=	0.0027400	{/d}
+max_lDetDegr	=	0.0329000	{/d}
+min_sDetDegr	=	0.0008210	{/d}
+max_sDetDegr	=	0.0151000	{/d}
+min_rDetDegr	=	0.0000023	{/d}
+max_rDetDegr	=	0.0008220	{/d}
+minBurEff 	=	0.05	{-}
+maxBurEff	=	0.11	{-}
+maxRelDOCefflux	=	0.1	{-} !relative to respiration
+			
+!-- BACTERIA			
+minBGE	=	0.05	{-}
+maxBGE	=	0.45	{-}
+minLysBP	=	0.40	{-}
+maxLysBP	=	1.00	{-}
+			
+!-- NEMATODES			
+MaintRespNemDF	=	Tlim*0.01*NemDepositFeeder	{mmolC/m2/d}
+MaintRespNemPO	=	Tlim*0.01*NemPredatorOmnivore	{mmolC/m2/d}
+minAENemLab	=	0.57	{-}
+maxAENemLab	=	0.77	{-}
+minAENemSem	=	0.29	{-}
+maxAENemSem	=	0.39	{-}
+minMorNem	=	0	{-}
+maxMorNem	=	Tlim*0.20	{-}
+minGrowthNem	=	Tlim*0.05	{/d}
+maxGrowthNem	=	Tlim*0.20	{/d}
+minNGENem	=	0.6	{-}
+maxNGENem	=	0.9	{-}
+minfracPOuptNem	=	0.75	{-}
+maxfracPOuptNem	=	1	{-}
+minselSFuptNem	=	50	{-}
+maxselSFuptNem	=	100	{-}
+minselNFuptNem	=	1	{-}
+maxselNFuptNem	=	10	{-}
+fractBacUptNem	=	0.05	{-}
+			
+!--  MACROBENTHOS			
+MaintRespMacSDF	=	Tlim*0.01*MacroSurfaceDepositFeeder	{mmolC/m2/d}
+MaintRespMacDF	=	Tlim*0.01*MacroDepositFeeder	{mmolC/m2/d}
+MaintRespMacSF	=	Tlim*0.01*MacroSuspensionFeeder	{mmolC/m2/d}
+MaintRespMacPS	=	Tlim*0.01*MacroPredatorScavenger	{mmolC/m2/d}
+minAEMacLab	=	0.40	{-}
+maxAEMacLab	=	0.75	{-}
+minAEMacSem	=	0.20	{-}
+maxAEMacSem	=	0.38	{-}
+minMorMac	=	0	{-}
+maxMorMac	=	Tlim*0.01	{-}
+minGrowthMac	=	Tlim*0.01	{/d}
+maxGrowthMac	=	Tlim*0.05	{/d}
+minNGEMac	=	0.5	{-}
+maxNGEMac	=	0.7	{-}
+minfracPSuptMac	=	0.75	{-}
+maxfracPSuptMac	=	1	{-}
+minselSDFuptMac	=	50	{-}
+maxselSDFuptMac	=	100	{-}
+minselDFuptMac	=	1	{-}
+maxselDFuptMac	=	10	{-}
+			
+!--  MEGABENTHOS			
+MaintRespMegDF	=	Tlim*0.01*MegaDepositFeeder	{mmolC/m2/d}
+MaintRespMegSF	=	Tlim*0.01*MegaSuspensionFeeder	{mmolC/m2/d}
+MaintRespMegPS	=	Tlim*0.01*MegaPredatorScavenger	{mmolC/m2/d}
+minAEMegLab	=	0.40	{-}
+maxAEMegLab	=	0.75	{-}
+minAEMegSem	=	0.20	{-}
+maxAEMegSem	=	0.38	{-}
+minMorMeg	=	0	{-}
+maxMorMeg	=	Tlim*0.014	{-}
+minGrowthMeg	=	Tlim*0.0027	{/d}
+maxGrowthMeg	=	Tlim*0.014	{/d}
+minNGEMeg	=	0.5	{-}
+maxNGEMeg	=	0.7	{-}
+minfracPSuptMeg	=	0.75	{-}
+maxfracPSuptMeg	=	1	{-}
+minselSDFuptMeg	=	50	{-}
+maxselSDFuptMeg	=	100	{-}
+minselDFuptMeg	=	1	{-}
+maxselDFuptMeg	=	10	{-}
+			
+## END PARAMETERS			
+	
+	
+################################ VARIABLES 
+!-- DETRITUS
+ lDetDep                 =   lDet_w->lDet
+ sDetDep                 =   sDet_w->sDet
+ rDetDep                 =   rDet_w->rDet
+ lDetDis                 =   lDet->DOC
+ sDetDis                 =   sDet->DOC
+ rDetDis                 =   rDet->DOC
+ lDetUpt                 =   flowfrom(lDet) - lDetDis
+ sDetUpt                 =   flowfrom(sDet) - sDetDis
+ lDetDeg                 =   lDetDis + lDetUpt
+ sDetDeg                 =   sDetDis + sDetUpt
+ rDetDeg                 =   rDetDis  
+ DetDep                  =   lDetDep + sDetDep + rDetDep
+ DetDis                  =   lDetDis + sDetDis + rDetDis
+ BurialOC                =   rDet->Burial
+
+
+!-- DOC
+ DOCefflux               =   DOC->DOC_w
+
+
+!-- BACTERIA
+ BacResp                =   Bac->DIC
+ BacUpt                 =   DOC->Bac
+ BacDocProd             =   Bac->DOC
+ BacProd                =   BacUpt - BacResp
+
+
+!-- NEMATODES
+ NemDFResp              =   NemDF->DIC
+ NemDFsDetProd          =   NemDF->sDet
+ NemDFrDetProd          =   NemDF->rDet
+ NemDFDetProd           =   NemDFsDetProd + NemDFrDetProd
+ NemDFUptLab            =   flowto(NemDF) - sDet->NemDF
+ NemDFUptSem            =   sDet->NemDF
+ NemDFUpt               =   flowto(NemDF)
+ NemDFAssLab            =   NemDFUptLab - NemDFsDetProd
+ NemDFAssSem            =   NemDFUptSem - NemDFrDetProd
+ NemDFAss               =   NemDFAssLab + NemDFAssSem
+ NemDFMort              =   NemDF->lDet
+ lDetUptNemDF           =   lDet->NemDF
+ sDetUptNemDF           =   sDet->NemDF
+ BacUptNemDF            =   Bac->NemDF
+
+ NemPOResp              =   NemPO->DIC
+ NemPOsDetProd          =   NemPO->sDet
+ NemPOrDetProd          =   NemPO->rDet
+ NemPODetProd           =   NemPOsDetProd + NemPOrDetProd
+ NemPOUptLab            =   flowto(NemPO) - sDet->NemPO
+ NemPOUptSem            =   sDet->NemPO
+ NemPOUptPO             =   NemDF->NemPO
+ NemPOUpt               =   flowto(NemPO)
+ NemPOAssLab            =   NemPOUptLab - NemPOsDetProd
+ NemPOAssSem            =   NemPOUptSem - NemPOrDetProd
+ NemPOAss               =   NemPOAssLab + NemPOAssSem
+ NemPOMort              =   NemPO->lDet
+ BacUptNemPO            =   Bac->NemPO
+
+ BacUptNem              =   BacUptNemDF + BacUptNemPO
+ NemUpt                 =   NemDFUpt    + NemPOUpt
+ NemResp                =   NemDFResp   + NemPOResp
+ 
+!-- MACROBENTHOS  
+ MacSDFResp             =   MacSDF->DIC
+ MacSDFsDetProd         =   MacSDF->sDet
+ MacSDFrDetProd         =   MacSDF->rDet
+ MacSDFDetProd          =   MacSDFsDetProd + MacSDFrDetProd
+ MacSDFUptLab           =   flowto(MacSDF) - sDet->MacSDF
+ MacSDFUptSem           =   sDet->MacSDF
+ MacSDFUpt              =   flowto(MacSDF)
+ MacSDFAssLab           =   MacSDFUptLab - MacSDFsDetProd
+ MacSDFAssSem           =   MacSDFUptSem - MacSDFrDetProd
+ MacSDFAss              =   MacSDFAssLab + MacSDFAssSem
+ MacSDFMort             =   MacSDF->lDet
+ MacSDFExp              =   MacSDF->Export
+
+ MacDFResp              =   MacDF->DIC
+ MacDFsDetProd          =   MacDF->sDet
+ MacDFrDetProd          =   MacDF->rDet
+ MacDFDetProd           =   MacDFsDetProd + MacDFrDetProd
+ MacDFUptLab            =   flowto(MacDF) - sDet->MacDF
+ MacDFUptSem            =   sDet->MacDF
+ MacDFUpt               =   flowto(MacDF)
+ MacDFAssLab            =   MacDFUptLab - MacDFsDetProd
+ MacDFAssSem            =   MacDFUptSem - MacDFrDetProd
+ MacDFAss               =   MacDFAssLab + MacDFAssSem
+ MacDFMort              =   MacDF->lDet
+ MacDFExp               =   MacDF->Export
+
+ MacSFResp              =   MacSF->DIC
+ MacSFsDetProd          =   MacSF->sDet
+ MacSFrDetProd          =   MacSF->rDet
+ MacSFDetProd           =   MacSFsDetProd + MacSFrDetProd
+ MacSFUptLab            =   flowto(MacSF) - sDet_w->MacSF
+ MacSFUptSem            =   sDet_w->MacSF
+ MacSFUpt               =   flowto(MacSF)
+ MacSFAssLab            =   MacSFUptLab - MacSFsDetProd
+ MacSFAssSem            =   MacSFUptSem - MacSFrDetProd
+ MacSFAss               =   MacSFAssLab + MacSFAssSem
+ MacSFMort              =   MacSF->lDet
+ MacSFExp               =   MacSF->Export
+
+ MacPSResp              =   MacPS->DIC
+ MacPSsDetProd          =   MacPS->sDet
+ MacPSrDetProd          =   MacPS->rDet
+ MacPSDetProd           =   MacPSsDetProd + MacPSrDetProd
+ MacPSUptLab            =   flowto(MacPS) - sDet->MacPS
+ MacPSUptSem            =   sDet->MacPS
+ MacPSUptPS             =   flowto(MacPS) - lDet->MacPS - Bac->MacPS - sDet->MacPS
+ MacPSUpt               =   MacPSUptLab + MacPSUptSem
+ MacPSAssLab            =   MacPSUptLab - MacPSsDetProd
+ MacPSAssSem            =   MacPSUptSem - MacPSrDetProd
+ MacPSAss               =   MacPSAssLab + MacPSAssSem
+ MacPSMort              =   MacPS->lDet
+ MacPSExp               =   MacPS->Export
+
+ MacResp                =   MacSDFResp + MacDFResp + MacSFResp + MacPSResp
+ MacExp                 =   MacSDFExp  + MacDFExp  + MacSFExp  + MacPSExp
+
+!-- MEGABENTHOS
+ MegDFResp              =   MegDF->DIC
+ MegDFsDetProd          =   MegDF->sDet
+ MegDFrDetProd          =   MegDF->rDet
+ MegDFDetProd           =   MegDFsDetProd + MegDFrDetProd
+ MegDFUptLab            =   flowto(MegDF) - sDet->MegDF
+ MegDFUptSem            =   sDet->MegDF
+ MegDFUpt               =   flowto(MegDF)
+ MegDFAssLab            =   MegDFUptLab - MegDFsDetProd
+ MegDFAssSem            =   MegDFUptSem - MegDFrDetProd
+ MegDFAss               =   MegDFAssLab + MegDFAssSem
+ MegDFMort              =   MegDF->lDet
+ MegDFExp               =   MegDF->Export
+
+ MegSFResp              =   MegSF->DIC
+ MegSFsDetProd          =   MegSF->sDet
+ MegSFrDetProd          =   MegSF->rDet
+ MegSFDetProd           =   MegSFsDetProd + MegSFrDetProd
+ MegSFUptLab            =   flowto(MegSF) - sDet_w->MegSF
+ MegSFUptSem            =   sDet_w->MegSF
+ MegSFUpt               =   flowto(MegSF)
+ MegSFAssLab            =   MegSFUptLab - MegSFsDetProd
+ MegSFAssSem            =   MegSFUptSem - MegSFrDetProd
+ MegSFAss               =   MegSFAssLab + MegSFAssSem
+ MegSFMort              =   MegSF->lDet
+ MegSFExp               =   MegSF->Export
+
+ MegPSResp              =   MegPS->DIC
+ MegPSsDetProd          =   MegPS->sDet
+ MegPSrDetProd          =   MegPS->rDet
+ MegPSDetProd           =   MegPSsDetProd + MegPSrDetProd
+ MegPSUptLab            =   flowto(MegPS) - sDet->MegPS
+ MegPSUptSem            =   sDet->MegPS
+ MegPSUptPS             =   flowto(MegPS) - lDet->MegPS - Bac->MegPS - sDet->MegPS
+ MegPSUpt               =   flowto(MegPS)
+ MegPSAssLab            =   MegPSUptLab - MegPSsDetProd
+ MegPSAssSem            =   MegPSUptSem - MegPSrDetProd
+ MegPSAss               =   MegPSAssLab + MegPSAssSem
+ MegPSMort              =   MegPS->lDet
+ MegPSExp               =   MegPS->Export
+
+ MegUpt                 =   MegDFUpt  + MegSFUpt  + MegPSUpt
+ MegResp                =   MegDFResp + MegSFResp + MegPSResp
+ MegExp                 =   MegDFExp  + MegSFExp  + MegPSExp
+ 
+
+!-- TOTALS
+ TotDeposition          =   lDetDep + sDetDep + rDetDep
+ TotSuspensionfeeding   =   lDet_w->MacSF + lDet_w->MegSF &
+                          + sDet_w->MacSF + sDet_w->MegSF
+ TotOCinput             =   TotDeposition + TotSuspensionfeeding
+ TotExport              =   MacExp  + MegExp
+ TotResp                =   BacResp + NemResp + MacResp + MegResp
+
+
+################################ END VARIABLES
+
+
+!--------------------------------------------------------------------------------------------------!
+!                                                                                                  !
+!                                         SYSTEM DECLARATION                                       !
+!                                   (STOCKS, EXTERNALS, FLOWS)                                     !
+!                                                                                                  !
+!--------------------------------------------------------------------------------------------------!
+################################ STOCK 
+
+ lDet   =   lDetritus              	
+ sDet   =   sDetritus              	
+ rDet   =   rDetritus              	
+ DOC    =   XNA	
+ Bac    =   Bacteria               	
+ NemDF  =   NemDepositFeeder
+ NemPO  =   NemPredatorOmnivore
+ MacSDF =   MacroSurfaceDepositFeeder     	
+ MacDF  =   MacroDepositFeeder     	
+ MacSF  =   MacroSuspensionFeeder  	
+ MacPS  =   MacroPredatorScavenger 	
+ MegDF  =   MegaDepositFeeder      	
+ MegSF  =   MegaSuspensionFeeder   	
+ MegPS  =   MegaPredatorScavenger  
+
+################################ END STOCK
+
+################################ EXTERNALS 
+
+ lDet_w
+ sDet_w
+ rDet_w
+ DOC_w
+ DIC
+ Burial
+ Export
+
+################################ END EXTERNALS
+
+################################ FLOW 
+
+!-- DETRITUS
+ lDet_w         ->    lDet
+ lDet_w         ->    MacSF
+ lDet_w         ->    MegSF
+ sDet_w         ->    sDet 
+ sDet_w         ->    MacSF
+ sDet_w         ->    MegSF
+ rDet_w         ->    rDet
+ lDet           ->    DOC
+ sDet           ->    DOC 
+ rDet           ->    DOC 
+ lDet           ->    NemDF
+ lDet           ->    NemPO
+ lDet           ->    MacSDF
+ lDet           ->    MacDF
+ lDet           ->    MacPS
+ lDet           ->    MegDF
+ lDet           ->    MegPS
+ sDet           ->    NemDF
+ sDet           ->    NemPO
+ sDet           ->    MacSDF
+ sDet           ->    MacDF
+ sDet           ->    MacPS
+ sDet           ->    MegDF
+ sDet           ->    MegPS
+ rDet           ->    Burial
+
+
+!-- DOC
+ DOC            ->    DOC_w
+ DOC            ->    Bac
+
+
+!-- BACTERIA
+ Bac            ->    DIC
+ Bac            ->    DOC
+ Bac            ->    NemDF
+ Bac            ->    NemPO
+ Bac            ->    MacSDF
+ Bac            ->    MacDF
+ Bac            ->    MacPS
+ Bac            ->    MegDF
+ Bac            ->    MegPS
+
+
+!-- NEMATODES
+ NemDF          ->    DIC
+ NemDF          ->    lDet !mortality
+ NemDF          ->    sDet
+ NemDF          ->    rDet
+ NemDF          ->    NemPO
+ NemDF          ->    MacSDF
+ NemDF          ->    MacDF
+ NemDF          ->    MacPS
+ NemDF          ->    MegDF
+ NemDF          ->    MegPS
+ NemPO          ->    DIC
+ NemPO          ->    lDet !mortality
+ NemPO          ->    sDet
+ NemPO          ->    rDet
+ NemPO          ->    MacSDF
+ NemPO          ->    MacDF
+ NemPO          ->    MacPS
+ NemPO          ->    MegDF
+ NemPO          ->    MegPS
+
+
+!-- MACROBENTHOS
+ MacSDF         ->    DIC
+ MacSDF         ->    lDet !mortality
+ MacSDF         ->    sDet
+ MacSDF         ->    rDet
+ MacSDF         ->    MacPS
+ MacSDF         ->    MegPS
+ MacSDF         ->    Export
+ MacDF          ->    DIC
+ MacDF          ->    lDet !mortality
+ MacDF          ->    sDet
+ MacDF          ->    rDet
+ MacDF          ->    MacPS
+ MacDF          ->    MegPS
+ MacDF          ->    Export
+ MacSF          ->    DIC
+ MacSF          ->    lDet !mortality
+ MacSF          ->    sDet
+ MacSF          ->    rDet
+ MacSF          ->    MacPS
+ MacSF          ->    MegPS
+ MacSF          ->    Export
+ MacPS          ->    DIC
+ MacPS          ->    lDet !mortality
+ MacPS          ->    sDet
+ MacPS          ->    rDet
+ MacPS          ->    MegPS
+ MacPS          ->    Export
+
+!-- MEGABENTHOS
+ MegDF          ->    DIC
+ MegDF          ->    lDet !mortality
+ MegDF          ->    sDet
+ MegDF          ->    rDet
+ MegDF          ->    MegPS
+ MegDF          ->    Export
+ MegSF          ->    DIC
+ MegSF          ->    lDet !mortality
+ MegSF          ->    sDet
+ MegSF          ->    rDet
+ MegSF          ->    MegPS
+ MegSF          ->    Export
+ MegPS          ->    DIC
+ MegPS          ->    lDet !mortality
+ MegPS          ->    sDet
+ MegPS          ->    rDet
+ MegPS          ->    Export
+    
+################################ END FLOW
+
+
+!--------------------------------------------------------------------------------------------------!
+!                                                                                                  !
+!                                         DATA DECLARATION                                         !
+!                                   (RATES, EQUATIONS, CONSTRAINTS)                                !
+!                                                                                                  !
+!--------------------------------------------------------------------------------------------------!
+
+################################ RATE  
+
+! model is assumed to be in steady state->all rates are zero
+
+################################ END RATE
+
+################################ EQUATION 
+! no equations defined
+################################ END EQUATION
+
+################################ CONSTRAINT 
+
+! Detritus deposition 
+ DetDep                =   [minPOCdeposition,maxPOCdeposition]
+
+!-- Total respiration
+ TotResp               =   [minTotResp,maxTotResp]
+
+!-- Total hydrolysis
+ DetDis                <    maxTotalHydrolysis
+
+!-- Burial efficiency
+ BurialOC              =   [minBurEff,maxBurEff]*TotOCinput      !Burdige book pg. 410
+
+!-- Efflux of DOC from the sediment
+ DOCefflux             <   maxRelDOCefflux*TotResp               !Burdige GCA 63:1507-1515
+
+!-- DETRITUS
+ lDetDeg               =   [min_lDetDegr, max_lDetDegr]*lDetritus
+ sDetDeg               =   [min_sDetDegr, max_sDetDegr]*sDetritus
+ rDetDeg               =   [min_rDetDegr, max_rDetDegr]*rDetritus
+
+!-- BACTERIA
+ BacProd               =   [minBGE,MaxBGE]*BacUpt
+ BacDocProd            =   [minLysBP,maxLysBP]*BacProd
+
+!-- NEMATODES
+ BacUptNemDF                                <    fractBacUptNem * NemDFUpt
+ NemDFAssLab                                =   [minAENemLab,maxAENemLab] * NemDFUptLab
+ NemDFAssSem                                =   [minAENemSem,maxAENemSem] * NemDFUptSem
+ NemDFAss - NemDFResp + MaintRespNemDF      =   [minNGENem, maxNGENem]*NemDFAss
+ NemDFAss - NemDFResp + MaintRespNemDF      =   [minGrowthNem,maxGrowthNem]*NemDF
+ NemDFMort                                  =   [minMorNem, maxMorNem]*NemDF
+
+ NemPOUptPO                                 =   [minfracPOuptNem,maxfracPOuptNem]*NemPOUpt
+ BacUptNemPO                                <    fractBacUptNem * NemPOUpt
+ NemPOAssLab                                =   [minAENemLab,maxAENemLab] * NemPOUptLab
+ NemPOAssSem                                =   [minAENemSem,maxAENemSem] * NemPOUptSem
+ NemPOAss - NemPOResp + MaintRespNemPO      =   [minNGENem, maxNGENem]*NemPOAss
+ NemPOAss - NemPOResp + MaintRespNemPO      =   [minGrowthNem,maxGrowthNem]*NemPO
+ NemPOMort                                  =   [minMorNem, maxMorNem]*NemPO
+
+
+!-- MACROBENTHOS
+ MacSDFUptLab                               =   [minselSDFuptMac,maxselSDFuptMac]*fracLabSemMac*MacSDFUptSem
+ MacSDFAssLab                               =   [minAEMacLab, maxAEMacLab] * MacSDFUptLab
+ MacSDFAssSem                               =   [minAEMacSem, maxAEMacSem] * MacSDFUptSem
+ MacSDFAss - MacSDFResp + MaintRespMacSDF   =   [minNGEMac, maxNGEMac]*MacSDFAss
+ MacSDFAss - MacSDFResp + MaintRespMacSDF   =   [minGrowthMac, maxGrowthMac]*MacSDF
+ MacSDFMort                                 =   [minMorMac, maxMorMac]*MacSDF
+
+ MacDFUptLab                                =   [minselDFuptMac,maxselDFuptMac]*fracLabSemMac*MacDFUptSem
+ MacDFAssLab                                =   [minAEMacLab, maxAEMacLab] * MacDFUptLab
+ MacDFAssSem                                =   [minAEMacSem, maxAEMacSem] * MacDFUptSem
+ MacDFAss - MacDFResp + MaintRespMacDF      =   [minNGEMac, maxNGEMac]*MacDFAss
+ MacDFAss - MacDFResp + MaintRespMacDF      =   [minGrowthMac, maxGrowthMac]*MacDF
+ MacDFMort                                  =   [minMorMac, maxMorMac]*MacDF
+
+ MacSFAssLab                                =   [minAEMacLab, maxAEMacLab] * MacSFUptLab
+ MacSFAssSem                                =   [minAEMacSem, maxAEMacSem] * MacSFUptSem
+ MacSFAss - MacSFResp + MaintRespMacSF      =   [minNGEMac, maxNGEMac]*MacSFAss
+ MacSFAss - MacSFResp + MaintRespMacSF      =   [minGrowthMac, maxGrowthMac]*MacSF
+ MacSFMort                                  =   [minMorMac, maxMorMac]*MacSF
+
+ MacPSUptPS                                 =   [minfracPSuptMac,maxfracPSuptMac]*MacPSUpt
+ MacPSAssLab                                =   [minAEMacLab, maxAEMacLab] * MacPSUptLab
+ MacPSAssSem                                =   [minAEMacSem, maxAEMacSem] * MacPSUptSem
+ MacPSAss - MacPSResp + MaintRespMacPS      =   [minNGEMac, maxNGEMac]*MacPSAss
+ MacPSAss - MacPSResp + MaintRespMacPS      =   [minGrowthMac, maxGrowthMac]*MacPS
+ MacPSMort                                  =   [minMorMac, maxMorMac]*MacPS
+
+!-- MEGABENTHOS
+ MegDFUptLab                                =   [minselDFuptMeg,maxselDFuptMeg]*fracLabSemMeg*MegDFUptSem
+ MegDFAssLab                                =   [minAEMegLab, maxAEMegLab] * MegDFUptLab
+ MegDFAssSem                                =   [minAEMegSem, maxAEMegSem] * MegDFUptSem
+ MegDFAss - MegDFResp + MaintRespMegDF      =   [minNGEMeg, maxNGEMeg]*MegDFAss
+ MegDFAss - MegDFResp + MaintRespMegDF      =   [minGrowthMeg, maxGrowthMeg]*MegDF
+ MegDFMort                                  =   [minMorMeg, maxMorMeg]*MegDF
+
+ MegSFAssLab                                =   [minAEMegLab, maxAEMegLab] * MegSFUptLab
+ MegSFAssSem                                =   [minAEMegSem, maxAEMegSem] * MegSFUptSem
+ MegSFAss - MegSFResp + MaintRespMegSF      =   [minNGEMeg, maxNGEMeg]*MegSFAss
+ MegSFAss - MegSFResp + MaintRespMegSF      =   [minGrowthMeg, maxGrowthMeg]*MegSF
+ MegSFMort                                  =   [minMorMeg, maxMorMeg]*MegSF
+
+ MegPSUptPS                                 =   [minfracPSuptMeg,maxfracPSuptMeg]*MegPSUpt
+ MegPSAssLab                                =   [minAEMegLab, maxAEMegLab] * MegPSUptLab
+ MegPSAssSem                                =   [minAEMegSem, maxAEMegSem] * MegPSUptSem
+ MegPSAss - MegPSResp + MaintRespMegPS      =   [minNGEMeg, maxNGEMeg]*MegPSAss
+ MegPSAss - MegPSResp + MaintRespMegPS      =   [minGrowthMeg, maxGrowthMeg]*MegPS
+ MegPSMort                                  =   [minMorMeg, maxMorMeg]*MegPS
+
+################################ END CONSTRAINT
+

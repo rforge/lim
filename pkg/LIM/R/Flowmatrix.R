@@ -7,7 +7,10 @@ Flowmatrix <- function(lim, web=NULL) {
 
   flowmatrix <- lim$Flowmatrix
   if (is.null(web))
-    web <- Lsei.lim(lim,parsimonious=TRUE)$X
+    if (!is.null(lim$Cost) || !is.null(lim$Profit))
+      web <- Linp(lim)$X
+    else
+      web <- Lsei.lim(lim,parsimonious=TRUE)$X
 
   X          <- as.vector(web)
   Xpos       <- pmax(0.,X)
@@ -22,3 +25,4 @@ Flowmatrix <- function(lim, web=NULL) {
   return(flowmatrix)
 
 }
+
