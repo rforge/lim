@@ -22,10 +22,10 @@
 
 \usage{
 Linp(...)
-Linp.lim(lim, cost = NULL, ispos = lim$ispos, ...)
-Linp.limfile(file, verbose = TRUE,...)
-Linp.character(...)
-Linp.double(...) }
+\method{Linp}{lim}(lim, cost = NULL, ispos = lim$ispos, ...)
+\method{Linp}{limfile}(file, verbose = TRUE,...)
+\method{Linp}{character}(...)
+\method{Linp}{double}(...) }
 
 \arguments{
   \item{lim }{a list that contains the linear inverse model

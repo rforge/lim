@@ -24,10 +24,10 @@
 
 \usage{
 Ldei(...)
-Ldei.lim(lim, ...)
-Ldei.limfile(file, verbose = TRUE, ...)
-Ldei.character(...)
-Ldei.double(...)
+\method{Ldei}{lim}(lim, ...)
+\method{Ldei}{limfile}(file, verbose = TRUE, ...)
+\method{Ldei}{character}(...)
+\method{Ldei}{double}(...)
 }
 \arguments{
   \item{lim }{a list that contains the linear inverse model

@@ -6,7 +6,7 @@
 ##==============================================================================
 
 
-PrintMat<-function(lim)  {
+PrintMat <- function(lim)  {
   A           <- lim$A
   colnames(A) <- lim$Unknowns
   rownames(A) <- lim$eqnames

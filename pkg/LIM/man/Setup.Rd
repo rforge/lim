@@ -24,9 +24,9 @@
 
 \usage{
 Setup(...)
-Setup.limfile(file, verbose = TRUE, ...)
-Setup.character(...)
-Setup.liminput(liminput,...)
+\method{Setup}{limfile}(file, verbose = TRUE, ...)
+\method{Setup}{character}(...)
+\method{Setup}{liminput}(liminput,...)
 }
 
 \arguments{

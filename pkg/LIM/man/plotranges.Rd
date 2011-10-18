@@ -15,19 +15,19 @@
   
 }
 \usage{
-Plotranges.double(min, max, value = NULL, labels = NULL, log = "",
+Plotranges(...)
+\method{Plotranges}{double}(min, max, value = NULL, labels = NULL, log = "",
   pch = 16, pch.col = "black", line.col = "gray", 
   seg.col = "black", xlim = NULL, main = NULL, 
   xlab = NULL, ylab = NULL, lab.cex = 1.0, mark = NULL,...)
 
-Plotranges.lim(lim = NULL, labels = NULL, type = "X", log = "",
+\method{Plotranges}{lim}(lim = NULL, labels = NULL, type = "X", log = "",
   pch = 16, pch.col = "black", line.col = "gray", 
   seg.col = "black", xlim = NULL, main = NULL, 
   xlab = NULL, ylab = NULL, lab.cex = 1.0, index = NULL, ...)
 
-Plotranges.character(file, ...)
+\method{Plotranges}{character}(file, ...)
 
-Plotranges(...)
 }
 \arguments{
   \item{min }{minimum value.

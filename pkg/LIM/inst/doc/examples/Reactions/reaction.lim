@@ -3,10 +3,10 @@
 run with:
 require(LIM)
 reaction.lim <-Setup("reaction.lim")
-pars<-Ldei(reaction.lim)
-ranges<- Xranges(reaction.lim,ispos=FALSE)
-data.frame(ranges, pars=pars$X)
-xs<-Xsample(reaction.lim,jmp=10, iter = 500)
+pars <- Ldei(reaction.lim)
+ranges <- Xranges(reaction.lim, ispos = FALSE)
+data.frame(ranges, pars = pars$X)
+xs <- Xsample(reaction.lim, jmp = 10, iter = 500)
 
 panel.hist <- function(x, ...)
 {
@@ -17,13 +17,13 @@ panel.hist <- function(x, ...)
     y <- h$counts; y <- y/max(y)
     rect(breaks[-nB], 0, breaks[-1], y, col="grey", ...)
 }
-xs <- xs[,-(7:9)]                    #remove constant rates
-pairs(xs,upper.panel=NULL,diag.panel=panel.hist,
-      pch=".",cex = 2, main="Reaction network")
+xs <- xs[, -(7:9)]                    #remove constant rates
+pairs(xs, upper.panel = NULL, diag.panel = panel.hist,
+      pch  =".", cex = 2, main = "Reaction network")
 
 Mean <- colMeans(xs)
-Sd   <- sd(xs)
-data.frame(mean=Mean, sd=Sd)
+Sd   <- apply(xs, 2, sd)
+data.frame(mean = Mean, sd = Sd)
 
 
 ### COMPONENTS

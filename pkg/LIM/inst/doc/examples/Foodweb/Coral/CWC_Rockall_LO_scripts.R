@@ -36,10 +36,10 @@ require(LIM)
 LIM       <- LIMCoralRockall
 
 # The dimensionality of the problem:
-LIM[c("NUnknowns","NEquations","NConstraints","NComponents",
-  "NExternal","NVariables")]
+LIM[c("NUnknowns", "NEquations", "NConstraints", "NComponents",
+      "NExternal", "NVariables")]
 
-SollseiDef<- Lsei(LIM,parsimonious=TRUE)
+SollseiDef<- Lsei(LIM,parsimonious = TRUE)
 
 plotweb(Flowmatrix(LIM))
 RangesDef <- Xranges(LIM)
@@ -55,7 +55,7 @@ notrun <- function ()
                      jmp  = c(RangesDef[,2]-RangesDef[,1])/4,
                      x0   = SollseiDef$X)
 # 500 runs are saved in a file
-load(file="MCR.Rdata")
+load(file = "MCR.Rdata")
 
 ## =============================================================================
 ## Markov chain sampling
@@ -72,7 +72,7 @@ notrun <- function ()
                      jmp  = c(RangesDef[,2]-RangesDef[,1])/4,
                      x0   = SollseiDef$X)
 # load 500 samples instead
-load(file="MCR.Rdata")
+load(file = "MCR.Rdata")
 ## =============================================================================
 ## Run the sensitivity analysis
 ## =============================================================================
@@ -80,11 +80,11 @@ load(file="MCR.Rdata")
 ## Again a very long simulation - skip it - but then fig 4 cannot be displayed..
 # set counters
 notrun <- function ()  {
- i<-1 # counts the succesful initializations
- j<-1 # counts the initialization attempts (not all are succesful)
- SolBaySens<-NULL # this is where the runs will be saved
- Pars      <-NULL # this is where the feasible parameter values will be stored
- PARS      <- c("FracCWC","FracEUN","FracHES","FracSPO","FracHYD","FracCRI",
+ i <- 1 # counts the succesful initializations
+ j <- 1 # counts the initialization attempts (not all are succesful)
+ SolBaySens <- NULL # this is where the runs will be saved
+ Pars       <- NULL # this is where the feasible parameter values will be stored
+ PARS       <- c("FracCWC","FracEUN","FracHES","FracSPO","FracHYD","FracCRI",
                 "FracPOL","FracBIV","FracLIM","FracASP","FracSUS",
                 "FracOMN","FracCRA","FracURC","FracSTA","FracFIS")
                 # list with parameters that are initialized

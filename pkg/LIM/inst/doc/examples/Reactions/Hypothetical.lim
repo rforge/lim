@@ -4,13 +4,13 @@
 
 
 require(LIM)
-lim <-Setup("hypothetical.lim")
-pars<-Lsei(lim)
-xr<-Xranges(lim)
-LP<-Linp(lim)
-data.frame(pars=pars$X,opt=LP$X,xr)
-xs<-Xsample(lim,jmp=1)
-data.frame(Mean=colMeans(xs), sd=sd(xs))
+lim <- Setup("hypothetical.lim")
+pars <- Lsei(lim)
+xr <- Xranges(lim)
+LP <- Linp(lim)
+data.frame(pars = pars$X, opt = LP$X, xr)
+xs <- Xsample(lim, jmp = 1)
+data.frame(Mean = colMeans(xs), sd = apply(xs, 2, sd))
 
 pairs(xs)
 

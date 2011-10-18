@@ -1,11 +1,11 @@
 
 Simple example from flux balance analysis
 require(LIM)
-lim <-Setup("fba_simple.lim")
-pars<-Lsei(lim)
-xr<-Xranges(lim)
-LP<-Linp(lim)
-data.frame(pars=pars$X,opt=LP$X,xr)
+lim <- Setup("fba_simple.lim")
+pars <- Lsei(lim)
+xr <- Xranges(lim)
+LP <- Linp(lim)
+data.frame(pars = pars$X, opt = LP$X, xr)
 The following is the result for the optimalisation:
           v1   1.00000000
           v2   0.75000000
