@@ -26,7 +26,7 @@ Flowmatrix(lim, web = NULL)
    The value on row i and column j is the flow *from* i and *to* j
 }
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>
+  Karline Soetaert <karline.soetaert@nioz.nl>
 }
 \examples{
 Flowmatrix(LIMRigaAutumn)

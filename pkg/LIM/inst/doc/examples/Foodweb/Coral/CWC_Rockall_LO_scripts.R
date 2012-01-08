@@ -168,7 +168,7 @@ notrun <- function ()  {
  A4()
  par(mar=c(4, 8, 0, 10),family="serif")
  web    <- colMeans(SolBayDef)
- std    <- sd(SolBayDef)
+ std    <- apply(SolBayDef, 2, sd)
  ord    <- order(web,decreasing = TRUE)
  xlab_  <- expression(paste("Flow value ") * group("(", "mmol C " * m^{-2} * d^{-1}, ")"))
  Plotranges(min=rev((web[ord]-std[ord])), max=rev((web[ord]+std[ord])), value=rev((web[ord])),
@@ -190,7 +190,7 @@ notrun <- function ()  {
 
  par(mar=c(4, 10, 0.1, 10),mgp=c(2.,0.6,0),family="serif",yaxs="i")
  web    <- colMeans(SolBayDef)
- std    <- sd(SolBayDef)
+ std    <- apply(SolBayDef, 2, sd)
  ord     <- rev(order(web,decreasing = TRUE))
  even   <- seq(2,140,2)
  uneven <- seq(1,139,2) 

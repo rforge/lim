@@ -28,7 +28,7 @@ PrintMat(lim)
 \value{
 returns nothing.
 }
-\author{Karline Soetaert <k.soetaert@nioo.knaw.nl>}
+\author{Karline Soetaert <karline.soetaert@nioz.nl>}
 \examples{
    PrintMat(LIMBlending)
 }

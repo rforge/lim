@@ -46,8 +46,8 @@ data(LIMTakapoto)
 }
 
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>
-  Dick van Oevelen<d.vanoevelen@nioo.knaw.nl>
+  Karline Soetaert <karline.soetaert@nioz.nl>
+  Dick van Oevelen<dick.vanoevelen@nioz.nl>
 }
 \examples{Takapoto <- Flowmatrix(LIMTakapoto)
 plotweb(Takapoto, main="Takapoto atoll planktonic food web",

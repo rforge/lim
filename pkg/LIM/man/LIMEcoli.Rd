@@ -72,7 +72,7 @@ LIMEcoli
 }
 
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>
+  Karline Soetaert <karline.soetaert@nioz.nl>
 }
 
 \examples{
@@ -105,7 +105,7 @@ pairs(xs[ ,1:10], pch = ".", cex = 2)
 
 # Print results:
 data.frame(pars = pars$X, Optimal = Optimal, xr[ ,1:2],
-           Mean = colMeans(xs), sd = sd(xs))
+           Mean = colMeans(xs), sd = apply(xs,2,sd))
 
 # Plot results
 par(mfrow = c(1, 2))

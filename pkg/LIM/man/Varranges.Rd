@@ -22,7 +22,7 @@ Varranges(lim, ...)
   maximum (column 2) of each variable.
 }
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>
+  Karline Soetaert <karline.soetaert@nioz.nl>
 }
 
 \examples{

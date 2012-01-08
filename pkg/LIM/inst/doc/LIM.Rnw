@@ -55,8 +55,8 @@ text files, R}
 
 \author{Karline Soetaert and
 Dick van oevelen\\
-Centre for Estuarine and Marine Ecology\\
-Netherlands Institute of Ecology\\
+Royal Netherlands Institute of Sea Research\\
+Yerseke\\
 The Netherlands}
 
 \Plainauthor{Karline Soetaert, Dick van oevelen}
@@ -86,18 +86,16 @@ The Netherlands}
 %% in the following format:
 \Address{
   Karline Soetaert\\
-  Centre for Estuarine and Marine Ecology (CEME)\\
-  Netherlands Institute of Ecology (NIOO)\\
+  Royal Netherlands Institute of Sea Research (NIOZ)\\
   4401 NT Yerseke, Netherlands
-  E-mail: \email{k.soetaert@nioo.knaw.nl}\\
-  URL: \url{http://www.nioo.knaw.nl/users/ksoetaert}\\
+  E-mail: \email{k.soetaert@nioz.nl}\\
+  URL: \url{http://www.nioz.nl}\\
    \\
   Dick van Oevelen\\
-  Centre for Estuarine and Marine Ecology (CEME)\\
-  Netherlands Institute of Ecology (NIOO)\\
+  Royal Netherlands Institute of Sea Research (NIOZ)\\
   4401 NT Yerseke, Netherlands
-  E-mail: \email{d.vanoevelen@nioo.knaw.nl}\\
-  URL: \url{http://www.nioo.knaw.nl/users/dvanoevelen}\\
+  E-mail: \email{d.vanoevelen@nioz.nl}\\
+  URL: \url{http://www.nioz.nl}\\
 }
 
 

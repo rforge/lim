@@ -33,9 +33,9 @@ data(LIMCoralRockall)
 }
 
 \author{
-  Dick van Oevelen<d.vanoevelen@nioo.knaw.nl>
+  Dick van Oevelen <dick.vanoevelen@nioz.nl>
 
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>
+  Karline Soetaert <karline.soetaert@nioz.nl>
 }
 \examples{
 Coral <- Flowmatrix(LIMCoralRockall)

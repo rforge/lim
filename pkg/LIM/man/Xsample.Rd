@@ -29,12 +29,12 @@ Xsample(lim, exact = NULL, ...)
 }
 
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>
+  Karline Soetaert <karline.soetaert@nioz.nl>
 }
 \examples{# sample solution space
   xs <- Xsample(LIMRigaAutumn, iter = 500, jmp = 5)
   # remove flows that are invariable (sd=0)
-  xs <- xs[ ,-which( sd(xs)==0 )]
+  xs <- xs[ ,-which(apply(xs, 2, sd) == 0 )]
   #pairs plot
   pairs(xs, gap = 0, pch = ".", upper.panel = NULL)
 }
