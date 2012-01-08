@@ -54,7 +54,7 @@ UncInd(Flow = NULL, Tij = t(Flow),
   \item{CE }{constraint efficiency.
   }
 }
-\author{Karline Soetaert <k.soetaert@nioo.knaw.nl>,
+\author{Karline Soetaert <karline.soetaert@nioz.nl>,
    Julius Kipyegon Kones<jkones@uonbi.ac.ke>}
 \examples{# The takapoto atoll network
 UncInd(Takapoto, Import = "CO2",

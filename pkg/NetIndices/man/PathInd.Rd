@@ -49,7 +49,7 @@ PathInd(Flow = NULL, Tij = t(Flow), Import = NULL, Export = NULL)
   }
 }
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>,
+  Karline Soetaert <karline.soetaert@nioz.nl>,
   Julius Kipyegon Kones<jkones@uonbi.ac.ke>
 }
 \examples{# The takapoto atoll network

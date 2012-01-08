@@ -35,7 +35,7 @@ Dependency(Flow = NULL, Tij = t(Flow),
   A matrix with dependency of component i on component j
 }
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>,
+  Karline Soetaert <karline.soetaert@nioz.nl>,
   Julius Kipyegon Kones<jkones@uonbi.ac.ke>}
 
 \references{

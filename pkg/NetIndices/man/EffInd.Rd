@@ -38,7 +38,7 @@ EffInd(Flow = NULL, Tij = t(Flow),
   \item{RZ }{Effective roles}
 }
 \author{
-  Karline Soetaert <k.soetaert@nioo.knaw.nl>,
+  Karline Soetaert <karline.soetaert@nioz.nl>,
   Julius Kipyegon Kones<jkones@uonbi.ac.ke>
 }
 

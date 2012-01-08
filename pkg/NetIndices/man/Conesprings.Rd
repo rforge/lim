@@ -75,7 +75,7 @@ EnvInd(Tij = Conesprings, Import = "Inflows",
   Williams, M., & Crouthamel, D. (1972). Systems analysis of Cone Spring.
   Unpublished manuscript. University of Georgia, Athens, Georgia.
 }
-\author{Karline Soetaert <k.soetaert@nioo.knaw.nl>}
+\author{Karline Soetaert <karline.soetaert@nioz.nl>}
 
 \keyword{datasets}
 
