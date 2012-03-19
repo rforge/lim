@@ -28,7 +28,9 @@ TrophInd <- function (Flow = NULL,             # from-to
 ##                   TL(i)-sumj(pij*TL(j))= 1
 ##
   A       <- -p
-  diag(A) <- diag(A)+ 1
+#  diag(A) <- diag(A)+ 1  # was this
+# Karline: changed Januari 2012: organisms that "feed on themselves" are problematic!
+  diag(A) <- 1
   B       <- rep(1,ncomp)
   TL      <- ginv(A) %*% B
 
