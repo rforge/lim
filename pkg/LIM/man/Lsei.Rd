@@ -91,8 +91,7 @@ Lsei(...)
 
 \details{
   Solves the following inverse problem:
-  \deqn{\min(||AAx-BB||^2)}, the approximate equations
-    subject to
+  \deqn{\min(||AAx-BB||^2)}, the approximate equations subject to
   \deqn{Ex=F}, the mass balances
   \deqn{Gx>=H}, the constraints.
 
