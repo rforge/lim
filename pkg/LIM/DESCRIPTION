@@ -3,7 +3,7 @@ Version: 1.4.4
 Title: Linear Inverse Model examples and solution methods.
 Author: Karline Soetaert <karline.soetaert@nioz.nl>,
   Dick van Oevelen<dick.vanoevelen@nioz.nl>
-Maintainer: Karline Soetaert <k.soetaert@nioz.nl>
+Maintainer: Karline Soetaert <karline.soetaert@nioz.nl>
 Depends: R (>= 2.01), limSolve, diagram
 Description: Functions that read and solve linear inverse problems (food web problems, linear programming problems).
   These problems find solutions to linear or quadratic functions:
