@@ -14,7 +14,7 @@
 \setlength{\parindent}{0pt}
 \usepackage{longtable}
 \usepackage{listings}
-\usepackage{Sweave}
+
 %\VignetteIndexEntry{NetIndices: network indices and food web descriptors in R}
 \makeatletter
 
@@ -42,7 +42,7 @@
 \begin{document}
 
 \title{Package \nw, network indices and food web descriptors in \R }
-\author{Karline Soetaert\\ Netherlands Institute of Ecology\\ the Netherlands
+\author{Karline Soetaert\\ Netherlands Institute of Sea Research\\ the Netherlands
 \and Julius Kipyegon Kones \\ University of Nairobi \\ Kenya
 }
 
