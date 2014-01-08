@@ -97,9 +97,9 @@ X   <- xr[ ,"central"]
 max(abs(LIMEcoli$A\%*\%X - LIMEcoli$B))
 min(LIMEcoli$G\%*\%X - LIMEcoli$H)
 
-# 4. Sample solution space  - this takes a while -500 is not enough
+# 4. Sample solution space  - this takes a while - note that iter is not enough
 print(system.time(
-  xs <- Xsample(LIMEcoli, iter = 500, type = "mirror", test = TRUE)  ))
+  xs <- Xsample(LIMEcoli, iter = 200, type = "mirror", test = TRUE)  ))
 
 pairs(xs[ ,1:10], pch = ".", cex = 2)
 

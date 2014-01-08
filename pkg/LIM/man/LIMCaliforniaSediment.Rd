@@ -51,13 +51,13 @@ data(LIMCaliforniaSediment)
 CaliforniaSediment <- Flowmatrix(LIMCaliforniaSediment)
 plotweb(CaliforniaSediment, main = "Santa Monica Basin Benthic web",
         sub = "mgN/m2/day", lab.size = 0.8)
+\dontrun{
 xr <- LIMCaliforniaSediment$NUnknowns
 i1 <- 1:(xr/2)
 i2 <- (xr/2+1):xr
 Plotranges(LIMCaliforniaSediment, index = i1, lab.cex = 0.7,
         sub = "*=unbounded",
         main = "Santa Monica Basin Benthic web, Flowranges - part1")
-\dontrun{
 Plotranges(LIMCaliforniaSediment, index = i2, lab.cex = 0.7,
         sub = "*=unbounded",
         main = "Santa Monica Basin Benthic web, Flowranges - part2")}

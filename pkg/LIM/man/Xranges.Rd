@@ -38,7 +38,7 @@ xlim <- range(xr)
 pars <- Lsei(LIMRigaAutumn)$X
 
 # plot
-dotchart(x = pars, labels = rownames(xr), xlim = xlim,                                                        
+dotchart(x = pars, labels = rownames(xr), xlim = xlim,  
          main = "Riga Autumn ",
          sub = "ranges and parsimonious solution", pch = 16)
 cc <- 1:nrow(xr)
