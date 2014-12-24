@@ -1,3 +1,5 @@
+import(limSolve)
+import(diagram)
 export(Flowmatrix, Ldei, Linp, Lsei, 
 Plotranges, Read, Setup,
 Variables, Varranges, Xranges, Xsample, PrintMat )
