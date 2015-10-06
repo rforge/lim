@@ -9,7 +9,7 @@
   Linear inverse model specification for performing Flux Balance Analysis
   of the E.coli metabolism
 
-  (as from \url{http://gcrg.ucsd.edu/Downloads/Flux_Balance_Analysis}).
+  (as from \code{http://gcrg.ucsd.edu/Downloads/Flux_Balance_Analysis}).
 
   The original input file can be found in the package subdirectory
   \code{/examples/Reactions/E_coli.lim}
