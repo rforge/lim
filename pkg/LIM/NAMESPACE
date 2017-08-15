@@ -1,8 +1,12 @@
 import(limSolve)
 import(diagram)
+importFrom("graphics", "abline", "axis", "box", "mtext", "par",
+             "plot.new", "plot.window", "points", "segments",
+             "strheight", "strwidth", "text", "title")
+
 export(Flowmatrix, Ldei, Linp, Lsei, 
-Plotranges, Read, Setup,
-Variables, Varranges, Xranges, Xsample, PrintMat )
+  Plotranges, Read, Setup,
+  Variables, Varranges, Xranges, Xsample, PrintMat )
 S3method("Lsei", "lim")
 S3method("Lsei", "limfile")
 S3method("Lsei", "double")
