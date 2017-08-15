@@ -12,4 +12,3 @@ Description: Functions that read and solve linear inverse problems (food web pro
   subject to equality constraints Ex=f and inequality constraints Gx>=h. Uses package limSolve.
 License: GPL (>= 2)
 LazyData: yes
-Packaged: Fri Jun 20 14:31:11 2008; KarlineS
