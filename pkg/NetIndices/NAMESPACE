@@ -1,3 +1,4 @@
 import(MASS)
+importFrom("stats", "sd")
 export(AscInd, Dependency, EffInd, EnvInd, GenInd, PathInd, TrophInd, UncInd)
 
